@@ -14,7 +14,7 @@ Course Schedule and Materials
     * - 1
       - `Introduction <slides/intro.html>`_
       - :doc:`labs/lab01/lab01`
-      - Lamboon, Chapters 1, 2, 3
+      - Laboon, Chapters 1, 2, 3
     * - 2 
       - Testing Fundamentals
       -
