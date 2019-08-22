@@ -44,11 +44,11 @@ Course Schedule and Materials
       -
       -
     * - 10
-      - Integration/System/Performance Testing
+      - Integration/System Testing
       -
       -
     * - 11
-      - Integration/System/Performance Testing
+      - Performance/Load Testing
       -
       -
     * - 12
