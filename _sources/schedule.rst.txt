@@ -1,0 +1,73 @@
+*****************************
+Course Schedule and Materials
+*****************************
+
+
+.. list-table::
+    :widths: 10 20 40 30
+    :header-rows: 1
+
+    * - Week
+      - Slides
+      - Lab/Homework assignment (due week after)
+      - Reading assigment (due week after)
+    * - 1
+      - `Introduction <slides/intro.html>`_
+      - :doc:`labs/lab01/lab01`
+      - Lamboon, Chapters 1, 2, 3
+    * - 2 
+      - Testing Fundamentals
+      -
+      -
+    * - 3
+      - Testing Fundamentals
+      -
+      -
+    * - 4
+      - Requirements / Test Plans
+      -
+      -
+    * - 5
+      - Unit Testing
+      -
+      -
+    * - 6
+      - Unit Testing
+      -
+      -
+    * - 7
+      - Unit Testing
+      -
+      -
+    * - 9
+      - Midterm
+      -
+      -
+    * - 10
+      - Integration/System/Performance Testing
+      -
+      -
+    * - 11
+      - Integration/System/Performance Testing
+      -
+      -
+    * - 12
+      - Security Testing
+      -
+      -
+    * - 13
+      - Test Driven Development
+      -
+      -
+    * - 14
+      - Test Driven Development
+      -
+      -
+    * - 15
+      - Continuous Integration
+      -
+      -
+    * - 16 (Finals Week)
+      - Final Exam
+      -
+      -

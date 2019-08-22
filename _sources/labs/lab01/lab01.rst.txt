@@ -1,0 +1,71 @@
+:orphan:
+
+********************************************
+Lab No. 01: Linux Commands and Python Review
+********************************************
+
+This course requires familiarity with the Linux command line, C++ and the Python programming language.
+The purpose of this Lab is to refresh basic Linux command line and Python knowledge.
+
+Linux Command Line
+==================
+
+Refer to the "Linux Command Line" (http://linuxcommand.org/tlcl.php) Chapters 2, 3, 4, 6, 9 and 16 to answer the following questions:
+
+
+#. What is the purpose of the ``pwd`` command? (Chapter 2) 
+
+#. What command will change your directory to ``/var/log``?  How can you change back to your previous working directory? (Chapter 2)
+
+#. Explain what are relative and absolute path names. Provide two commands to list the contents of the ``/var`` directory while being at your *HOME* directory. (Chapter 2)
+
+#. What command should you use to obtain a list of the contents of the ``/usr/bin`` directory sorted by modified date descending? (Chapter 3)
+
+#. What command will you use to create a directory called ``cs385fa19`` in your home directory? (Chapter 4)
+
+#. Using a text editor such as *vim* or *emacs*, create a file called ``numbers.txt`` with the following content:
+
+    .. parsed-literal::
+        5
+        82
+        -68
+        923
+        654
+        129
+
+   Save the file and exit the editor. What command can you use to print the contents of it to **stdout**  (Chapter 6)
+
+#. Provide a command to download the file :download:`find_minimum.py<src/find_minimum.py>` (Chapter 16).
+
+#. Once you have downloaded the script in the previous step, try to execute it (It should fail as shown below.) What command will you use to fix the permissions problem (Chapter 9)?
+
+    .. parsed-literal::
+        $ ./find_minimum.py
+        bash: ./test.py: Permission denied
+
+#. Fix the permissions issue on the ``find_minimum.py`` script, and execute it. The script first expects as input a line with an integer ``n`` that corresponds to the length of the list of numbers that will be provided, and then ``n``  lines with a number.
+
+    .. parsed-literal::
+        $ ./find_minimum.py
+        5
+        56
+        78
+        -37
+        899
+        2
+        -37
+
+   In the previous example, the last line (``-37``) is the output produced by the program.  Provide a command that will use redirection to have the ``find_minimum.py`` script read the input from the ``numbers.txt`` file and instead of writing the output to the terminal, write it to a file called ``minimum.out``. Verify that the contents of ``minimum.out`` is ``-68``. (Chapter 6)
+
+#. Download the :download:`large_input.txt<src/large_input.txt>` file.  What command will you use to find the minimum in this file? (Chapter 6).  Test the ``find_minimum.py`` script with large input to verify that your command to find the minimum is correct.
+
+Python Review
+=============
+
+Complete the following sections of the `Python Tutorial <https://docs.python.org/3/tutorial/>`_
+
+- https://docs.python.org/3/tutorial/interpreter.html#invoking-the-interpreter
+- https://docs.python.org/3/tutorial/introduction.html
+- https://docs.python.org/3/tutorial/controlflow.html
+- https://docs.python.org/3/tutorial/datastructures.html
+

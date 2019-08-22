@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 480 240">
+<defs/>
+  <g>
+    <g class="fragment" transform="translate(0,0)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#e51400" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Defect Free
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(120,0)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#e3c800" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Reliable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(240,0)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#647687" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Performant
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(360,0)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#fa6800" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Secure
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(0,60)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#76608a" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); line-height: 1.2; white-space: nowrap; text-align: center;width:100%">
+            Usable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(120,60)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#f0a30a" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Low Cost
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(240,60)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#008a00" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Portable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(360,60)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#6d8764" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Scalable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(0,120)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#6a00ff" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Available
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(120,120)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#aa00ff" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Extensible
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(240,120)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#60a917" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Interoperable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(360,120)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#0050ef" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Maintainable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(0,180)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#a0522d" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Testable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(120,180)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#1ba1e2" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Deliverable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(240,180)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#a20025" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Supportable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+    <g class="fragment" transform="translate(360,180)">
+      <rect x="0" y="0" width="25%" height="25%" fill="#d80073" stroke="#ffffff"/>
+      <switch>
+        <foreignObject style="overflow:visible;" pointer-events="all" width="25%" height="25%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; position:relative; top:10%; font-size: 16px; font-family: &quot;Roboto Slab&quot;; color: rgb(255, 255, 255); text-align: center;width:100%">
+            Deployable
+          </div>
+        </foreignObject>
+      </switch>
+    </g>
+  </g>
+</svg>

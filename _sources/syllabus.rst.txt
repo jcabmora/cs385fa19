@@ -1,0 +1,180 @@
+*******************************
+CS385 Sofware Quality Assurance
+*******************************
+
+Instructor Contact Information
+==============================
+:Section:
+    3
+:Name:
+    Jorge Cabrera
+:Email:
+    cabrera@sonoma.edu
+:Office Hours:
+    Fridays from 8:00 AM to 9:00 AM
+
+
+General Course Information
+==========================
+
+:Schedule:
+    Fri 9:00 AM to 11:40 AM @ Darwin 28.
+:Prerequisites: 
+    CS 315, or consent of the instructor.
+:Labs Page:
+    http://jcabmora.github.io/cs385fa19
+
+
+Course Description
+==================
+Lecture and Laboratory, 2:40 hours per week.
+
+This course will cover Software Quality Assurance topics with a focus on software testing.
+Topics such as Unit Testing, Integration Testing, System Testing, Acceptance Testing, Load Testing, Performance Testing, Regression Testing, and Test Driven Development will be covered in class.
+
+Course Format
+=============
+The course will be taught following a mixture of lectures, demonstration, and self-directed, skill-building programming exercises.
+The class will use a practical approach with several projects that will require the use of current industry tools and frameworks.
+
+Course Goals and Student Learning Objectives
+============================================
+
+Upon successful completion of this course, students will: 
+
+* Understand Software Quality assurance terminolgy.
+* Understand the role of testing in the software development cycle.
+* Understand and apply different types of software tests (Unit, Integration, System, Acceptance, etc).
+* Be able to define software requirements that can support testable source code.
+* Be familiar with common testing tools and patterns used in the industry.
+* Be able to apply patterns to write/refactor source code to produce testable code.
+* Be able to write programs using Test-Driven development methodology.
+
+
+Prerequisites
+=============
+
+Fluency in Unix and shell scripts is expected and will be needed for this class.
+Ability to write programs in Python, Java and C++ will be needed to be able to complete the programming assignments.
+
+Textbook
+========
+
+* A Friendly Introduction to Software Testing by Bill Laboon. The author made it available for free at  https://github.com/laboon/ebook (You can also purchase a hard copy: https://www.barnesandnoble.com/w/a-friendly-introduction-to-software-testing-bill-laboon/1123354204 )
+
+
+Systems Access
+==============
+
+For this class you will need access to ``blue.cs.sonoma.edu``. If you have not obtained this access, please make sure you reach out to Roger Mamer (roger.mamer@sonoma.edu -  Office next to Darwin 25) to have your account set up. 
+
+
+Course Schedule
+===============
+
+A weekly schedule and materials is maintained under :doc:`schedule`. The schedule is tentative and is subject to change, with fair notice via Canvas.
+
+
+
+Classroom Protocol
+==================
+Canvas will be used to maintain the schedule and grades.
+Course material, such as rhe syllabus, assignments and class resources, or links to them will also be mantained in Canvas.
+Canvas will always hold the most current and authoritative set of due dates, exam dates, assignment instructions and other course material.
+Course announcements will be done on Canvas, so you should check it frequently and adjust your notification settings as appropriate.
+Class discussions will be set up in Canvas for the different assignments, and student participation will be encouraged.
+To access the Canvas course use your SSU Seawolf ID and password to log into SSU's Online Services Portal https://login.sonoma.edu. 
+
+
+Grading
+=======
+Your overall course grade will be determined by the following:
+
+
+.. cssclass:: minitable
+
+=============================   ==========
+Item                            Percentage
+=============================   ==========
+Midterm Exam                    20%
+Final Exam                      20%
+Quizzes & In-Class Activities   30%
+Labs/Homework                   30%
+=============================   ==========
+
+Your final grade will be determined as follows:
+
+.. cssclass:: minitable
+
+==========      =====
+Percentage      Grade
+==========      =====
+100% – 94%      A
+93% – 90%       A-
+89% – 87%       B+
+86% – 84%       B
+83% – 80%       B-
+79% – 77%       C+
+76% – 74%       C
+73% – 70%       C-
+69% – 67%       D+
+66% – 63%       D
+62% – 60%       D-
+below  60       F
+==========      =====
+
+Quizzes and In-Class Activities
+-------------------------------
+
+In-class activities and quizzes will be given almost every lecture.
+Unless otherwise stated by the instructor, they will cover topics given on the previous session, and the assigned labs or readings.
+At the end of the course, the lowest grade will be dropped.
+
+Labs
+----
+
+Several labs will be provided during the semester.
+Time to work on the labs will be allocated every week, and students are expected to complete the labs as homework.
+
+Students will be asked to submit their work for each lab, the due dates for each assigned task will be announced in Canvas.
+Lab work submissions will consist of a combination of one or more of the following:
+
+* a writen a report
+* source code and/or executable binaries
+* url where your work can be tested/verified
+* the provisioning of a service that can be tested by the class instructor.
+
+Your labs will be evaluated in terms of:
+
+* **Correctness**: The answer does not contain errors and addresses the problem or question that you are asked to solve.
+* **Efficiency**: The problem is solved with the least amount of resources (which includes both human and computating resources).
+
+Regrade policy
+==============
+
+Regrade requests will be accepted up to 7 days after an assignment is returned.
+The reason for the regrade request must be explained in writing and submitted as a hard copy along with the assignment to be regraded
+
+Late policy
+===========
+You may deliver a Homework/Lab assignment at later time, but for every 24 hours a 20% of the assignment's grade will be deducted.
+
+
+Collaboration policy
+====================
+During quizzes absolutely no collaboration is allowed, unless the instructor explicitly states the contrary. 
+This includes shoulder surfing, peeking at other people’s screens, using Unix utilities to communicate with remote users, IRC or any other chat software, etc.
+All normal, real-world materials will be available to you (Internet, man pages, etc) during tests.
+
+During the labs, you are expected to discuss ideas and approaches with other students and the course staff, and checking your work through discussion with other students is desirable.
+When encountering significant technical problems, you are encouraged to help peers and seek help from your peers during and outside lab. 
+The following actions, however, will be penalized as academic dishonesty:
+
+* Looking at another student’s work, digital files or screen without their permission.
+* Letting someone else ‘drive’ your keyboard or ‘driving’ someone else’s keyboard, i.e., passing a keyboard over to let someone type it for you. There is always a simple solution: just grab a piece of whiteboard, write it out and talk about it away from the computer.
+* Copying part or all of another person’s solution or any solutions that have not been provided by the instructor.
+
+Students should be familiar with the University’s Cheating and Plagiarism policy http://www.sonoma.edu/UAffairs/policies/cheating_plagiarism.htm. 
+Your own commitment to learning, as evidenced by your enrollment at Sonoma State University and the University’s policy, require you to be honest in all your academic course work. 
+Instances of academic dishonesty will not be tolerated. 
+Cheating on exams or plagiarism (presenting the work of another as your own, or the use of another person’s ideas without giving proper credit) will result in a failing grade and sanctions by the University. 

@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/monokai.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 1: Introduction</h3>
+                </section>
+                <section> 
+                    <h2>What is Quality?</h2>
+                    <ol>
+                    <li class="fragment fade-in"><p>A product or service free of deficiencies.</p></li>
+                    <li class="fragment fade-in"><p>The characteristics of a product or service</br> that bear on its ability to satisfy</br>stated or implied needs.</p></li>
+                    <li class="fragment fade-in"><p>Fitness for use.</p></li>
+                    </ol>
+                    <small class="fragment fade-in">https://asq.org/quality-resources/quality-glossary/q</small>
+                </section>
+                <section>
+                    <h2>What determines the quality of software?</h2>
+                    <object type="image/svg+xml" data="qattrs.svg"></object>
+                </section>
+                <section>
+                    <h2>What determines the quality of software?</h2>
+                    <p>Quality is perceptual, conditional and subjective:</p>
+                    <ul>
+                    <li>It's common for attributes to be in conflict.</li>
+                    <li>Some attributes are more important than others <br/>depending on the intended customers.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Terminology</h2>
+                    <dl>
+                        <dt>Defect, Fault, Error, Bug</dt>
+                        <dd>When the execution of a software observed output does not match the expected output</dd>
+                        <dt>Failure</dt><dd>Result of execution of a fault</dd>
+                        <dt>Test, Test Case</dt><dd>A set of inputs given to the program and its expected outputs. Inputs may also include preconditions. Outputs may include post-conditions.</dd>
+                        <dt>Reliability</dt>
+                        <dd>The probability of failure free operation for a specified time under specific conditions</dd>
+                    </dl>
+                </section>
+                <section>
+                    <h2>Terminology</h2>
+                    <dl>
+                        <dt>Verification</dt>
+                        <dd>Ensure that the software implements a specific function correctly.<br/><i>Are we building the software right?</i></dd>
+                        <dt>Validation</dt><dd>Ensure that the software fulfills actual needs of the customer.<br/><i>Are we building the right software?</i></dd>
+                    </dl>
+                </section>
+                <section>
+                    <h2>What is Software Testing?</h2>
+                    <br/>
+                    <blockquote>
+                        &ldquo;The process of executing a program with the intent of finding faults&rdquo;
+                        <br/>
+                        <small>G.J. Myers, “The Art of Software Testing”, 2004.</small>
+                    </blockquote>
+                </section>
+                <section data-transition="fade">
+                    <h2>Can Testing demonstrate<br/>the absence of defects?</h2>
+                </section>
+                <section data-transition="fade">
+                    <h1><strong>NO</strong></h1>
+                    <p class="fragment fade-in">... but testing certainly helps to find defects, and most importantly:<br/>
+                        <b>it helps to find them early!!!</b>
+                    </p>
+                </section>
+                <section>
+                    <h2>Why do we test software?</h2>
+                    <ol>
+                    <li>Demonstrate that software behaves as per specifications.</li>
+                    <li>Establish confidence about the correctness of a program.</li>
+                    <li>Find defects in earlier stages. The cost of fixing defects increases with time.</li>
+                    <li>Ensure alignment with customer needs.</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>Who should do the testing?</h2>
+                    <p class="fragment fade-in">Developers are intimately involved with the development of the software and
+                    thus is very difficult for them point out errors from their own creations.<br/>
+                    <small>B. Beizer, “Software Testing Techniques”. 1990</small></p>
+                    <p class="fragment fade-in">According to Google:<br/>
+                    Developers should write the tests, Testers should provide tools and automation shoud take care of executing.<br/>
+                    <small>James A. Whittaker, "How Google Tests Software". 2012</small></p>
+                </section>
+                <section>
+                    <h2>Quality &ne; Testing</h2>
+                    <p class="fragment fade-in">Tests can't guarantee quality by themselves</p>
+                    <p class="fragment fade-in">Software testing is an important, but not the only,</br>part of quality assurance.</p>
+                    <p class="fragment fade-in"><strong>Quality is a reflection of an organization's</br>processes and culture.</strong></p>
+                </section>
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

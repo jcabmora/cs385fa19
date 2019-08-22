@@ -1,0 +1,6 @@
+*.scss
+package.json
+package-lock.json
+gruntfile.js
+bower.json
+node_modules
