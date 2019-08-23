@@ -30,6 +30,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:300,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:700);
 @import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:500i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Mono:300,300i,700,700i&display=swap");
 section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 {
   color: #141414; }
 
@@ -361,3 +362,6 @@ body {
   font-style: normal;
   vertical-align: bottom;
   font-family: 'Roboto Slab'; }
+
+.reveal code {
+  font-family: 'IBM Plex Mono', monospace; }

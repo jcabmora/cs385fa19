@@ -60,7 +60,7 @@ Ability to write programs in Python, Java and C++ will be needed to be able to c
 Textbook
 ========
 
-* A Friendly Introduction to Software Testing by Bill Laboon. The author made it available for free at  https://github.com/laboon/ebook (You can also purchase a hard copy: https://www.barnesandnoble.com/w/a-friendly-introduction-to-software-testing-bill-laboon/1123354204 )
+* A Friendly Introduction to Software Testing by Bill Laboon. The author made it available for free at https://github.com/laboon/software-testing/raw/master/software-testing-laboon-ebook.pdf (You can also purchase a hard copy: https://www.barnesandnoble.com/w/a-friendly-introduction-to-software-testing-bill-laboon/1123354204 )
 
 
 Systems Access
