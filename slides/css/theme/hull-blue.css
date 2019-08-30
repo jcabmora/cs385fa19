@@ -365,3 +365,6 @@ body {
 
 .reveal code {
   font-family: 'IBM Plex Mono', monospace; }
+
+.reveal code.inline {
+  color: blueviolet; }

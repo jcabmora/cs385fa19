@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 2: Testing Fundamentals</h3>
+                </section>
+                <section>
+                    <h2>Exploratory, Manual and Automated testing</h2>
+                    <ul>
+                        <li>Manual testing: Performed by a human. It could be done with or without an organized test plan.</li>
+                        <li>Exploratory testing: When manual testing is performed without a plan. A tester just explores the application looking for defects. A common case for this type of testing is when a subject expert is asked to test an application.</li>
+                        <li>Automated testing: Tests are executed by a machine</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Functional vs. Non-Functional Testing</h2>
+                    <ul>
+                        <li>
+                            <h3>Functional Testing</h3>
+                            <p>The system is tested against the functional requirements or specifications.<br/>
+                            Examples: Unit Testing, Integration Testing, System Testing, Regression Testing, User-Acceptance Testing.
+                            </p>
+                        </li>
+                        <li>
+                            <h3>Non-Functional Testing</h3>
+                            <p>Verify the non functional requirements (those that specify criteria that can be used to judge the operation of a system rather than specific behavior).<br/>
+                            Examples: Documentation testing, Installation testing, Security Testing, Load Testing, Performance Testing, Reliability Testing, Usability Testing.
+                            </p>
+                        </li>
+                </section>
+                <section>
+                    <h2>Functional Testing Techniques</h2>
+                    <p>The following techniques are used to reduce the number of cases to test and provide confidence that the program is free of defects</p>
+                    <ul>
+                        <li>Equivalence Class Partitioning</li>
+                        <li>Boundary Value Analysis</li>
+                        <li>Decision Table</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Equivalence Class Partitioning</h2>
+                    <ul>
+                        <li>Partition input values into classes that map to an output value</li>
+                        <li>Classes should not overlap (strict partitioning)</li>
+                        <li>Test each partition once</li>
+                        <li>Assumes that any input within a partition is equivalent</li>
+                        <li>Save time because a reduced number of inputs is used during tests</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Equivalence Class Partitioning Example</h2>
+                    <h3>Presure gauge</h3>
+                    <ul>
+                        <li> pressure is a 32-bit integer </li>
+                        <li> p &gt; 35 psi &rarr; OVERPRESSURE </li>
+                        <li> 0 &lt; p &lt; 20 psi &rarr; UNDERPRESSURE </li>
+                        <li> p &lt; 0 psi &rarr; ERROR </li>
+                </section>
+                <section>
+                    <h2>Equivalence Class Partitioning Activity</h2>
+                    <h3>Variable first day of the week calendar</h3>
+                    <p>Consider a function <code class="inline">print_calendar</code> that takes the input <code class="inline">first_week_day</code>, which represents the first day of the week, with integer value 0 corresponding to Monday, integer value 1 to Tuesday, etc., and outputs the corresponding calendar.</p>
+                    <pre><code class="hljs" data-trim data-line-numbers class="python">
+>>> print_calendar(first_week_day=0)
+   September 2019
+Mo Tu We Th Fr Sa Su
+                   1
+ 2  3  4  5  6  7  8
+ 9 10 11 12 13 14 15
+16 17 18 19 20 21 22
+23 24 25 26 27 28 29
+30
+>>> print_calendar(first_week_day=3)
+   September 2019
+Th Fr Sa Su Mo Tu We
+          1  2  3  4
+ 5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+19 20 21 22 23 24 25
+26 27 28 29 30
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Equivalence Class Example</h2>
+                    <h3>Python calendar</h3>
+                    <pre><code class="python" data-trim>
+    def test_setfirstweekday(self):
+        self.assertRaises(TypeError, calendar.setfirstweekday, 'flabber')
+        self.assertRaises(ValueError, calendar.setfirstweekday, -1)
+        self.assertRaises(ValueError, calendar.setfirstweekday, 200)
+        orig = calendar.firstweekday()
+        calendar.setfirstweekday(calendar.SUNDAY)
+        self.assertEqual(calendar.firstweekday(), calendar.SUNDAY)
+        calendar.setfirstweekday(calendar.MONDAY)
+        self.assertEqual(calendar.firstweekday(), calendar.MONDAY)
+        calendar.setfirstweekday(orig)                
+                    </code></pre>
+                    <small><small><a href="https://github.com/python/cpython/blob/5b10b9824780b2181158902067912ee9e7b04657/Lib/test/test_calendar.py#L503-L512" target="_blank">https://github.com/python/cpython/blob/5b10b9824780b2181158902067912ee9e7b04657/Lib/test/test_calendar.py#L503-L512</a></small></small>
+                </section>
+                <section> 
+                    <h2>Boundary Value Analysis</h2>
+                    <ul>
+                        <li class="fragment fade-in">Defects are more likely to be found near the boundaries of two equivalence classes</li>
+                        <li class="fragment fade-in">Tests with input values that are on or close to boundary values have a higher probability of detecting a fault in the software</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Basic BVA</h2>
+                    <ul>
+                        <li>Minimum value</li>
+                        <li>Just above minimum value</li>
+                        <li>Nominal (median, mean) value</li>
+                        <li>Just below maximum value</li>
+                        <li>Maximum value</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>BVA Single Input</h2>
+                    <h3>Integer input valid between 1 and 100</h3>
+                    <br/>
+                    <object type="image/svg+xml" data="basic_bva.svg"></object>
+                </section>
+                <section>
+                    <h2>BVA with single fault assumption</h2>
+                    <p>Failures are rarely the result of the simultaneous occurrence of two or more faults.</p>
+                    <ul>
+                        <li>x: valid between 1 and 100</li>
+                        <li>y: valid between 20 and 50</li> 
+                    </ul>
+                    <br/>
+                    <br/>
+                    <object type="image/svg+xml" data="2var_basic_bva.svg"></object>
+                </section>
+
+                <section>
+                    <h2>BVA with worst case testing</h2>
+                    <p>The single fault assumption theory is considered invalid</p>
+                    <p>We consider the combination of points for each variable</p>
+                    <br/>
+                    <object type="image/svg+xml" data="2var_worstcase_bva.svg"></object>
+                </section>
+                <section>
+                    <h2>Robust BVA</h2>
+                    <ul>
+                        <li>Just below minimum value</li>
+                        <li>Minimum value</li>
+                        <li>Just above minimum value</li>
+                        <li>Nominal (median, mean) value</li>
+                        <li>Just below maximum value</li>
+                        <li>Maximum value</li>
+                        <li>Just above maximum value</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Implicit Boundary Values</h2>
+                    <ul>
+                        <li>numeric: maxint, minint, 0, -1 </li>
+                        <li>arrays: empty, full, first item, last item</li>
+                        <li>maps, sets, tuples: empty</li>
+                        <li>strings: ""</li>
+                        <li>objects, references, pointers: None, null, 0</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>BVA Example</h2>
+                    <h3>Python <code class="inline">math.atan</code> function</h3>
+                    <pre><code class="python" data-trim>
+    def testAtan(self):
+        self.assertRaises(TypeError, math.atan)
+        self.ftest('atan(-1)', math.atan(-1), -math.pi/4)
+        self.ftest('atan(0)', math.atan(0), 0)
+        self.ftest('atan(1)', math.atan(1), math.pi/4)
+        self.ftest('atan(inf)', math.atan(INF), math.pi/2)
+        self.ftest('atan(-inf)', math.atan(NINF), -math.pi/2)
+        self.assertTrue(math.isnan(math.atan(NAN)))
+                    </code></pre>
+                    <small><small><a href="https://github.com/python/cpython/blob/5b10b9824780b2181158902067912ee9e7b04657/Lib/test/test_math.py#L313-L320" target="_blank">https://github.com/python/cpython/blob/5b10b9824780b2181158902067912ee9e7b04657/Lib/test/test_math.py#L313-L320</a></small></small>
+                </section>
+                <section>
+                    <h2>BVA Activity</h2>
+                    <p>Consider a function <code class="inline">find_maximum(x, y, z)</code>, whose three inputs are expected to be between 1 and 12 (any other values will cause the function to raise an Exception) and returns the maximum value amongst the inputs.</p>
+                    <p>Design the robust test cases, using the single fault assumption for this function (use the following table structure as a guide).</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test Case No.</th>
+                            <th>x</th>
+                            <th>y</th>
+                            <th>x</th>
+                            <th>Expected output</th>
+                        </tr>
+                    </thead>
+                </table>
+                </section>
+                <section>
+                    <h2>Decision Tables</h2>
+                    <p>Useful when testing functionality with logical relationships</p>
+                    <p>Output depends on many input conditions</p>
+                    <p>Often used in the prescence of complex business rules</p>
+                </section>
+                <section>
+                    <h2>Decision Table example</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cond / Action</th>
+                            <th colspan="4" align="center">Test Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>C: Valid Credentials</td>
+                            <td>True</td>
+                            <td>True</td>
+                            <td>False</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td>C: Account Status</td>
+                            <td>Active</td>
+                            <td>Locked</td>
+                            <td>Active</td>
+                            <td>Locked</td>
+                        </tr>
+                        <tr>
+                            <td>A: Home Page</td>
+                            <td>True</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>A: Login failed</td>
+                            <td></td>
+                            <td>True</td>
+                            <td>True</td>
+                            <td>True</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </section>
+                <section>
+                    <h2>Decision Table With "Do Not Care"</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cond / Action</th>
+                            <th colspan="3" align="center">Test Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>C: Valid Credentials</td>
+                            <td>True</td>
+                            <td>True</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td>C: Account Status</td>
+                            <td>Active</td>
+                            <td>Locked</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Rule Count</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>A: Home Page</td>
+                            <td>True</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>A: Login failed</td>
+                            <td></td>
+                            <td>True</td>
+                            <td>True</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </section>
+
+                <section>
+                    <h2>White/Black/Grey Box Testing</h2>
+                </section>
+                <section>
+                    <h2>Static vs Dynamic Testing</h2>
+                </section>
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

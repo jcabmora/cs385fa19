@@ -1,0 +1,104 @@
+:orphan:
+
+**************************************
+Lab No. 02: Python Unit Test Framework
+**************************************
+
+This lab will introduce you to Python's unit test framework, which will be heavily used during this course.
+For this lab we are not going to use any external libraries, it only uses features built into the language.
+This test assumes that you will be working inside a directory called ``lab02`` in your home directory.
+
+
+Python's ``unittest`` module basics
+===================================
+
+``unittest`` (https://docs.python.org/3/library/unittest.html) is a Python standard library module that provides a framework to support unit testing. It is based in the xUnit test pattern, and has similar functionality to other non-Python frameworks such as `JUnit`, `NUnit`, `CppUnit`, etc.
+
+Test Cases are created by subclassing ``unittest.TestCase``. The following source code has 4 simple test cases, one of which fails:
+
+    .. literalinclude:: src/firsttest.py
+
+We can run the test by using the ``-m unittest`` option (the ``-v`` option enables verbose output):
+
+    .. parsed-literal::
+
+        $ python -m unittest -v firsttest
+        test_false (firsttest.OurFirstTest) ... ok
+        test_true (firsttest.OurFirstTest) ... ok
+        test_will_never_pass (firsttest.OurFirstTest) ... FAIL
+        test_zero_division_exception (firsttest.OurFirstTest) ... ok
+
+        ======================================================================
+        FAIL: test_will_never_pass (firsttest.OurFirstTest)
+        ----------------------------------------------------------------------
+        Traceback (most recent call last):
+          File "firsttest.py", line 17, in test_will_never_pass
+            self.assertEqual(0,1)
+        AssertionError: 0 != 1
+
+        ----------------------------------------------------------------------
+        Ran 4 tests in 0.001s
+
+        FAILED (failures=1)
+
+
+You can also run specific tests:
+
+
+    .. parsed-literal::
+        $ python3 -m unittest -v firsttest.OurFirstTest.test_false
+        test_false (firsttest.OurFirstTest) ... ok
+
+        ----------------------------------------------------------------------
+        Ran 1 test in 0.000s
+
+        OK
+
+Recall the :download:`find_minimum.py<../lab01/src/find_minimum.py>` file from Lab01.
+Download that file to the ``lab02`` directory.
+Create a file called ``test_find_minimum.py``. We are going to create a test for the ``find_minimum()`` function in this file:
+
+    .. literalinclude:: src/test_find_minimum.py
+
+Execute the test:
+
+
+    .. parsed-literal::
+        $ python -m unittest -v test_find_minimum
+        test_find_minimum_with_10_items (test_find_minimum.TestFindMinimum) ... ok
+
+        ----------------------------------------------------------------------
+        Ran 1 test in 0.000s
+
+        OK
+
+.. admonition:: Submission:
+    :class: worksheet
+    
+    Apply basic Boundary Value Analysis to the length of the input array ``numbers`` to add tests that will allow you to find a defect in the ``find_minimum()`` function.
+    For this part, you are required to upload an updated version of ``test_find_minimum()`` with the additonal tests.
+
+
+.. admonition:: Homework:
+    :class: worksheet
+    
+    Read the documentation related to the following assertion methods:
+
+    #. ``assertEqual``
+    #. ``assertNotEqual``
+    #. ``assertTrue``
+    #. ``assertFalse``
+    #. ``assertIs``
+    #. ``assertIsNot``
+    #. ``assertIsNone``
+    #. ``assertIsNotNone``
+    #. ``assertIn``
+    #. ``assertNotIn``
+    #. ``assertIsInstance``
+    #. ``assertRaises``
+    #. ``assertGreater``
+    #. ``assertGreaterEqual``
+    #. ``assertLess``
+    #. ``assertLessEqual``
+    #. ``assertRegex``
+    #. ``assertNotIsInstance``

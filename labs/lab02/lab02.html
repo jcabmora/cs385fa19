@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 02: Python Unit Test Framework &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 02: Python Unit Test Framework</a><ul>
+<li><a class="reference internal" href="#python-s-unittest-module-basics">Python’s <code class="docutils literal"><span class="pre">unittest</span></code> module basics</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab02/lab02.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-02-python-unit-test-framework">
+<h1>Lab No. 02: Python Unit Test Framework<a class="headerlink" href="#lab-no-02-python-unit-test-framework" title="Permalink to this headline">¶</a></h1>
+<p>This lab will introduce you to Python’s unit test framework, which will be heavily used during this course.
+For this lab we are not going to use any external libraries, it only uses features built into the language.
+This test assumes that you will be working inside a directory called <code class="docutils literal"><span class="pre">lab02</span></code> in your home directory.</p>
+<div class="section" id="python-s-unittest-module-basics">
+<h2>Python’s <code class="docutils literal"><span class="pre">unittest</span></code> module basics<a class="headerlink" href="#python-s-unittest-module-basics" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">unittest</span></code> (<a class="reference external" href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a>) is a Python standard library module that provides a framework to support unit testing. It is based in the xUnit test pattern, and has similar functionality to other non-Python frameworks such as <cite>JUnit</cite>, <cite>NUnit</cite>, <cite>CppUnit</cite>, etc.</p>
+<p>Test Cases are created by subclassing <code class="docutils literal"><span class="pre">unittest.TestCase</span></code>. The following source code has 4 simple test cases, one of which fails:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+
+<span class="k">class</span> <span class="nc">OurFirstTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_true</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">test_false</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_zero_division_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ZeroDivisionError</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">test_will_never_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div></blockquote>
+<p>We can run the test by using the <code class="docutils literal"><span class="pre">-m</span> <span class="pre">unittest</span></code> option (the <code class="docutils literal"><span class="pre">-v</span></code> option enables verbose output):</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python -m unittest -v firsttest
+test_false (firsttest.OurFirstTest) ... ok
+test_true (firsttest.OurFirstTest) ... ok
+test_will_never_pass (firsttest.OurFirstTest) ... FAIL
+test_zero_division_exception (firsttest.OurFirstTest) ... ok
+
+======================================================================
+FAIL: test_will_never_pass (firsttest.OurFirstTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;firsttest.py&quot;, line 17, in test_will_never_pass
+    self.assertEqual(0,1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)
+</pre></div>
+</div>
+</div></blockquote>
+<p>You can also run specific tests:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 -m unittest -v firsttest.OurFirstTest.test_false
+test_false (firsttest.OurFirstTest) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+</pre></div>
+</div>
+</div></blockquote>
+<p>Recall the <a class="reference download internal" href="../../_downloads/find_minimum.py" download=""><code class="xref download docutils literal"><span class="pre">find_minimum.py</span></code></a> file from Lab01.
+Download that file to the <code class="docutils literal"><span class="pre">lab02</span></code> directory.
+Create a file called <code class="docutils literal"><span class="pre">test_find_minimum.py</span></code>. We are going to create a test for the <code class="docutils literal"><span class="pre">find_minimum()</span></code> function in this file:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">find_minimum</span> <span class="k">import</span> <span class="n">find_minimum</span>
+
+<span class="k">class</span> <span class="nc">TestFindMinimum</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">test_find_minimum_with_10_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests that find_minimum correctly returns the minimum from an array with 10 items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">find_minimum</span><span class="p">(</span><span class="n">numbers</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Execute the test:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python -m unittest -v test_find_minimum
+test_find_minimum_with_10_items (test_find_minimum.TestFindMinimum) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+</pre></div>
+</div>
+</div></blockquote>
+<div class="worksheet admonition">
+<p class="first admonition-title">Submission:</p>
+<p class="last">Apply basic Boundary Value Analysis to the length of the input array <code class="docutils literal"><span class="pre">numbers</span></code> to add tests that will allow you to find a defect in the <code class="docutils literal"><span class="pre">find_minimum()</span></code> function.
+For this part, you are required to upload an updated version of <code class="docutils literal"><span class="pre">test_find_minimum()</span></code> with the additonal tests.</p>
+</div>
+<div class="worksheet admonition">
+<p class="first admonition-title">Homework:</p>
+<p>Read the documentation related to the following assertion methods:</p>
+<ol class="last arabic simple">
+<li><code class="docutils literal"><span class="pre">assertEqual</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertNotEqual</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertTrue</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertFalse</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIs</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIsNot</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIsNone</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIsNotNone</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIn</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertNotIn</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertIsInstance</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertRaises</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertGreater</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertGreaterEqual</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertLess</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertLessEqual</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertRegex</span></code></li>
+<li><code class="docutils literal"><span class="pre">assertNotIsInstance</span></code></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
