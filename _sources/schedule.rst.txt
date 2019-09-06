@@ -24,7 +24,7 @@ Course Schedule and Materials
       - :doc:`labs/lab03/lab03`
       - Laboon, Chapters 6, 7, 8
     * - 4
-      - Requirements / Test Plans
+      - Unit Testing
       -
       -
     * - 5
