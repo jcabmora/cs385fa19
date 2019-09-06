@@ -20,9 +20,9 @@ Course Schedule and Materials
       - :doc:`labs/lab02/lab02`
       - Laboon, Chapters 4, 5
     * - 3
-      - Testing Fundamentals
-      -
-      -
+      - `Testing Fundamentals: Requirements and Test Plans <slides/week3.html>`_
+      - :doc:`labs/lab03/lab03`
+      - Laboon, Chapters 6, 7, 8
     * - 4
       - Requirements / Test Plans
       -

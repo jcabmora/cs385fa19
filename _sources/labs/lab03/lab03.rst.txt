@@ -1,0 +1,151 @@
+:orphan:
+
+**************************************************
+Lab No. 03: Requirements, Test Plan and Unit Tests
+**************************************************
+
+In this lab you will write requirements, a test plan and create unittests for a buggy minesweeper python program.
+
+Minesweeper Rules
+=================
+
+The rules of minesweeper are simple:
+
+A board consists of a grid of 9 by 9 squares, with 10 bombs places at different random positions:
+
+    .. parsed-literal::
+
+            A   B   C   D   E   F   G   H   I
+          ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+        0 ║   ║💣 ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        1 ║   ║   ║   ║   ║   ║   ║💣 ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║   ║   ║   ║   ║💣 ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        3 ║💣 ║   ║💣 ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║   ║   ║   ║   ║💣 ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        5 ║   ║   ║   ║💣 ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        6 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        7 ║   ║   ║💣 ║   ║   ║   ║💣 ║💣 ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        8 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+
+The bombs are hidden, and initially, all the squares are "closed".
+On each turn, the player provides the coordinates of a square, columns first, rows second.
+If there is a bomb on that square the game is over and the player loses the game, otherwise, the number of bombs that surround that square will appear.
+For example, using the board given above, if the first move is A1, then the displayed board will be:
+
+    .. parsed-literal::
+
+            A   B   C   D   E   F   G   H   I
+          ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+        0 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        1 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        3 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        5 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        6 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        7 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        8 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+
+If the number of neighboring bombs of an opened square is zero, then all its neighbors will be opened as well. For example above, if the user selects A5 as a second move, then the resulting board will be:
+
+    .. parsed-literal::
+
+            A   B   C   D   E   F   G   H   I
+          ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+        0 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        1 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        3 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        2 ║ 1 ║ 2 ║ 2 ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        5 ║ 0 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        6 ║ 0 ║ 1 ║ 2 ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        7 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║
+          ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+        8 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║
+          ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+
+
+To win, the user needs to open all the squares that do not contain a bomb.
+
+
+Building a Minesweeper console application
+==========================================
+
+In our program we are going to use four variables:
+
+- ``board``: a 2D array that holds integers. Every element on that list corresponds to a square in the board. Keep in mind that lists in Python are zero-indexed. As an example, to obtain the value that corresponds to the square A5, you shoud use ``board[0][5]``. A value of -1 implies that the square contains a bomb. Any other value corresponds to the number of neighboring bombs (you can easily see that the minimum is 0 and the maximum is 8).
+- ``opened``: a 2D array of the same size of the board, stores strings where an empty space corresponds to a square that has not been opened yet, numeric strings ranging between "0" and "8" correspond to the neighboring bombs of an opened squared, and the symbol "✷" in case the user opens a square with a bomb.
+- ``bombs``: a list of tuples that contain the coordinates of the bombs. This is used only to print the bombs once a player has won.
+- ``opened_count``: keeps a tally of the opened squares, it is used only to ease the process of determining when a board has been won.
+
+
+To create the minesweeper application is implemented using the following python code:
+
+    .. literalinclude:: src/minebuggy.py
+
+
+Crete a file called ``minebuggy.py`` with the contents above. For your convenience, you can also download the file from this link: :download:`minebuggy.py<src/minebuggy.py>`
+
+
+Requirements
+============
+
+The first thing that we need to do is to write a good set of requirements.
+In this case, the application is already built, but we are going to use the requirements later.
+You need to write 5 functional requirements for the game that are related to the functions that are identified as buggy: 
+ - ``generate_boards``
+ - ``update_neighbors``
+ - ``open_squares``
+
+To help you get you started, here's a few example requirements associated with the ``translate_input`` function:
+
+- The application shall receive a string input where the first character corresponds to an alphabetic column and the second character the zero-indexed row number.
+- The application shall convert the input alphabetic column to a zero-indexed number using the following table: A:0, B:1, C:2, D:3, E:4, F:5, G:6, H:7, I:8.
+- The application shall be case insensitive when converting an alphabetic column to its corresponding zero-indexed number
+
+
+Test Plan
+=========
+
+Based on these requirements, you are required to create a Test Plan and a Traceability Matrix for the buggy functions. You are free to use manual or automated testing, but you should include at least 1 automated test for each one of the defective functions.
+
+
+Unit Tests
+==========
+
+Write the unit test for each one of the defective functions as identified in the Test Plan. These tests should be able to find the defects on those functions.
+
+
+.. admonition:: Submission:
+    :class: worksheet
+    
+    You should submit to canvas:
+
+    #. The 5 requirements that you created for the defective functions
+    #. The Test Plan and traceability matrix
+    #. The Unit Tests 

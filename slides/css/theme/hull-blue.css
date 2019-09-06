@@ -34,6 +34,19 @@
 section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 {
   color: #141414; }
 
+ol {
+  counter-reset: item; }
+
+ol > li {
+  counter-increment: item; }
+
+ol ol > li {
+  display: block; }
+
+ol ol > li:before {
+  content: counters(item, ".") ". ";
+  margin-left: -20px; }
+
 .reveal .controls {
   right: 50px;
   bottom: 50px; }

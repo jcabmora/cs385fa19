@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 03: Requirements, Test Plan and Unit Tests &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 03: Requirements, Test Plan and Unit Tests</a><ul>
+<li><a class="reference internal" href="#minesweeper-rules">Minesweeper Rules</a></li>
+<li><a class="reference internal" href="#building-a-minesweeper-console-application">Building a Minesweeper console application</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#test-plan">Test Plan</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab03/lab03.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-03-requirements-test-plan-and-unit-tests">
+<h1>Lab No. 03: Requirements, Test Plan and Unit Tests<a class="headerlink" href="#lab-no-03-requirements-test-plan-and-unit-tests" title="Permalink to this headline">¶</a></h1>
+<p>In this lab you will write requirements, a test plan and create unittests for a buggy minesweeper python program.</p>
+<div class="section" id="minesweeper-rules">
+<h2>Minesweeper Rules<a class="headerlink" href="#minesweeper-rules" title="Permalink to this headline">¶</a></h2>
+<p>The rules of minesweeper are simple:</p>
+<p>A board consists of a grid of 9 by 9 squares, with 10 bombs places at different random positions:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>    A   B   C   D   E   F   G   H   I
+  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+0 ║   ║💣 ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+1 ║   ║   ║   ║   ║   ║   ║💣 ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║   ║   ║   ║   ║💣 ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+3 ║💣 ║   ║💣 ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║   ║   ║   ║   ║💣 ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+5 ║   ║   ║   ║💣 ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+6 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+7 ║   ║   ║💣 ║   ║   ║   ║💣 ║💣 ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+8 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>The bombs are hidden, and initially, all the squares are “closed”.
+On each turn, the player provides the coordinates of a square, columns first, rows second.
+If there is a bomb on that square the game is over and the player loses the game, otherwise, the number of bombs that surround that square will appear.
+For example, using the board given above, if the first move is A1, then the displayed board will be:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>    A   B   C   D   E   F   G   H   I
+  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+0 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+1 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+3 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+5 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+6 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+7 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+8 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>If the number of neighboring bombs of an opened square is zero, then all its neighbors will be opened as well. For example above, if the user selects A5 as a second move, then the resulting board will be:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>    A   B   C   D   E   F   G   H   I
+  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+0 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+1 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+3 ║   ║   ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+2 ║ 1 ║ 2 ║ 2 ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+5 ║ 0 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+6 ║ 0 ║ 1 ║ 2 ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+7 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║
+  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+8 ║ 0 ║ 1 ║   ║   ║   ║   ║   ║   ║   ║
+  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>To win, the user needs to open all the squares that do not contain a bomb.</p>
+</div>
+<div class="section" id="building-a-minesweeper-console-application">
+<h2>Building a Minesweeper console application<a class="headerlink" href="#building-a-minesweeper-console-application" title="Permalink to this headline">¶</a></h2>
+<p>In our program we are going to use four variables:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">board</span></code>: a 2D array that holds integers. Every element on that list corresponds to a square in the board. Keep in mind that lists in Python are zero-indexed. As an example, to obtain the value that corresponds to the square A5, you shoud use <code class="docutils literal"><span class="pre">board[0][5]</span></code>. A value of -1 implies that the square contains a bomb. Any other value corresponds to the number of neighboring bombs (you can easily see that the minimum is 0 and the maximum is 8).</li>
+<li><code class="docutils literal"><span class="pre">opened</span></code>: a 2D array of the same size of the board, stores strings where an empty space corresponds to a square that has not been opened yet, numeric strings ranging between “0” and “8” correspond to the neighboring bombs of an opened squared, and the symbol “✷” in case the user opens a square with a bomb.</li>
+<li><code class="docutils literal"><span class="pre">bombs</span></code>: a list of tuples that contain the coordinates of the bombs. This is used only to print the bombs once a player has won.</li>
+<li><code class="docutils literal"><span class="pre">opened_count</span></code>: keeps a tally of the opened squares, it is used only to ease the process of determining when a board has been won.</li>
+</ul>
+<p>To create the minesweeper application is implemented using the following python code:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
+
+
+<span class="k">def</span> <span class="nf">generate_boards</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A board is a two dimensional 9x9 array</span>
+<span class="sd">    This function generates a board with 10 bombs located</span>
+<span class="sd">    at different random positions, a 2D 9x9 array filled with</span>
+<span class="sd">    empty spaces that will be used to store the state of the game,</span>
+<span class="sd">    and a list of tuples with the coordinates of the bombs.</span>
+
+<span class="sd">    This function is buggy!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+    <span class="n">opened</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+    <span class="n">bombs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">bombs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+        <span class="n">update_neighbors</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">board</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">bombs</span>
+
+
+<span class="k">def</span> <span class="nf">update_neighbors</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates the neighbors after adding a bomb to the board</span>
+<span class="sd">    This function is also buggy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">print_board</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints a board to stdout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">board_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    A   B   C   D   E   F   G   H   I&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">board_size</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">squares</span> <span class="o">=</span> <span class="s2">&quot;║&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; </span><span class="si">{x}</span><span class="s2"> &quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{row}</span><span class="s2"> ║</span><span class="si">{squares}</span><span class="s2">║&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣&quot;</span><span class="p">)</span>
+
+    <span class="n">squares</span> <span class="o">=</span> <span class="s2">&quot;║&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; </span><span class="si">{x}</span><span class="s2"> &quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">board</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{board_size-1} ║</span><span class="si">{squares}</span><span class="s2">║&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">translate_input</span><span class="p">(</span><span class="n">square</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a string representation of a square to its</span>
+<span class="sd">    row-column representation</span>
+<span class="sd">    If the conversion is not possible, the returned values</span>
+<span class="sd">    are equal to None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># column is a letter, so we use</span>
+        <span class="c1"># the ascii code to translate to a numeric index</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">square</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">-</span> <span class="mi">65</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="o">&gt;</span> <span class="mi">8</span> <span class="ow">or</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">square</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="mi">8</span> <span class="ow">or</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">get_input</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtains user input and returns the corresponding square coordinates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter a square(e.g. A5):&quot;</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">translate_input</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+
+
+<span class="k">def</span> <span class="nf">open_squares</span><span class="p">(</span><span class="n">square_row</span><span class="p">,</span> <span class="n">square_col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens squares and updates the state of &quot;opened&quot;</span>
+<span class="sd">    Returns the number of opened squares</span>
+<span class="sd">    This function is also buggy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">square_update_queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">square_row</span><span class="p">,</span> <span class="n">square_col</span><span class="p">)]</span>
+
+    <span class="n">opened_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">square_update_queue</span><span class="p">:</span>
+        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">square_update_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">opened_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">opened</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="n">opened</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+            <span class="c1"># if the current square has no neighboring bombs</span>
+            <span class="c1"># add all of its neighbors to the queue</span>
+            <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+                        <span class="n">square_update_queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">neigh_row</span><span class="p">,</span> <span class="n">neigh_col</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">opened_count</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main minesweeper function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">board</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">bombs</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+    <span class="n">ended</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">opened_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">ended</span><span class="p">:</span>
+        <span class="n">print_board</span><span class="p">(</span><span class="n">opened</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">get_input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">opened</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;✷&#39;</span>
+            <span class="n">print_board</span><span class="p">(</span><span class="n">opened</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You lose!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">opened_count</span> <span class="o">+=</span> <span class="n">open_squares</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">opened_count</span> <span class="o">==</span> <span class="mi">71</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">bomb</span> <span class="ow">in</span> <span class="n">bombs</span><span class="p">:</span>
+                <span class="n">opened</span><span class="p">[</span><span class="n">bomb</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">bomb</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;✷&#39;</span>
+            <span class="n">print_board</span><span class="p">(</span><span class="n">opened</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You win!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Crete a file called <code class="docutils literal"><span class="pre">minebuggy.py</span></code> with the contents above. For your convenience, you can also download the file from this link: <a class="reference download internal" href="../../_downloads/minebuggy.py" download=""><code class="xref download docutils literal"><span class="pre">minebuggy.py</span></code></a></p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>The first thing that we need to do is to write a good set of requirements.
+In this case, the application is already built, but we are going to use the requirements later.
+You need to write 5 functional requirements for the game that are related to the functions that are identified as buggy:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><code class="docutils literal"><span class="pre">update_neighbors</span></code></li>
+<li><code class="docutils literal"><span class="pre">open_squares</span></code></li>
+</ul>
+</div></blockquote>
+<p>To help you get you started, here’s a few example requirements associated with the <code class="docutils literal"><span class="pre">translate_input</span></code> function:</p>
+<ul class="simple">
+<li>The application shall receive a string input where the first character corresponds to an alphabetic column and the second character the zero-indexed row number.</li>
+<li>The application shall convert the input alphabetic column to a zero-indexed number using the following table: A:0, B:1, C:2, D:3, E:4, F:5, G:6, H:7, I:8.</li>
+<li>The application shall be case insensitive when converting an alphabetic column to its corresponding zero-indexed number</li>
+</ul>
+</div>
+<div class="section" id="test-plan">
+<h2>Test Plan<a class="headerlink" href="#test-plan" title="Permalink to this headline">¶</a></h2>
+<p>Based on these requirements, you are required to create a Test Plan and a Traceability Matrix for the buggy functions. You are free to use manual or automated testing, but you should include at least 1 automated test for each one of the defective functions.</p>
+</div>
+<div class="section" id="unit-tests">
+<h2>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>Write the unit test for each one of the defective functions as identified in the Test Plan. These tests should be able to find the defects on those functions.</p>
+<div class="worksheet admonition">
+<p class="first admonition-title">Submission:</p>
+<p>You should submit to canvas:</p>
+<ol class="last arabic simple">
+<li>The 5 requirements that you created for the defective functions</li>
+<li>The Test Plan and traceability matrix</li>
+<li>The Unit Tests</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

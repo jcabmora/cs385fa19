@@ -1,0 +1,184 @@
+
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 3: Testing Fundamentals</h3>
+                </section>
+                <section>
+                    <h2>Requirements</h2>
+                    <blockquote>
+                        &ldquo;Staments that specify what a piece of software shoud do under certain conditions&rdquo;<br/>
+                        <small>Laboon, Chapter 5</small>
+                    </blockquote>
+                    <ul>
+                        <li>Description of the software to be developed</li>
+                        <li>Ensure that developers know what to build, and what to test</li>
+                        <li>Requirements are the input to the design process</li>
+                        <li>What the system should do (not what logic and infrastructure needs to implement to do it).</li>
+                        <li>Functional and Non-Functional requirements</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Common Problems with Requirements</h2>
+                    <ul>
+                        <li>Informal information gathering</li>
+                        <li>Failure to identify all stakeholders</li>
+                        <li>Implied functionality</li>
+                        <li>Miscommunicated assumptions</li>
+                        <li>Informal process changes</li>
+                        <li>Scope creep / Gold plating</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Testable Requirements = Good Requirements</h2>
+                    <ul>
+                        <li><strong>Complete</strong>: all aspects of the system are covered</li>
+                        <li><strong>Consistent</strong>: they should not contradict each other</li>
+                        <li><strong>Unambiguous</strong>: they should be as precise as possible. The level of precision depends on the application domain.</li>
+                        <li><strong>Quantitative</strong>: qualitative properties are subjective and can't be measured properly</li>
+                        <li><strong>Verifiable</strong>: a person or program verify the requirement</li>
+                        <li><strong>Necessary</strong>: correspond to an actual end user need</li>
+                        <li><strong>Prioritized</strong></li>
+
+                    </ul>
+                </section>
+                <section>
+                    <h2>Benefits of good requirements</h2>
+                    <ul>
+                        <li>Fewer defects</li>
+                        <li>Faster development</li>
+                        <li>Better chances of deliver under planned schedule</li>
+                        <li>Fewer unnecessary features</li>
+                        <li>Lower costs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>IEEE 830-1998 Recommended Practice for Software Requirements</h2>
+                    <p>https://ieeexplore.ieee.org/document/720574</p>
+                    <p>http://www.math.uaa.alaska.edu/~afkjm/cs401/IEEE830.pdf</p>
+                </section>
+                <section>
+                    <h2>Requirements Examples</h2>
+                    <p>For an online retail site</p>
+                    <ul>
+                        <li class="fragment fade-in">When a package is delivered, the system shall send a notification.</li>
+                        <li class="fragment fade-in">When a package is delivered, the system shall send an email notification to the related order user's email address. The notification shall include the tracking information, order number, description of the delivered item (or first item in case of multiple items in the order), address and time of delivery</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Requirements Examples</h2>
+                    <p>For an online retail site</p>
+                    <ul>
+                        <li class="fragment fade-in">When an order's tax calculation is made, it should be correct.</li>
+                        <li class="fragment fade-in">That is an implicit requirement, instead there should be many other requirements that specify all the myriad of tax rules that could apply.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Requirements Examples</h2>
+                    <p>For an online retail site</p>
+                    <ul>
+                        <li class="fragment fade-in">In the checkout page, the system should allow users to enter discount codes through a text input field of 200 pixels wide</li>
+                        <li class="fragment fade-in">In the checkout page, the system should allow users to enter a discount code through a text input field that allows codes of at least 15 characters to be entered.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>REST API Requirement Examples</h2>
+                    <p>Assume we are asked to enhance an authentication service that currently stores user data in a relational database, in a table called <code>USERS</code> that has the fields First Name, Last Name, Username, Password, Email, Date of creation, and Account status, and we are given the following requirements:</p>
+                    <ul>
+                        <li>The system shall provide an API that takes the user name and password and if valid, will return a token that can be used in other requests for authentication</li>
+                    </ul>
+                </section>
+                <section>
+                    <section>
+                    <h3>REST API Requirement Examples</h2>
+                    The system should provide an Authentication Token API with the following specifications:
+                        <ol>
+                            <li>The service shall responds to POST requests made to the <code>api/tokens</code> path</li>
+                            <li>The service shall return a 415 status code without content for requests whose Content-Type header is ommitted or is not equal to <code>application/json</code></li>
+                            <li>The service shall only accept requests that include a payload that correspond to a single JSON object that contain the properties "username" and "password"; requests that do not conform to this requirement shall receive an empty response with a 400 status code/</li>
+                        </ol>
+                     </section>
+                    <section>
+                    <h3>REST API Requirement Examples</h2>
+                    The system should provide an Authentication Token API with the following specifications:
+                        <ol start="4">
+                            <li>Upon receiving a request with valid headers and content (refer to requirements 2 and 3), the service shall validate that the <code>username</code> included in the payload corresponds to an active user in the <code>USERS</code> table. In case the user does not exist, the service shall respond with 401 status code with no content.</li>
+                            <li>Upon receiving a request with valid headers, content type and a valid username, the service shall validate that the corresponding <code>USER</code> record has a status equal to "ACTIVE".  In the case the user status is different than "ACTIVE", the service shall submit a response with a 403 status, with a Content-Type header of "application/json" with the following payload: <code>{"error": "Account Locked"}</code></li>
+                        </ol>
+                     </section>
+                    <section>
+                    <h3>REST API Requirement Examples</h2>
+                        <ol start="6">
+                            <li>And so on...</li>
+                        </ol>
+                     </section>
+                </section>
+                <section>
+                    <h2>Test Plans</h2>
+                    <ul>
+                        <li>An organized collection of test cases for testing a system</li>
+                        <li>For each test case:
+                            <ul>
+                                <li>Description</li>
+                                <li>Preconditions</li>
+                                <li>Input Values</li>
+                                <li>Execution Steps</li>
+                                <li>Expected Output</li>
+                                <li>Postconditions</li>
+                            </ul>
+                         </li>
+                         <li>Traceability matrix</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>
