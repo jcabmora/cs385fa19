@@ -309,6 +309,7 @@ For example, using the board given above, if the first move is A1, then the disp
 <span class="k">def</span> <span class="nf">open_squares</span><span class="p">(</span><span class="n">square_row</span><span class="p">,</span> <span class="n">square_col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Opens squares and updates the state of &quot;opened&quot;</span>
+<span class="sd">    When a square has no neighboring bombs, all of its neighbors are opened.</span>
 <span class="sd">    Returns the number of opened squares</span>
 <span class="sd">    This function is also buggy.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

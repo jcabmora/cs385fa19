@@ -1,0 +1,169 @@
+
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 4: Unit Testing Introduction</h3>
+                </section>
+                <section>
+                    <h2>Levels of Testing</h2>
+                    <ul>
+                        <li>Unit Testing</li>
+                        <li>Integration Testing</li>
+                        <li>System Testing</li>
+                        <li>Acceptance Testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Unit Testing</h2>
+                    <blockquote>
+&ldquo;A unit is the smallest testable piece of software, which may consist of hundreds
+or even just few lines of source code, and generally represents the result of the
+work of one or few developers. The unit test cases’ purpose is to ensure that the
+unit satisfies its functional specification and / or that its implemented structure
+matches the intended design structure
+&rdquo;<br/>
+                        <small>B. Beizer, “Software Testing Techniques”.1990.</small>
+                    </blockquote>
+                </section>
+                <section>
+                    ... In order to have a clear picture let's see how unit tests differ from the other levels of testing...
+                </section>
+                <section>
+                    <h2>Integration Testing</h2>
+                    <ul>
+                        <li>Unit tests verify units of functionality independently. In contrast, integration tests verify the <strong>interaction</strong> of two or more units</li>
+                        <li>Integration tests verify the interfaces that the units provide and the coupling between them</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>System Testing</h2>
+                    <ul>
+                        <li>Tests the complete integrated system (software and possibly the hardware)</li>
+                        <li>Non-Functional tests are included at this level: e.g.: load, performance, reliability, security tests are part of system testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Acceptance Testing</h2>
+                    <ul>
+                        <li>Tests conducted pre-delivery on a live or staging system</li>
+                        <li>Executed by users or end customer</li>
+                        <li>Typical examples are beta versions.</li>
+                    </ul>
+                </section>
+                <section>
+                    ... Ok, let's get back to Unit Tests...
+                </section>
+
+                <section>
+                    <h2>Unit Testing</h2>
+                    <ul>
+                        <li class="fragment fade-in">They test the smallest unit of functionality possible</li>
+                        <li class="fragment fade-in">Functions, or object methods</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Who should write the Unit Tests?</h2>
+                    <h3 class="fragment fade-in"> The Developers!! </h3>
+                    <ul class="fragment fade-in">
+                        <li>Unit test require knowledge of the inner workings of the functionality (they are tipically white-box).</li>
+                        <li>Developers usually make the decisions of how logic is partitioned in functional units</li>
+                        <li>Developers are in the best position to identify edge / corner cases</li>
+                        <li>Developers are the ones that mantain the code and possibly affect the tests with their changes</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Why write Unit Tests?</h2>
+                    <ul>
+                        <li class="fragment fade-in">Find problems early</li>
+                        <li class="fragment fade-in">They provide a living documentation of what the designer intended to build</li>
+                        <li class="fragment fade-in">Make collaboration easier since the help other maintainers from inadvertently break functionality.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>When should Unit Tests be run?</h2>
+                    <ul class="fragment fade-in">
+                        <li>Everytime that developers need to verify their work.</li>
+                        <li>When new functionality is ready to be merged into a repository</li>
+                        <li>Before builds and compilation</li>
+                        <li>Before the execution of other levels of testing</li>
+                    </ul>
+                    
+                </section>
+                <section>
+                    <h2>Unit Tests and Test Plans relationship</h2>
+                    <p>In order to write Unit tests we should define:</p>
+                    <ul class="fragment fade-in">
+                        <li>Preconditions</li>
+                        <li>Execution Steps</li>
+                        <li>Expected output</li>
+                        <li>Post Conditions</li>
+                    </ul>
+                 </section>
+                <section>
+                    <h2>What characteristics should Unit test have?</h2>
+                    <ul class="fragment fade-in">
+                        <li>They should fail! (tautology)</li>
+                        <li>Fast</li>
+                        <li>Simple to run and easy to automate</li>
+                        <li>Have proper documentation</li>
+                        <li>Should provide meaningful feedback</li>
+                        <li>Complete</li>
+                        <li>Repeatable</li>
+                        <li>Should not be brittle(fragile)</li>
+                        <li>Idempotent</li>
+                        <li>Should clean after they are completed</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

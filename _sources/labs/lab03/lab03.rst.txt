@@ -118,6 +118,7 @@ Requirements
 The first thing that we need to do is to write a good set of requirements.
 In this case, the application is already built, but we are going to use the requirements later.
 You need to write 5 functional requirements for the game that are related to the functions that are identified as buggy: 
+
  - ``generate_boards``
  - ``update_neighbors``
  - ``open_squares``

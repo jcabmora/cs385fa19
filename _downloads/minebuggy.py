@@ -88,6 +88,7 @@ def get_input():
 def open_squares(square_row, square_col, opened, board):
     """
     Opens squares and updates the state of "opened"
+    When a square has no neighboring bombs, all of its neighbors are opened.
     Returns the number of opened squares
     This function is also buggy.
     """

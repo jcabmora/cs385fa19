@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 04: Introduction to Unit Testing &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 04: Introduction to Unit Testing</a><ul>
+<li><a class="reference internal" href="#goal-of-the-game">Goal of the Game</a></li>
+<li><a class="reference internal" href="#game-mechanics">Game Mechanics</a></li>
+<li><a class="reference internal" href="#new-tiles">New Tiles</a></li>
+<li><a class="reference internal" href="#starter-code">Starter code</a></li>
+<li><a class="reference internal" href="#game-logic">Game Logic</a></li>
+<li><a class="reference internal" href="#specifications">Specifications</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab04/lab04.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-04-introduction-to-unit-testing">
+<h1>Lab No. 04: Introduction to Unit Testing<a class="headerlink" href="#lab-no-04-introduction-to-unit-testing" title="Permalink to this headline">¶</a></h1>
+<p>In this Lab, you are going to implement the game 2048 (<a class="reference external" href="https://play2048.co">https://play2048.co</a>) in the terminal with Python.
+It might not be as pretty as the web based game, but it certainly can provide countless hours of fun if you happen to find your self stranded without an internet connection and all you have is a terminal.</p>
+<div class="section" id="goal-of-the-game">
+<h2>Goal of the Game<a class="headerlink" href="#goal-of-the-game" title="Permalink to this headline">¶</a></h2>
+<p>The game is very simple, and probably the best way to understand its rules is to spend 5 minutes playing it online.
+It consists of a board of 4 x 4 tiles, which can be empty or have numbers that are powers of 2 (with a minimum value of 2).
+The goal of the game is to be able to merge tiles until you obtain a tile with the number 2048 (hence the name).
+On the other hand, you loose when the board is full and you can’t make any more moves.</p>
+</div>
+<div class="section" id="game-mechanics">
+<h2>Game Mechanics<a class="headerlink" href="#game-mechanics" title="Permalink to this headline">¶</a></h2>
+<p>You control the tiles on the board with the arrow keys.
+When you press an arrow key, all the tiles move on that direction as much as possible. Then tiles move, if the next non-empty tile <em>in the direction of the movement</em> has the same number, then tiles are merged:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>      Before Move              After Move
+    c0  c1  c2  c3
+   ╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+r0 ║ 2 ║ 2 ║   ║   ║       ║   ║   ║   ║ 4 ║
+   ╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+r1 ║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+   ╠═══╬═══╬═══╬═══╣  -&gt;   ╠═══╬═══╬═══╬═══╣
+r2 ║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+   ╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+r3 ║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+   ╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>However, tiles are only merged if the next neighbor itself was not merged:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>   Before Move              After Move
+╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+║ 2 ║ 2 ║ 2 ║   ║       ║   ║   ║ 2 ║ 4 ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣  -&gt;   ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note in the previous example that tiles are “pushed” into the direction of the movement, and that tiles are merged first in the order that they are moved.
+In that case, the tiles that were originally in columns 2 and 1 are merged and moved to the right as far as possible (column 3)</p>
+<p>Here’s another example where you can see that tiles can be merged only if the next neighbor has not been merged.
+In this case tiles in columns 3 and 2 are merged and positioned in column 3, and tiles in columns 1 and 0 are merged and placed in column 2</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>   Before Move              After Move
+╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+║ 2 ║ 2 ║ 2 ║ 2 ║       ║   ║   ║ 4 ║ 4 ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣  -&gt;   ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>Here’s another example. Notice that tiles are only merged if their value was the same <em>before</em> the movement.
+Tiles in column 3 and 2 are merged because before the movement they had the same value, but notice that after the move is complete,
+Tile in column 1 is not merged because it’s value (4) was not the same as the value of it’s next non-zero neighbor before the movement (column 2 which had a value of 2).</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>   Before Move              After Move
+╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+║ 8 ║ 4 ║ 2 ║ 2 ║       ║   ║ 8 ║ 4 ║ 4 ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣  -&gt;   ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>If no tiles can be merged they simply get “squashed” in the direction of the movement:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>   Before Move              After Move
+╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+║   ║ 4 ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣   ⇩   ╠═══╬═══╬═══╬═══╣
+║   ║ 2 ║   ║   ║       ║   ║ 4 ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║       ║   ║ 2 ║   ║   ║
+╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="new-tiles">
+<h2>New Tiles<a class="headerlink" href="#new-tiles" title="Permalink to this headline">¶</a></h2>
+<p>So far, we have only discussed the mechanics of the tile movements.
+After the player makes a move, one of the empty tiles is randomly selected and is assigned a value of either 2 or 4 (with the former having a probability of 80%), regardless if there where merged tiles or not.
+In the following example, a tile with a value of 4 was assigned to the tile in row 0, column 0.</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>   Before Move              After Move
+╔═══╦═══╦═══╦═══╗       ╔═══╦═══╦═══╦═══╗
+║   ║ 4 ║   ║   ║       ║ 4 ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║   ║   ║ 8 ║ 8 ║       ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╣   ⇩   ╠═══╬═══╬═══╬═══╣
+║   ║ 2 ║   ║   ║       ║   ║ 4 ║ 8 ║   ║
+╠═══╬═══╬═══╬═══╣       ╠═══╬═══╬═══╬═══╣
+║ 4 ║   ║ 2 ║   ║       ║ 4 ║ 2 ║ 2 ║ 8 ║
+╚═══╩═══╩═══╩═══╝       ╚═══╩═══╩═══╩═══╝
+</pre></div>
+</div>
+</div></blockquote>
+<p>You can see that if tiles are not merged during moves, the board starts to get filled up very quickly.</p>
+</div>
+<div class="section" id="starter-code">
+<h2>Starter code<a class="headerlink" href="#starter-code" title="Permalink to this headline">¶</a></h2>
+<p>For this lab, you will be provided with a Python starter code implementation that uses the curses library to present the game UI.
+You should not have to worry about the presentation details, you only will be required to implement the game logic.</p>
+<p>Download the archive with the labs starter code from this link: <a class="reference download internal" href="../../_downloads/lab04starter.tar.gz" download=""><code class="xref download docutils literal"><span class="pre">lab04starter.tar.gz</span></code></a></p>
+<p>Once you have extracted the contents of the archive, you will find a file called <code class="docutils literal"><span class="pre">2048.py</span></code>.
+You do not need to make any changes to that file, but you will need it to run the game. That file builds the UI and calls functions that are expected to be implemented in a file called <code class="docutils literal"><span class="pre">game_logic.py</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">curses</span>
+<span class="kn">from</span> <span class="nn">curses</span> <span class="k">import</span> <span class="n">wrapper</span>
+
+<span class="kn">from</span> <span class="nn">game_logic</span> <span class="k">import</span> <span class="n">SIZE</span><span class="p">,</span> <span class="n">BOARD_WIDTH</span><span class="p">,</span> <span class="n">BOARD_HEIGHT</span><span class="p">,</span> <span class="n">TILE_HEIGHT</span><span class="p">,</span> <span class="n">TILE_WIDTH</span>
+<span class="kn">from</span> <span class="nn">game_logic</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">initialize_board</span><span class="p">,</span>
+    <span class="n">add_random_tile</span><span class="p">,</span>
+    <span class="n">move_up</span><span class="p">,</span>
+    <span class="n">move_down</span><span class="p">,</span>
+    <span class="n">move_left</span><span class="p">,</span>
+    <span class="n">move_right</span><span class="p">,</span>
+    <span class="n">is_game_over</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">EXIT_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;Do you want to exit (press &#39;y&#39; to confirm)?&quot;</span>
+<span class="n">END_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;Press &#39;q&#39; to exit.&quot;</span>
+<span class="n">WON_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;Congratulations, you reached 2048!&quot;</span>
+<span class="n">LOST_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;Shame on you, you lost!&quot;</span>
+
+<span class="n">COLOR_PAIRS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">8</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="mi">32</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="mi">64</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">128</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">256</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">512</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="mi">1024</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="mi">2048</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">BORDER_COLOR_PAIRS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="mi">8</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="mi">32</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="mi">64</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="mi">128</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="mi">256</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="mi">512</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="mi">1024</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="mi">2048</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">init_curses</span><span class="p">():</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">curs_set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_YELLOW</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLUE</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_GREEN</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_CYAN</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_MAGENTA</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLACK</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_RED</span><span class="p">)</span>
+
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_YELLOW</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_BLUE</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_GREEN</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_CYAN</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_MAGENTA</span><span class="p">)</span>
+    <span class="n">curses</span><span class="o">.</span><span class="n">init_pair</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_WHITE</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">COLOR_RED</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">paint_board</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">offset_y</span><span class="p">,</span> <span class="n">offset_x</span><span class="p">):</span>
+    <span class="n">y_position</span> <span class="o">=</span> <span class="n">offset_y</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIZE</span><span class="p">):</span>
+        <span class="n">x_position</span> <span class="o">=</span> <span class="n">offset_x</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIZE</span><span class="p">):</span>
+            <span class="n">paint_tile</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">column</span><span class="p">],</span> <span class="n">y_position</span><span class="p">,</span> <span class="n">x_position</span><span class="p">)</span>
+            <span class="n">x_position</span> <span class="o">+=</span> <span class="n">TILE_WIDTH</span>
+        <span class="n">y_position</span> <span class="o">+=</span> <span class="n">TILE_HEIGHT</span>
+
+
+<span class="k">def</span> <span class="nf">paint_tile</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">COLOR_PAIRS</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+    <span class="n">border_color</span> <span class="o">=</span> <span class="n">BORDER_COLOR_PAIRS</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▛▀▀▀▀▀▀▜&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▌      ▐&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▌&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{:^6}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;▐&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▌      ▐&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▌      ▐&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;▙▄▄▄▄▄▄▟&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">color_pair</span><span class="p">(</span><span class="n">border_color</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">stdscr</span><span class="p">):</span>
+
+    <span class="n">init_curses</span><span class="p">()</span>
+
+    <span class="c1"># centering</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getmaxyx</span><span class="p">()</span>
+
+    <span class="n">offset_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">BOARD_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">offset_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">BOARD_HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">message_y</span> <span class="o">=</span> <span class="n">offset_y</span> <span class="o">+</span> <span class="n">BOARD_HEIGHT</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">score_y</span> <span class="o">=</span> <span class="n">offset_y</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">exit_message_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">EXIT_MESSAGE</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">end_message_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">END_MESSAGE</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">won_message_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">WON_MESSAGE</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">lost_message_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">LOST_MESSAGE</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">board</span> <span class="o">=</span> <span class="n">initialize_board</span><span class="p">()</span>
+    <span class="n">paint_board</span><span class="p">(</span><span class="n">stdscr</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">offset_y</span><span class="p">,</span> <span class="n">offset_x</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+        <span class="n">game_over</span><span class="p">,</span> <span class="n">game_won</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">is_game_over</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">game_won</span><span class="p">:</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span><span class="p">,</span> <span class="n">won_message_x</span><span class="p">,</span> <span class="n">WON_MESSAGE</span><span class="p">)</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end_message_x</span><span class="p">,</span> <span class="n">END_MESSAGE</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+                    <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span><span class="p">,</span> <span class="n">lost_message_x</span><span class="p">,</span> <span class="n">LOST_MESSAGE</span><span class="p">)</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end_message_x</span><span class="p">,</span> <span class="n">END_MESSAGE</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+                    <span class="k">return</span>
+
+        <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">score_y</span><span class="p">,</span> <span class="n">offset_x</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;Current Score: </span><span class="si">{score}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span>
+        <span class="n">moved_tiles</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">curses</span><span class="o">.</span><span class="n">KEY_UP</span><span class="p">:</span>
+            <span class="n">moved_tiles</span> <span class="o">=</span> <span class="n">move_up</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="n">curses</span><span class="o">.</span><span class="n">KEY_DOWN</span><span class="p">:</span>
+            <span class="n">moved_tiles</span> <span class="o">=</span> <span class="n">move_down</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="n">curses</span><span class="o">.</span><span class="n">KEY_LEFT</span><span class="p">:</span>
+            <span class="n">moved_tiles</span> <span class="o">=</span> <span class="n">move_left</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="n">curses</span><span class="o">.</span><span class="n">KEY_RIGHT</span><span class="p">:</span>
+            <span class="n">moved_tiles</span> <span class="o">=</span> <span class="n">move_right</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span><span class="p">,</span> <span class="n">exit_message_x</span><span class="p">,</span> <span class="n">EXIT_MESSAGE</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">message_y</span><span class="p">,</span> <span class="n">exit_message_x</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">EXIT_MESSAGE</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">moved_tiles</span><span class="p">:</span>
+            <span class="n">add_random_tile</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+            <span class="n">paint_board</span><span class="p">(</span><span class="n">stdscr</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">offset_y</span><span class="p">,</span> <span class="n">offset_x</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wrapper</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The archive contains a skeleton of the  <cite>game_logic.py</cite> file which  placeholders and docstrings for the functions that you need to implement.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Do not import any additional libraries that are not part of the standard Python library.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">TILE_HEIGHT</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">TILE_WIDTH</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">BOARD_WIDTH</span> <span class="o">=</span> <span class="n">SIZE</span> <span class="o">*</span> <span class="n">TILE_WIDTH</span>
+<span class="n">BOARD_HEIGHT</span> <span class="o">=</span> <span class="n">SIZE</span> <span class="o">*</span> <span class="n">TILE_HEIGHT</span>
+
+
+<span class="k">def</span> <span class="nf">initialize_board</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes a board with two randomly added tiles</span>
+<span class="sd">    A board is a 2D array of SIZE x SIZE.</span>
+<span class="sd">    Each element on the 2D array will correspond to a tile in the game</span>
+<span class="sd">    A value of 0 indicates an empty tile</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">add_random_tile</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a board and randomly adds a new tile</span>
+<span class="sd">    with a value of 2 or 4 with the former with a probability of 90%</span>
+<span class="sd">    If the board is full, simply refuse to add a new tile.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">get_empty_tiles</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of empty tiles.</span>
+<span class="sd">    Tiles should be represented as a tuple in the form (row, column)</span>
+<span class="sd">    e.g. A board with this configuration:</span>
+
+<span class="sd">          c0  c1  c2  c3</span>
+<span class="sd">         ╔═══╦═══╦═══╦═══╗</span>
+<span class="sd">      r0 ║ 2 ║ 2 ║   ║   ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r1 ║   ║ 4 ║ 2 ║ 2 ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r2 ║16 ║   ║ 8 ║ 2 ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r3 ║32 ║   ║512║   ║</span>
+<span class="sd">         ╚═══╩═══╩═══╩═══╝</span>
+
+
+<span class="sd">    should return a list:</span>
+
+<span class="sd">    [(0, 2), (0, 3), (1, 0), (2, 1), (3, 1), (3, 3)]</span>
+
+<span class="sd">    Tiles are not expected to be sorted</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">move_up</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies a move in the up direction to all the tiles in a board.</span>
+<span class="sd">    This function should apply the move directly to the passed board.</span>
+<span class="sd">    This function returns a boolean that indicates if tiles were moved (or not)</span>
+
+<span class="sd">    As an example, the following board will return False since no tiles can be moved in an</span>
+<span class="sd">    upward direction:</span>
+
+<span class="sd">           c0  c1  c2  c3</span>
+<span class="sd">         ╔═══╦═══╦═══╦═══╗</span>
+<span class="sd">      r0 ║ 2 ║ 2 ║   ║   ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r1 ║ 8 ║ 4 ║   ║   ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r2 ║   ║   ║   ║   ║</span>
+<span class="sd">         ╠═══╬═══╬═══╬═══╣</span>
+<span class="sd">      r3 ║   ║   ║   ║   ║</span>
+<span class="sd">         ╚═══╩═══╩═══╩═══╝</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_find_next_position_up</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Support function that takes a board, and a tile coordinates,</span>
+<span class="sd">    and returns the position where it should be located after moving upward.</span>
+<span class="sd">    This function does not consider merging of the tile with the next neighbor, it only considers</span>
+<span class="sd">    available spots due to them being empty and withing the board boundaries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">move_down</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies a move in the down direction to all the tiles in a board.</span>
+<span class="sd">    This function should apply the move directly to the passed board.</span>
+<span class="sd">    This function returns a boolean that indicates if tiles were moved (or not)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_find_next_position_down</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Support function that takes a board, and a tile coordinates,</span>
+<span class="sd">    and returns the position where it should be located after moving downward</span>
+<span class="sd">    This function does not consider merging of the tile with the next neighbor, it only considers</span>
+<span class="sd">    available spots due to them being empty and withing the board boundaries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">move_left</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies a move in the left direction to all the tiles in a board.</span>
+<span class="sd">    This function should apply the move directly to the passed board.</span>
+<span class="sd">    This function returns a boolean that indicates if tiles were moved (or not)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_find_next_position_left</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Support function that takes a board, and a tile coordinates,</span>
+<span class="sd">    and returns the position where it should be located after moving leftward</span>
+<span class="sd">    This function does not consider merging of the tile with the next neighbor, it only considers</span>
+<span class="sd">    available spots due to them being empty and withing the board boundaries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">move_right</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies a move in the right direction to all the tiles in a board.</span>
+<span class="sd">    This function should apply the move directly to the passed board.</span>
+<span class="sd">    This function returns a boolean that indicates if tiles were moved (or not)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_find_next_position_right</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a board, and a tile coordinates,</span>
+<span class="sd">    and returns the position where it should be located after moving rightward.</span>
+<span class="sd">    This function does not consider merging of the tile with the next neighbor, it only considers</span>
+<span class="sd">    available spots due to them being empty and withing the board boundaries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">is_game_over</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a tuple with three elements:</span>
+
+<span class="sd">    a boolean that indicates that the game is over if True</span>
+<span class="sd">    a boolean that indicates that the game has been won if True</span>
+<span class="sd">    a score that consists of the sum of all the tiles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_is_tile_movable</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function that Determines if a tile can be moved due to the presence of adjacent spaces</span>
+<span class="sd">    of neighbors with the same value</span>
+<span class="sd">    This function assumes that is called in a sequence that goes from left to</span>
+<span class="sd">    right and then from up to down, so it only needs to check on the right and down neighbors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>There is also a subdirectory called <code class="docutils literal"><span class="pre">tests</span></code> that contains some sample tests that you can use for some of the functions that you will need to implement. Once you have implemented the logic of the <code class="docutils literal"><span class="pre">initialize_board</span></code>, <code class="docutils literal"><span class="pre">add_random_tile</span></code> and <code class="docutils literal"><span class="pre">get_empty_cells</span></code> functions of the <code class="docutils literal"><span class="pre">game_logic.py</span></code> module, you should be able to run the sample tests:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>&gt;$ python3 -m unittest -v
+test_add_random_tile_empty_board (tests.test_game_logic.AddRandomTileTests) ... ok
+test_add_random_tile_full_board (tests.test_game_logic.AddRandomTileTests) ... ok
+test_add_random_tile_one_empty_tile (tests.test_game_logic.AddRandomTileTests) ... ok
+test_add_random_tile_partial_board (tests.test_game_logic.AddRandomTileTests) ... ok
+test_board_initial_tiles (tests.test_game_logic.TestInitializeBoard) ... ok
+test_board_size (tests.test_game_logic.TestInitializeBoard) ... ok
+test_initial_tiles_postions (tests.test_game_logic.TestInitializeBoard) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="game-logic">
+<h2>Game Logic<a class="headerlink" href="#game-logic" title="Permalink to this headline">¶</a></h2>
+<p>You have been assigned to implement the logic of the game, and <em>you need to adhere strictly</em> to the following implementation:</p>
+<ul class="simple">
+<li>The board shall be represented as a 2D array of size 4.</li>
+<li>All the necessary imports for <code class="docutils literal"><span class="pre">game_logic.py</span></code> have already been added to the file, you should not require to import additional libraries. If you need to add new imports, only Python standard modules are permitted.</li>
+</ul>
+<p>You will need to implement all the functions in <code class="docutils literal"><span class="pre">game_logic</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">initialize_board</span></code>: create the board at the begining of the game</li>
+<li><code class="docutils literal"><span class="pre">add_random_tile</span></code>: adds a tile in a board if there are empty tiles</li>
+<li><code class="docutils literal"><span class="pre">get_empty_tiles</span></code>: returns a list of empty tiles. This is a helper function for <code class="docutils literal"><span class="pre">add_random_tile</span></code></li>
+<li><code class="docutils literal"><span class="pre">move_up</span></code>: moves all the tiles in a board in an upward direction</li>
+<li><code class="docutils literal"><span class="pre">_find_next_position_up</span></code>: This is a helper function for <code class="docutils literal"><span class="pre">move_up</span></code> that returns the final location of a tile while on an upward movement.</li>
+<li><code class="docutils literal"><span class="pre">move_down</span></code>: same as <code class="docutils literal"><span class="pre">move_up</span></code> but for downward direction.</li>
+<li><code class="docutils literal"><span class="pre">_find_next_position_down</span></code>: same as <code class="docutils literal"><span class="pre">_find_next_postion_up</span></code> but for downward direction.</li>
+<li><code class="docutils literal"><span class="pre">move_left</span></code>: same as <code class="docutils literal"><span class="pre">move_up</span></code> but for leftward direction.</li>
+<li><code class="docutils literal"><span class="pre">_find_next_position_left</span></code>:same as <code class="docutils literal"><span class="pre">_find_next_postion_up</span></code> but for leftward direction.</li>
+<li><code class="docutils literal"><span class="pre">move_right</span></code>: same as <code class="docutils literal"><span class="pre">move_up</span></code> but for the righward direction.</li>
+<li><code class="docutils literal"><span class="pre">_find_next_position_right</span></code>: same as <code class="docutils literal"><span class="pre">_find_next_postion_up</span></code> but for rightward direction.</li>
+<li><code class="docutils literal"><span class="pre">is_game_over</span></code>: determines if the game has ended, if the has been won and the score</li>
+<li><code class="docutils literal"><span class="pre">_is_tile_movable</span></code>: determines if a tile has a neighboring zero or a tile with the same value. Helper function for <code class="docutils literal"><span class="pre">is_game_over</span></code>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to follow the specifitions that are given in the docstrings provided in <code class="docutils literal"><span class="pre">game_logic.py</span></code>. If you fail to do so, then your program will not pass the tests that will be used to grade your submission.</p>
+</div>
+<p>The functions <code class="docutils literal"><span class="pre">move_{up,down,left,right}</span></code> are all almost identical, and once you have coded one for a given direction, you should be able to easily apply to the other directions by making some simple changes. Same goes for <code class="docutils literal"><span class="pre">_find_next_position_right</span></code>. (In fact they cold be implemented in a single function and have tan argument to specify the direction. However, following this approach might be a little confusing, so we are going to stick with implementing a different function for each direction.)</p>
+</div>
+<div class="section" id="specifications">
+<h2>Specifications<a class="headerlink" href="#specifications" title="Permalink to this headline">¶</a></h2>
+<p>Convert the docstrings for each one of the functions into an enumerated set of specifications.
+The <code class="docutils literal"><span class="pre">specifications</span></code> file has specifications for the <code class="docutils literal"><span class="pre">initialize_board</span></code>, <code class="docutils literal"><span class="pre">add_random_tile</span></code> and <code class="docutils literal"><span class="pre">get_empty_tiles</span></code> functions as a help to get you started. Enhance this file by adding specifications for the rest of the functions in <code class="docutils literal"><span class="pre">game_logic.py</span></code></p>
+</div>
+<div class="section" id="unit-tests">
+<h2>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>You are required to create a full suite of tests for all the functions that you implement.  As a recommendation use the specifications that you created as a tool to help you design which tests need to be added to the Test Suite. Add your tests to the <code class="docutils literal"><span class="pre">tests/test_game_logic.py</span></code> file.</p>
+<div class="worksheet admonition">
+<p class="first admonition-title">Submission:</p>
+<p>You should submit to canvas:</p>
+<ol class="last arabic simple">
+<li>The updated <code class="docutils literal"><span class="pre">game_logic.py</span></code></li>
+<li>The updated <code class="docutils literal"><span class="pre">tests/test_game_logic.py</span></code></li>
+<li>The updated <code class="docutils literal"><span class="pre">specifications</span></code> file</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
