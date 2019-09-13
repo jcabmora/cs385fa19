@@ -24,7 +24,7 @@ Course Schedule and Materials
       - :doc:`labs/lab03/lab03`
       - Laboon, Chapters 6, 7, 8
     * - 4
-      - Unit Testing
+      - `Unit Testing Introduction <slides/week4.html>`_
       - :doc:`labs/lab04/lab04`
       - Laboon, Chapters 11, 12, 13
     * - 5
