@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 03: Solution &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 03: Solution</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#requirements-for-generate-boards">Requirements for <code class="docutils literal"><span class="pre">generate_boards</span></code></a></li>
+<li><a class="reference internal" href="#requirements-for-update-neighbors">Requirements for <code class="docutils literal"><span class="pre">update_neighbors</span></code></a></li>
+<li><a class="reference internal" href="#requirements-for-open-squares">Requirements for <code class="docutils literal"><span class="pre">open_squares</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#test-plan">Test Plan</a><ul>
+<li><a class="reference internal" href="#tests-for-generate-boards">Tests for <code class="docutils literal"><span class="pre">generate_boards</span></code></a><ul>
+<li><a class="reference internal" href="#generate-boards-1">generate_boards 1</a></li>
+<li><a class="reference internal" href="#generate-boards-2">generate_boards 2</a></li>
+<li><a class="reference internal" href="#generate-boards-3">generate_boards 3</a></li>
+<li><a class="reference internal" href="#generate-boards-4">generate_boards 4</a></li>
+<li><a class="reference internal" href="#generate-boards-5">generate_boards 5</a></li>
+<li><a class="reference internal" href="#generate-boards-6">generate_boards 6</a></li>
+<li><a class="reference internal" href="#generate-boards-7">generate_boards 7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tests-for-update-neighbors">Tests for <code class="docutils literal"><span class="pre">update_neighbors</span></code></a><ul>
+<li><a class="reference internal" href="#update-neighbors-1">update_neighbors 1</a></li>
+<li><a class="reference internal" href="#update-neighbors-2">update_neighbors 2</a></li>
+<li><a class="reference internal" href="#update-neighbors-3">update_neighbors 3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tests-for-open-squares">Tests for <code class="docutils literal"><span class="pre">open_squares</span></code></a><ul>
+<li><a class="reference internal" href="#open-squares-1">open_squares 1</a></li>
+<li><a class="reference internal" href="#open-squares-2">open_squares 2</a></li>
+<li><a class="reference internal" href="#open-squares-3">open_squares 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#traceability-matrix">Traceability Matrix</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab03/solution.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-03-solution">
+<h1>Lab No. 03: Solution<a class="headerlink" href="#lab-no-03-solution" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="requirements-for-generate-boards">
+<h3>Requirements for <code class="docutils literal"><span class="pre">generate_boards</span></code><a class="headerlink" href="#requirements-for-generate-boards" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><strong>GB1</strong>: The function shall take no arguments and return a 3 element
+tuple</li>
+<li><strong>GB2</strong>: The first element of the returned tuple shall be a two
+dimensional array of size 9 x 9 with exactly 10 elements determined
+at random with integer values equal to <code class="docutils literal"><span class="pre">-1</span></code> and the remaining
+elements with integer values between <code class="docutils literal"><span class="pre">0</span></code> and <code class="docutils literal"><span class="pre">8</span></code>, which will
+depend on the number of neighboring cells (including diagonals) that
+have a <code class="docutils literal"><span class="pre">-1</span></code> value.</li>
+<li><strong>GB3</strong>: The second element of the returned tuple shall be an array
+of size of 9 x 9 and all of its elements shall contain a single empty
+space string.</li>
+<li><strong>GB4</strong>: The third element of the returned tuple shall be a list of
+the indices of the elements that have a value equal to <code class="docutils literal"><span class="pre">-1</span></code> in the
+first returned array, and as such it shall contain exactly ten
+distinct elements. The indices shall be represented as a two element
+tuple where the first element corresponds to the row index and the
+second element to the column index</li>
+</ol>
+</div>
+<div class="section" id="requirements-for-update-neighbors">
+<h3>Requirements for <code class="docutils literal"><span class="pre">update_neighbors</span></code><a class="headerlink" href="#requirements-for-update-neighbors" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><strong>UN1</strong>: The function shall take as input a two dimensional array of
+integers of size 9 x 9 and the row and column indices of an element
+and shall update the input array in a way such that the cells that
+are adjacent vertically, horizontally and diagonally have their
+values increased by <code class="docutils literal"><span class="pre">1</span></code>, with the exception of those that have a
+value equal to <code class="docutils literal"><span class="pre">-1</span></code> which shall remain unmodified.</li>
+</ol>
+</div>
+<div class="section" id="requirements-for-open-squares">
+<h3>Requirements for <code class="docutils literal"><span class="pre">open_squares</span></code><a class="headerlink" href="#requirements-for-open-squares" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><strong>OS1</strong>: The function shall take as input the row and column indices
+of an element of a two dimensional 9 x 9 array, a two dimensional
+array of strings of size 9 x 9, and a two dimensional array of
+integers of size 9 x 9. The function shall update the third input
+array’s element that corresponds to the coordinates given by the
+first two imputs with the corresponding string representation found
+in the fourth input array, if it’s value is not equal to <code class="docutils literal"><span class="pre">0</span></code>,
+otherwise it should update all the horizontally, vertically and
+diagnonal neighboring elements as well. Neighboring elements that
+have values equal to <code class="docutils literal"><span class="pre">0</span></code> shall also have their neighbors updated,
+and any additional elements that have a value of <code class="docutils literal"><span class="pre">0</span></code> shall have
+their values updated as well.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="test-plan">
+<h2>Test Plan<a class="headerlink" href="#test-plan" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tests-for-generate-boards">
+<h3>Tests for <code class="docutils literal"><span class="pre">generate_boards</span></code><a class="headerlink" href="#tests-for-generate-boards" title="Permalink to this headline">¶</a></h3>
+<p>For the <code class="docutils literal"><span class="pre">generate_boards</span></code> function tests we will refer to the
+function’s three output elements as <strong>board</strong>, <strong>opened cells</strong> and
+<strong>bomb list</strong></p>
+<div class="section" id="generate-boards-1">
+<h4>generate_boards 1<a class="headerlink" href="#generate-boards-1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output type validation</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: the output board and opened cells arrays have a
+size 9 x 9, and the bomb list shall be an array of 2-element tuples
+of size 10</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-2">
+<h4>generate_boards 2<a class="headerlink" href="#generate-boards-2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output board validation</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: the output board shall have exactly ten elements
+with a value equal to <code class="docutils literal"><span class="pre">-1</span></code> and the rest of the element’s value
+shall be an integer between <code class="docutils literal"><span class="pre">0</span></code> and <code class="docutils literal"><span class="pre">8</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-3">
+<h4>generate_boards 3<a class="headerlink" href="#generate-boards-3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output opened cells validation</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: All the elements in the opened cells output array
+shall have a value equal to an empty space string</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-4">
+<h4>generate_boards 4<a class="headerlink" href="#generate-boards-4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output bomb list coordinates
+validation</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: The output bomb list elements’ coordinates shall
+correspond to elements with a value equal to <code class="docutils literal"><span class="pre">-1</span></code> in the output
+board</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-5">
+<h4>generate_boards 5<a class="headerlink" href="#generate-boards-5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output bomb list coordinates
+validate uniqueness</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: The output bomb list elements’ coordinates are
+all unique</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-6">
+<h4>generate_boards 6<a class="headerlink" href="#generate-boards-6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> output board randomization</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code> consecutively</li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: The two output boards generated during the test
+shall have different contents</li>
+</ul>
+</div>
+<div class="section" id="generate-boards-7">
+<h4>generate_boards 7<a class="headerlink" href="#generate-boards-7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">generate_boards</span></code> neighboring bomb calculation</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: None</li>
+<li><strong>Execution Steps</strong>: call <code class="docutils literal"><span class="pre">generate_boards</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: The value of the 71 cells that do not have a
+value equal to <code class="docutils literal"><span class="pre">-1</span></code> shall have a value that is equal to the count
+of neighboring cells that have a value eual to <code class="docutils literal"><span class="pre">-1</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="tests-for-update-neighbors">
+<h3>Tests for <code class="docutils literal"><span class="pre">update_neighbors</span></code><a class="headerlink" href="#tests-for-update-neighbors" title="Permalink to this headline">¶</a></h3>
+<p>For the <code class="docutils literal"><span class="pre">update_neighbors</span></code> function tests we will refer to the input
+values as <em>board</em>, <em>row</em> and <em>column</em>. The last two when referenced in
+conjuction will be refered as the <em>input coordinates</em> The behavior of
+this function is affected by:</p>
+<ol class="arabic simple">
+<li>The input coordinates and their position relative to the edges of the
+board: left, right, middle, top and bottom</li>
+<li>The presence of already updated elements in the vicinity of the input
+coordinates</li>
+<li>The presence of bombs in the vicinity of the input coordinates</li>
+</ol>
+<div class="section" id="update-neighbors-1">
+<h4>update_neighbors 1<a class="headerlink" href="#update-neighbors-1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">update_neighbors</span></code> with empty input board</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a board with only zeros an a list of coordinates with the
+following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code></li>
+<li><strong>Execution Steps</strong>: for each set of coordinates call
+<code class="docutils literal"><span class="pre">update_neigbors</span></code> with an input board whose elements are all equal
+to <code class="docutils literal"><span class="pre">0</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the input board is
+updated with the elements surrounding it with a value equal to one
+and the rest of the elements remains unchanged</li>
+</ul>
+</div>
+<div class="section" id="update-neighbors-2">
+<h4>update_neighbors 2<a class="headerlink" href="#update-neighbors-2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">update_neighbors</span></code> with non empty input board</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a board with all it’s elements having a value equal to
+<code class="docutils literal"><span class="pre">1</span></code> and list of coordinates with the following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code></li>
+<li><strong>Execution Steps</strong>: for each set of coordinates call
+<code class="docutils literal"><span class="pre">update_neigbors</span></code> with an input board whose elements are all equal
+to <code class="docutils literal"><span class="pre">1</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the input board is
+updated with the elements surrounding it with a value equal to two,
+and the rest of the elements remain unchanged</li>
+</ul>
+</div>
+<div class="section" id="update-neighbors-3">
+<h4>update_neighbors 3<a class="headerlink" href="#update-neighbors-3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">update_neighbors</span></code> with neighboring bombs</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a board with all it’s elements whose index sum is even
+with a value equal to <code class="docutils literal"><span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">-1</span></code> if odd, and list of
+coordinates with the following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code></li>
+<li><strong>Execution Steps</strong>: for each set of coordinates call
+<code class="docutils literal"><span class="pre">update_neigbors</span></code> with the input board as previously specified.</li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the input board is
+updated with the elements surrounding it with a value equal to <code class="docutils literal"><span class="pre">2</span></code>
+except for the elements that previously had a value equal to <code class="docutils literal"><span class="pre">-1</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="tests-for-open-squares">
+<h3>Tests for <code class="docutils literal"><span class="pre">open_squares</span></code><a class="headerlink" href="#tests-for-open-squares" title="Permalink to this headline">¶</a></h3>
+<p>For the <code class="docutils literal"><span class="pre">open_squares</span></code> function, we will refer to the first two input
+arguments in conjunction as the <em>input coordinates</em>, the third argument
+as the <em>opened cells</em> and the last argument as the <em>board</em></p>
+<p>The behavior of this function is affected by: 1) The input coordinates
+and their position relative to the edges of the board:
+left,right,middle,top and bottom 2) The presence of already opened cells
+in the vicinity of the input coordinates 3) The presence of bombs in the
+vicinity of the input coordinates (which is indicated by the value in
+<em>bombs</em>)</p>
+<div class="section" id="open-squares-1">
+<h4>open_squares 1<a class="headerlink" href="#open-squares-1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">open_squares</span></code> with bombs surrounding element</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a list of coordinates with the following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code>
+and <em>opened cells</em> array with no opened cells. The input <em>board</em> will
+be variable depending on the elements of the list of coordinates.</li>
+<li><strong>Execution Steps</strong>: for each set of coordinates create a <em>board</em>
+with the corresponding element set to <code class="docutils literal"><span class="pre">1</span></code> and call <code class="docutils literal"><span class="pre">open_squares</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the corresponding
+value in <em>opened cells</em> should be equal to the string “1”.</li>
+</ul>
+</div>
+<div class="section" id="open-squares-2">
+<h4>open_squares 2<a class="headerlink" href="#open-squares-2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">open_squares</span></code> with no bombs surrounding element</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a list of coordinates with the following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code>
+and <em>opened cells</em> array with no opened cells. The input <em>board</em> will
+be variable depending on the elements of the list of coordinates.</li>
+<li><strong>Execution Steps</strong>: for each set of coordinates create a <em>board</em>
+with the corresponding element set to <code class="docutils literal"><span class="pre">0</span></code> and all the rest of the
+elements set to 1 and call <code class="docutils literal"><span class="pre">open_squares</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the corresponding
+value in <em>opened cells</em> should be equal to the string “0”, and the
+surrounding elements should be equal to the string “1”.</li>
+</ul>
+</div>
+<div class="section" id="open-squares-3">
+<h4>open_squares 3<a class="headerlink" href="#open-squares-3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Test Case</strong>: <code class="docutils literal"><span class="pre">open_squares</span></code> with element that has neighbors that
+have no bombs surrounding them</li>
+<li><strong>Preconditions</strong>: None</li>
+<li><strong>Input</strong>: a list of coordinates with the following values:
+<code class="docutils literal"><span class="pre">[(0,0),</span> <span class="pre">(0,4),</span> <span class="pre">(0,8),</span> <span class="pre">(4,0),</span> <span class="pre">(4,4),</span> <span class="pre">(4,8),</span> <span class="pre">(8,0),</span> <span class="pre">(8,4),</span> <span class="pre">(8,8)]</span></code>
+and <em>opened cells</em> array with no opened cells. The input <em>board</em> will
+be variable depending on the elements of the list of coordinates.</li>
+<li><strong>Execution Steps</strong>: for each set of coordinates create a <em>board</em>
+with the corresponding element set to <code class="docutils literal"><span class="pre">0</span></code> and its immediate
+neighbors set to zero, and all the rest of the elements set to 1 and
+call <code class="docutils literal"><span class="pre">open_squares</span></code></li>
+<li><strong>Output</strong>: None</li>
+<li><strong>Postconditions</strong>: for each set of coordinates, the corresponding
+value in <em>opened cells</em> should be equal to the string “0”, the
+surrounding elements should be equal to the string “0” and all the
+elements that are two cells away (either horizontally, vertically or
+diagonally) should be set to the string “1”</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="traceability-matrix">
+<h2>Traceability Matrix<a class="headerlink" href="#traceability-matrix" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Requirement</th>
+<th class="head">Tests</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GB1</td>
+<td>generate_boards_1</td>
+</tr>
+<tr class="row-odd"><td>GB2</td>
+<td>generate_boards_2, generate_boards_6, generate_boards_7</td>
+</tr>
+<tr class="row-even"><td>GB3</td>
+<td>generate_boards_3</td>
+</tr>
+<tr class="row-odd"><td>GB4</td>
+<td>generate_boards_4, generate_boards_5</td>
+</tr>
+<tr class="row-even"><td>UN1</td>
+<td>update_neighbors_1, update_neighbors_2, update_neighbors_3</td>
+</tr>
+<tr class="row-odd"><td>OS1</td>
+<td>open_squares_1, open_squares_2, open_squares_3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="unit-tests">
+<h2>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tests for Lab 03.</span>
+
+<span class="sd">Note:</span>
+<span class="sd">As it will be seen in class, many of these tests are unreliable</span>
+<span class="sd">and will pass/fail in an unpredicatable manner since boards are</span>
+<span class="sd">generated at random and the tests do not exercise any mechanism to</span>
+<span class="sd">enforce test repeatability.</span>
+<span class="sd">This tests also do not use fixtures efficiently.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">minesweeper</span> <span class="k">import</span> <span class="n">generate_boards</span><span class="p">,</span> <span class="n">update_neighbors</span><span class="p">,</span> <span class="n">open_squares</span>
+
+<span class="k">class</span> <span class="nc">GenerateBoardsTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">test_1_output_type_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The output data structures have the expected sizes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">board</span><span class="p">,</span> <span class="n">opened_cells</span><span class="p">,</span> <span class="n">bomb_list</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">board</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">opened_cells</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">opened_cells</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bomb_list</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bomb_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+
+
+    <span class="k">def</span> <span class="nf">test_2_board_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The generated board has the expected number of bombs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">board</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="n">bomb_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">board</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cell</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">bomb_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">bomb_count</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">test_3_opened_cells_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The generated opened_cells are all in unopened state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">opened_cells</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">opened_cells</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_4_bombs_coord_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The bomb coordinates match an element whose value is -1 in the board</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">board</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">bombs</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">bombs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_5_bombs_coord_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        All the elmements in the generated bomb list are unique</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">bombs</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="n">bombs_as_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bombs</span><span class="p">:</span>
+            <span class="n">bombs_as_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bombs_as_set</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_6_boards_random</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        boards are generated randomly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">board1</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="n">board2</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">board1</span><span class="p">,</span> <span class="n">board2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_7_board_neighbor_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        board cell values correspond to the count of surrounding bombs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">board</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_boards</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    
+                    <span class="n">bomb_count</span> <span class="o">=</span> <span class="mi">0</span>
+                    
+                    <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                    
+                    <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="n">bomb_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">],</span> <span class="n">bomb_count</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">UpdateNeighborsTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_1_empty_board</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test empty board update on edges and center</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">update_neighbors</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+            
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+           
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">neigh_row</span> <span class="o">!=</span> <span class="n">row</span> <span class="ow">and</span> <span class="n">neigh_col</span> <span class="o">!=</span> <span class="n">col</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+
+
+    <span class="k">def</span> <span class="nf">test_2_nonempty_board</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test non empty board update on edges and center</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">update_neighbors</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+            
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+           
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">neigh_row</span> <span class="o">!=</span> <span class="n">row</span> <span class="ow">and</span> <span class="n">neigh_col</span> <span class="o">!=</span> <span class="n">col</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+
+
+    <span class="k">def</span> <span class="nf">test_3_cell_with_neigboring_bombs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test empty board update on edges and center</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">update_neighbors</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+           
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">neigh_row</span> <span class="o">+</span> <span class="n">neigh_col</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+
+
+<span class="k">class</span> <span class="nc">OpenSquaresTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_1_neighboring_bombs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test open squares on cell with neighboring bombs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">open_squares</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_2_no_neighboring_bombs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test open squares on cell with no neighboring bombs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">open_squares</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
+
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+           
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">neigh_row</span> <span class="o">!=</span> <span class="n">row</span> <span class="ow">or</span> <span class="n">neigh_col</span> <span class="o">!=</span> <span class="n">col</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+ 
+    <span class="k">def</span> <span class="nf">test_3_neighbors_with_no_bombs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test open squares where neighbors have no neighboring bombs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+            
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+           
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">board</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">open_squares</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">board</span><span class="p">)</span>
+           
+            <span class="c1"># check neighbors</span>
+            <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">neigh_row</span> <span class="o">!=</span> <span class="n">row</span> <span class="ow">or</span> <span class="n">neigh_col</span> <span class="o">!=</span> <span class="n">col</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+
+            <span class="c1"># check elements two cells away</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">row</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1"># top:</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">-</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">top</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+           
+            <span class="c1"># bottom:</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">neigh_col</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">bottom</span><span class="p">][</span><span class="n">neigh_col</span><span class="p">])</span>
+            
+            <span class="c1"># left:</span>
+            <span class="k">if</span> <span class="n">col</span><span class="o">-</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">left</span><span class="p">])</span>
+
+            <span class="c1"># right:</span>
+            <span class="k">if</span> <span class="n">col</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">neigh_row</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="p">[</span><span class="n">neigh_row</span><span class="p">][</span><span class="n">right</span><span class="p">])</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

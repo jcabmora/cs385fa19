@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 5: xUnit Basics</h3>
+                </section>
+                <section>
+                    <h2>What is xUnit</h2>
+                    <ul>
+                        <li>Family of Automated Test Frameworks used for automating Hand-Scripted Tests</li>
+                        <li>Most programming languages implementations</li>
+                        <li>Allow you to test the code using the same programming language as the source </li>
+                        <li>Ease of access of the source code, developers can write the tests</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>How are tests organized</h2>
+                    <ul>
+                        <li>Tests are specified as Test Methods</li>
+                        <li>Tests are aggregated into Test Suites that can be run as a single operation</li>
+                        <li>Test can be automatically discovered without the need to create a test enumeration</li>
+                        <li>Expected results are specified in the form of assertions</li>
+                        <li>After tests are finalized a report is produced</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>The Four-Phase life of a Test Method</h2>
+                    <ul>
+                        <li>Set up the Test</li>
+                        <li>Exercise public or private methods of the SUT (System Under Test)</li>
+                        <li>Assert outputs</li>
+                        <li>Tear Down the Test.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Fixtures</h2>
+                    <ul>
+                        <li>Everything needed to have in place to exercise the SUT</li>
+                        <li>Databases, Filesystem, Objects, Data structures, Memory</li>
+                        <li>Transient vs. Persistent</li>
+                        <li>Front Door Setup: Create objects and drive them to a specific state by calling methods from its public interface(Front door setup)</li>
+                        <li>Back Door Setup: Create objects and force them to the state by modifying its internal datastatructures (Back door setup)</li>
+                        <li>Delegated Setup: extract fixture creation to a utility method to avoid duplication.</li>
+                        <li>Why and when to tear down?</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

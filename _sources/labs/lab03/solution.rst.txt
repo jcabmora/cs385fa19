@@ -1,0 +1,304 @@
+:orphan:
+
+********************
+Lab No. 03: Solution
+********************
+
+
+Requirements
+============
+
+Requirements for ``generate_boards``
+------------------------------------
+
+1. **GB1**: The function shall take no arguments and return a 3 element
+   tuple
+2. **GB2**: The first element of the returned tuple shall be a two
+   dimensional array of size 9 x 9 with exactly 10 elements determined
+   at random with integer values equal to ``-1`` and the remaining
+   elements with integer values between ``0`` and ``8``, which will
+   depend on the number of neighboring cells (including diagonals) that
+   have a ``-1`` value.
+3. **GB3**: The second element of the returned tuple shall be an array
+   of size of 9 x 9 and all of its elements shall contain a single empty
+   space string.
+4. **GB4**: The third element of the returned tuple shall be a list of
+   the indices of the elements that have a value equal to ``-1`` in the
+   first returned array, and as such it shall contain exactly ten
+   distinct elements. The indices shall be represented as a two element
+   tuple where the first element corresponds to the row index and the
+   second element to the column index
+
+Requirements for ``update_neighbors``
+-------------------------------------
+
+1. **UN1**: The function shall take as input a two dimensional array of
+   integers of size 9 x 9 and the row and column indices of an element
+   and shall update the input array in a way such that the cells that
+   are adjacent vertically, horizontally and diagonally have their
+   values increased by ``1``, with the exception of those that have a
+   value equal to ``-1`` which shall remain unmodified.
+
+Requirements for ``open_squares``
+---------------------------------
+
+1. **OS1**: The function shall take as input the row and column indices
+   of an element of a two dimensional 9 x 9 array, a two dimensional
+   array of strings of size 9 x 9, and a two dimensional array of
+   integers of size 9 x 9. The function shall update the third input
+   array's element that corresponds to the coordinates given by the
+   first two imputs with the corresponding string representation found
+   in the fourth input array, if it's value is not equal to ``0``,
+   otherwise it should update all the horizontally, vertically and
+   diagnonal neighboring elements as well. Neighboring elements that
+   have values equal to ``0`` shall also have their neighbors updated,
+   and any additional elements that have a value of ``0`` shall have
+   their values updated as well.
+
+Test Plan
+=========
+
+Tests for ``generate_boards``
+-----------------------------
+
+For the ``generate_boards`` function tests we will refer to the
+function's three output elements as **board**, **opened cells** and
+**bomb list**
+
+generate\_boards 1
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output type validation
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: the output board and opened cells arrays have a
+   size 9 x 9, and the bomb list shall be an array of 2-element tuples
+   of size 10
+
+generate\_boards 2
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output board validation
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: the output board shall have exactly ten elements
+   with a value equal to ``-1`` and the rest of the element's value
+   shall be an integer between ``0`` and ``8``.
+
+generate\_boards 3
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output opened cells validation
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: All the elements in the opened cells output array
+   shall have a value equal to an empty space string
+
+generate\_boards 4
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output bomb list coordinates
+   validation
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: The output bomb list elements' coordinates shall
+   correspond to elements with a value equal to ``-1`` in the output
+   board
+
+generate\_boards 5
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output bomb list coordinates
+   validate uniqueness
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: The output bomb list elements' coordinates are
+   all unique
+
+generate\_boards 6
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` output board randomization
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards`` consecutively
+-  **Output**: None
+-  **Postconditions**: The two output boards generated during the test
+   shall have different contents
+
+generate\_boards 7
+~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``generate_boards`` neighboring bomb calculation
+-  **Preconditions**: None
+-  **Input**: None
+-  **Execution Steps**: call ``generate_boards``
+-  **Output**: None
+-  **Postconditions**: The value of the 71 cells that do not have a
+   value equal to ``-1`` shall have a value that is equal to the count
+   of neighboring cells that have a value eual to ``-1``
+
+Tests for ``update_neighbors``
+------------------------------
+
+For the ``update_neighbors`` function tests we will refer to the input
+values as *board*, *row* and *column*. The last two when referenced in
+conjuction will be refered as the *input coordinates* The behavior of
+this function is affected by:
+
+1) The input coordinates and their position relative to the edges of the
+   board: left, right, middle, top and bottom
+2) The presence of already updated elements in the vicinity of the input
+   coordinates
+3) The presence of bombs in the vicinity of the input coordinates
+
+update\_neighbors 1
+~~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``update_neighbors`` with empty input board
+-  **Preconditions**: None
+-  **Input**: a board with only zeros an a list of coordinates with the
+   following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+-  **Execution Steps**: for each set of coordinates call
+   ``update_neigbors`` with an input board whose elements are all equal
+   to ``0``
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the input board is
+   updated with the elements surrounding it with a value equal to one
+   and the rest of the elements remains unchanged
+
+update\_neighbors 2
+~~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``update_neighbors`` with non empty input board
+-  **Preconditions**: None
+-  **Input**: a board with all it's elements having a value equal to
+   ``1`` and list of coordinates with the following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+-  **Execution Steps**: for each set of coordinates call
+   ``update_neigbors`` with an input board whose elements are all equal
+   to ``1``
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the input board is
+   updated with the elements surrounding it with a value equal to two,
+   and the rest of the elements remain unchanged
+
+update\_neighbors 3
+~~~~~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``update_neighbors`` with neighboring bombs
+-  **Preconditions**: None
+-  **Input**: a board with all it's elements whose index sum is even
+   with a value equal to ``1`` and ``-1`` if odd, and list of
+   coordinates with the following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+-  **Execution Steps**: for each set of coordinates call
+   ``update_neigbors`` with the input board as previously specified.
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the input board is
+   updated with the elements surrounding it with a value equal to ``2``
+   except for the elements that previously had a value equal to ``-1``
+
+Tests for ``open_squares``
+--------------------------
+
+For the ``open_squares`` function, we will refer to the first two input
+arguments in conjunction as the *input coordinates*, the third argument
+as the *opened cells* and the last argument as the *board*
+
+The behavior of this function is affected by: 1) The input coordinates
+and their position relative to the edges of the board:
+left,right,middle,top and bottom 2) The presence of already opened cells
+in the vicinity of the input coordinates 3) The presence of bombs in the
+vicinity of the input coordinates (which is indicated by the value in
+*bombs*)
+
+open\_squares 1
+~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``open_squares`` with bombs surrounding element
+-  **Preconditions**: None
+-  **Input**: a list of coordinates with the following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+   and *opened cells* array with no opened cells. The input *board* will
+   be variable depending on the elements of the list of coordinates.
+-  **Execution Steps**: for each set of coordinates create a *board*
+   with the corresponding element set to ``1`` and call ``open_squares``
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the corresponding
+   value in *opened cells* should be equal to the string "1".
+
+open\_squares 2
+~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``open_squares`` with no bombs surrounding element
+-  **Preconditions**: None
+-  **Input**: a list of coordinates with the following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+   and *opened cells* array with no opened cells. The input *board* will
+   be variable depending on the elements of the list of coordinates.
+-  **Execution Steps**: for each set of coordinates create a *board*
+   with the corresponding element set to ``0`` and all the rest of the
+   elements set to 1 and call ``open_squares``
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the corresponding
+   value in *opened cells* should be equal to the string "0", and the
+   surrounding elements should be equal to the string "1".
+
+open\_squares 3
+~~~~~~~~~~~~~~~
+
+-  **Test Case**: ``open_squares`` with element that has neighbors that
+   have no bombs surrounding them
+-  **Preconditions**: None
+-  **Input**: a list of coordinates with the following values:
+   ``[(0,0), (0,4), (0,8), (4,0), (4,4), (4,8), (8,0), (8,4), (8,8)]``
+   and *opened cells* array with no opened cells. The input *board* will
+   be variable depending on the elements of the list of coordinates.
+-  **Execution Steps**: for each set of coordinates create a *board*
+   with the corresponding element set to ``0`` and its immediate
+   neighbors set to zero, and all the rest of the elements set to 1 and
+   call ``open_squares``
+-  **Output**: None
+-  **Postconditions**: for each set of coordinates, the corresponding
+   value in *opened cells* should be equal to the string "0", the
+   surrounding elements should be equal to the string "0" and all the
+   elements that are two cells away (either horizontally, vertically or
+   diagonally) should be set to the string "1"
+
+Traceability Matrix
+===================
+
++---------------+--------------------------------------------------------------------+
+| Requirement   | Tests                                                              |
++===============+====================================================================+
+| GB1           | generate\_boards\_1                                                |
++---------------+--------------------------------------------------------------------+
+| GB2           | generate\_boards\_2, generate\_boards\_6, generate\_boards\_7      |
++---------------+--------------------------------------------------------------------+
+| GB3           | generate\_boards\_3                                                |
++---------------+--------------------------------------------------------------------+
+| GB4           | generate\_boards\_4, generate\_boards\_5                           |
++---------------+--------------------------------------------------------------------+
+| UN1           | update\_neighbors\_1, update\_neighbors\_2, update\_neighbors\_3   |
++---------------+--------------------------------------------------------------------+
+| OS1           | open\_squares\_1, open\_squares\_2, open\_squares\_3               |
++---------------+--------------------------------------------------------------------+
+
+
+Unit Tests
+==========
+
+    .. literalinclude:: src/tests/test_minesweeper.py
+

@@ -4,70 +4,86 @@ Course Schedule and Materials
 
 
 .. list-table::
-    :widths: 10 20 40 30
+    :widths: 5 15 30 20 30
     :header-rows: 1
 
     * - Week
       - Slides
       - Lab/Homework assignment (due week after)
+      - Solutions
       - Reading assigment (due week after)
     * - 1
       - `Introduction <slides/intro.html>`_
       - :doc:`labs/lab01/lab01`
+      -
       - Laboon, Chapters 1, 2, 3
     * - 2 
       - `Testing Fundamentals <slides/week2.html>`_
       - :doc:`labs/lab02/lab02`
+      -
       - Laboon, Chapters 4, 5
     * - 3
       - `Testing Fundamentals: Requirements and Test Plans <slides/week3.html>`_
       - :doc:`labs/lab03/lab03`
+      - :doc:`labs/lab03/solution`
       - Laboon, Chapters 6, 7, 8
     * - 4
       - `Unit Testing Introduction <slides/week4.html>`_
       - :doc:`labs/lab04/lab04`
+      -
       - Laboon, Chapters 11, 12, 13
     * - 5
-      - Unit Testing
+      - `xUnit <slides/week5.html>`_
+      -
       -
       -
     * - 6
       - Unit Testing
       -
       -
+      -
     * - 7
       - Unit Testing
+      -
       -
       -
     * - 9
       - Midterm
       -
       -
+      -
     * - 10
       - Integration/System Testing
+      -
       -
       -
     * - 11
       - Performance/Load Testing
       -
       -
+      -
     * - 12
       - Security Testing
+      -
       -
       -
     * - 13
       - Test Driven Development
       -
       -
+      -
     * - 14
       - Test Driven Development
+      -
       -
       -
     * - 15
       - Continuous Integration
       -
       -
+      -
     * - 16 (Finals Week)
       - Final Exam
+      -
       -
       -
