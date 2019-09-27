@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance - Introuduction</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 6: Unit Tests: Result Verification, Test Doubles</h3>
+                </section>
+                <section>
+                    <h2>Review</h2>
+                    <ul>
+                        <li>Four Phase</li>
+                        <li>Fixtures</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>Results Verification</h2>
+                    <ul>
+                        <li>What should we check after the SUT has been exercised?
+                            <ul class="fragment fade-in">
+                                <li>State: verify that the SUT returns the right results</li>
+                                <li>Behavior: verify that the SUT makes the right calls</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Indirect vs Direct input and output</h2>
+                    <ul>
+                        <li>Tipically a SUT interacts with other external systems/classes/components.</li>
+                        <li>These dependencies are usually referred as DOC: depended-on-components</li>
+                        <li>Examples of indirect inputs
+                            <ul>
+                                <li>Returned values from DOC</li>
+                                <li>Exceptions that might be thrown by DOC</li>
+                            </ul>
+                        </li>
+                        <li>Examples of indirect outputs
+                            <ul>
+                                <li>Changed state in DOC</li>
+                                <li>Side effects such as writing to a file/log/database</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>State Verification</h2>
+                    <ul>
+                        <li>Inspect the state (<strong>direct output</strong>)of the SUT after it has been exercised and compare to the expected state/result</li>
+                        <li>We can rely on just state verification when we only care about the end state of the SUT and we don't care about how it got there or any side effects that might occur when the SUT is exercised</li>
+                        <li>We can only use state verification when the SUT or the components it depends on (DOC) produce direct output</li>
+                        <li>There are two ways to do state verification:
+                            <ul>
+                                <li>Procedural: we just write assertions for each state variable that we care about</li>
+                                <li>Expected State Specification: We consolidate all the state variables in a single object that we we can use to make an equality assertion</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>State Verification Techniques</h2>
+                    <ul>
+                        <li>Built-in Assertions</li>
+                        <li>External Result Verification: e.g. verify file contents after the SUT has been executed, execute a database query.</li>
+                        <li>Delta Assertions: Take a snapshot of the relevant objects / classes before the test and compare after the test.
+                            <p class="fragment fade-in">Used when your tests use a Shared Fixture: for example when you are testing a method that adds records to a database and you need to use the same database for all your tests</p>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Behavior Verification</h2>
+                    <ul>
+                        <li><strong>Indirect outputs</strong> of the SUT are captured when the SUT is exercised and they are compared to the expected behavior</li>
+                        <li>We need behavior verification when we can't determine the state of the SUT after the SUT has been exercised, when the SUT is not stateful, or when we care about side effects / calls made by the SUT</li>
+                        <li>Behavior verification almost always involves interacting with DOCs.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Behavior Verification Techniques</h2>
+                    <ul>
+                        <li>There are two ways to do behavior verification:
+                            <ul>
+                                <li>Using a Test Spy (More on this later!)</li>
+                                <li>Using a Mock Object (More on this later!)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Test Doubles</h2>
+                    <ul>
+                        <li>How would you test:
+                            <ul>
+                                <li>A method/function that writes to a database?</li>
+                                <li>A method/function that sends an email?</li>
+                                <li>A method/function that polls an API and sends an alarm if the API reports an error</li>
+                            </ul>
+                        </li>
+                        <li>We want unit tests to fail only if there is a failure on the SUT that we are testing, not on any of the DOC. Test should be isolated from potential failures/problems on the DOC</li>
+                        <li>What happens when the SUT can not be tested in isolation?
+                            <ul class="fragment fade-in">
+                                <li>Tests are not repeatable</li>
+                                <li>Tests are not complete (impossible to set up the conditions required to reproduce a test case)</li>
+                                <li>Tests are not idempotent</li>
+                                <li>Tests are slow (e.g. set up a database that the SUT depends on takes a long time)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                 </section>
+                 <section>
+                     <h2>When do we need Test Doubles?</h2>
+                    <ul>
+                        <li class="fragment fade-in">The DOC do not provide an observation point for the indirect output</li>
+                        <li class="fragment fade-in">The DOC do not provide a control point to exercise the SUT with the necessary indirect inputs</li>
+                        <li class="fragment fade-in">Using the real DOC is not possible or not efficient (e.g. slow database)</li>
+                    </ul>
+                    <p class="fragment fade-in">We use Test Doubles to be able to inject indirect inputs to our tests, and to be able to verify indirect outputs</p>
+                 </section>
+                 <section>
+                     <h2>How do we use a Test Double</h2>
+                     <ul>
+                         <li>Dependency Injection (setter, constructor, parameter)</li>
+                         <li>Dependency Lookup (factory pattern, service locator pattern)</li>
+                     </ul>
+                 </section>
+                 <section>
+                     <h2>Test Double types</h2>
+                     <ul>
+                         <li>Dummy</li>
+                         <li>Test Stub</li>
+                         <li>Test Spy</li>
+                         <li>Mock Object</li>
+                         <li>Fake Object</li>
+                     </ul>
+                 </section>
+                 <section>
+                     <h2>Dummy</h2>
+                    <ul>
+                        <li>Only used so it can fullfill a requirement for a method call, it is not really used or has any effect in the test</li>
+                    </ul>
+                 </section>
+                 <section>
+                     <h2>Test Stub</h2>
+                    <ul>
+                        <li>An object that replaces a real component on which the SUT depends so the test can control indirect inputs of the SUT.</li>
+                        <li>It allows the test to force the SUT down paths it might not otherwise be able to exercise</li>
+                        <li>It implements the same methods as the real DOC</li>
+                    </ul>
+                 </section>
+                 <section>
+                     <h2>Test Spy</h2>
+                    <ul>
+                        <li>A more capable version of the Test Stub, and it can be used to verify the indirect outputs of the SUT by providing a wayto inspect them after exercising the SUT</li>
+                    </ul>
+                 </section>
+                 <section>
+                     <h2>Mock Object</h2>
+                    <ul>
+                        <li>An object that replaces a DOC, and behaves almost identically to a Test Stub, however they compare actual calls received with previously defined expectations using assertions and fails the test on behalf of the test method.</li>
+                        <li>Strict Mock: fails the test if the correct calls are received in different order than it was specified</li>
+                        <li>Lenient Mock: tolerate out of order calls and even ignore unexpected calls</li>
+                    </ul>
+                 </section>
+                 <section>
+                     <h2>Fake Object</h2>
+                    <ul>
+                        <li>A stripped down implementation of the real DOC, and its only purpose is to replace the real DOC for reasons other than verification or state coercion.</li>
+                        <li>Typically do not need to be configured for each test where they are used.</li>
+                    </ul>
+                 </section>
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>
