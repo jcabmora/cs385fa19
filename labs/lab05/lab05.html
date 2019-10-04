@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 05: Test Doubles &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 05: Test Doubles</a><ul>
+<li><a class="reference internal" href="#class-demo">Class Demo</a><ul>
+<li><a class="reference internal" href="#a-function-to-sort-a-list">A function to sort a list</a></li>
+<li><a class="reference internal" href="#enhance-to-allow-sort-order">Enhance to allow sort order</a></li>
+<li><a class="reference internal" href="#but-sort-list-sorts-in-place">…but <code class="docutils literal"><span class="pre">sort_list</span></code> sorts in place!</a></li>
+<li><a class="reference internal" href="#making-sorting-more-flexible">Making sorting more flexible</a></li>
+<li><a class="reference internal" href="#generating-a-random-sorted-list">Generating a random sorted list</a></li>
+<li><a class="reference internal" href="#fixing-the-erratic-test">Fixing the Erratic test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab05/lab05.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-05-test-doubles">
+<h1>Lab No. 05: Test Doubles<a class="headerlink" href="#lab-no-05-test-doubles" title="Permalink to this headline">¶</a></h1>
+<p>In this lab, we first cover the in class demonstration given on 09/27/2019. You are strongly encouraged to write and run the exercises by your self.</p>
+<div class="section" id="class-demo">
+<h2>Class Demo<a class="headerlink" href="#class-demo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-function-to-sort-a-list">
+<h3>A function to sort a list<a class="headerlink" href="#a-function-to-sort-a-list" title="Permalink to this headline">¶</a></h3>
+<p>Assume you are asked to write a function that takes a given list of numbers and returns the list sorted in ascending order.
+In the following code block this is implemented in the <code class="docutils literal"><span class="pre">sort_list</span></code> by using <a class="reference external" href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>.
+We also added the most basic test we could imagine (Since this was a demo we did not care about completeness at the time).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+    
+<span class="k">def</span> <span class="nf">sort_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sorts a list using insertion sort</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The most basic test we came up with during class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="enhance-to-allow-sort-order">
+<h3>Enhance to allow sort order<a class="headerlink" href="#enhance-to-allow-sort-order" title="Permalink to this headline">¶</a></h3>
+<p>Now assume you are asked to allow sorting ascending or descending. Well, that’s easy, we just have to copy <code class="docutils literal"><span class="pre">sort_list</span></code> and modify it to sort descending. This is what we did:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+    
+<span class="k">def</span> <span class="nf">sort_list_ascending</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    sorts a list in ascending order using insertion sort</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">sort_list_descending</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    sorts a list in descending order using insertion sort</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_sort_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">test_sort_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is a lot of duplicated code in there! We will do something about it soon.</p>
+</div>
+<div class="section" id="but-sort-list-sorts-in-place">
+<h3>…but <code class="docutils literal"><span class="pre">sort_list</span></code> sorts in place!<a class="headerlink" href="#but-sort-list-sorts-in-place" title="Permalink to this headline">¶</a></h3>
+<p>Nobody told us that we were not supposed to change the original list.
+We are asked now to change our function so it does not modify the original list but instead it returns a new one.
+We are also asked to instead of having two different functions, we should have a single function that accepts a parameter that indicates the sort order.
+Here’s our solution for that, which still uses a lot of duplication.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+    
+<span class="k">def</span> <span class="nf">sort_list_ascending</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    sorts a list in ascending order</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">sort_list_descending</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    sorts a list in descending order</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">generate_sorted_list</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns a sorted copy of the input list of numbers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numbers_copy</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">numbers_copy</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">numbers_copy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numbers_copy</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_sort_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">test_sort_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list_asc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_sorted_list</span><span class="p">(</span><span class="s1">&#39;asc&#39;</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_sorted_list</span><span class="p">(</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>And <strong>here’s where we find our first problem with out tests!</strong>. Notice that we still have to create tests for <code class="docutils literal"><span class="pre">sort_list_ascending</span></code>, <code class="docutils literal"><span class="pre">sort_list_descending</span></code> and also, the two cases for <code class="docutils literal"><span class="pre">generate_sorted_list</span></code>. But in reality, our tests are testing the same code twice!. To prove this point, let’s make a small change to <code class="docutils literal"><span class="pre">sort_list_descending</span></code> to introduce a bug. Change this line</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>to</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>After making that change to the unit test, notice the output when you run the tests (assume our code resides in a file named <code class="docutils literal"><span class="pre">three.py</span></code>):</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 -m unittest -v three.py
+test_generate_sorted_list_asc (three.SortTest) ... ok
+test_generate_sorted_list_desc (three.SortTest) ... FAIL
+test_sort_ascending (three.SortTest) ... ok
+test_sort_descending (three.SortTest) ... FAIL
+
+======================================================================
+FAIL: test_generate_sorted_list_desc (three.SortTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;three.py&quot;, line 73, in test_generate_sorted_list_desc
+    self.assertEqual(input_list, out)
+AssertionError: Lists differ: [5, 4, 3, 2, 1] != [1, 2, 3, 4, 5]
+
+First differing element 0:
+5
+1
+
+- [5, 4, 3, 2, 1]
++ [1, 2, 3, 4, 5]
+
+======================================================================
+FAIL: test_sort_descending (three.SortTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;three.py&quot;, line 60, in test_sort_descending
+    self.assertEqual(expected, input_list)
+AssertionError: Lists differ: [5, 4, 3, 2, 1] != [1, 2, 3, 4, 5]
+
+First differing element 0:
+5
+1
+
+- [5, 4, 3, 2, 1]
++ [1, 2, 3, 4, 5]
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=2)
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Eventhough we modified one one function, two tests failed!</strong>.
+In small code bases this is not much of a problem, but in very large code bases, tests need to be localized and reflect defects only for the functions that they intend to test, otherwise, whoever needs to debug the tests might have to spend unnecessary time to fix the defects.
+Besides this issue, we have the obvious problem of executing pretty much the same tests twice, which is a waste of time and resources.</p>
+</div>
+<div class="section" id="making-sorting-more-flexible">
+<h3>Making sorting more flexible<a class="headerlink" href="#making-sorting-more-flexible" title="Permalink to this headline">¶</a></h3>
+<p>We figured that our insertion sort functions are not the best, so we changed the implementation of <code class="docutils literal"><span class="pre">generate_sorted_list</span></code> to accept a sorter object, which all it does is to implement the <code class="docutils literal"><span class="pre">sort</span></code> method. The refactored code looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+
+<span class="k">class</span> <span class="nc">InsertionSorter</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;desc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_descending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sort_list_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in ascending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">sort_list_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in descending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">generate_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns a sorted copy of the input list of numbers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numbers_copy</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+    <span class="n">sorter</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">numbers_copy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numbers_copy</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+    
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list_asc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sorter</span> <span class="o">=</span> <span class="n">InsertionSorter</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">sorter</span> <span class="o">=</span> <span class="n">InsertionSorter</span><span class="p">()</span>
+        <span class="n">sorter</span><span class="o">.</span><span class="n">set_descending</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>Notice that we did not really fix the problems with testing that we observed previously, however we made the first step towards fixing them. The sorter object can now be injected in the tests which means that we can substitute <code class="docutils literal"><span class="pre">InsertionSorter</span></code> with a <strong>Test Spy</strong>! We will fix that soon, but before that let’s take a look at a new requirement.</p>
+</div>
+<div class="section" id="generating-a-random-sorted-list">
+<h3>Generating a random sorted list<a class="headerlink" href="#generating-a-random-sorted-list" title="Permalink to this headline">¶</a></h3>
+<p>Our users changed their mind and now they do not need to pass a list and have it sorted, instead, they want our function generate a random list container an exact number of distinct numbers and having it sorted by a sorter of their choice. This is our first attempt:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">class</span> <span class="nc">InsertionSorter</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;desc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_descending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">sort_list_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in ascending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">sort_list_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in descending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">generate_random_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns a sorted list of unique random numbers between 1 and 100</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)]</span>
+    <span class="n">sorter</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numbers</span>
+
+<span class="k">class</span> <span class="nc">RandStub</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_b</span><span class="p">,</span> <span class="n">_e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+    
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sorter</span> <span class="o">=</span> <span class="n">InsertionSorter</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_random_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertLess</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+</pre></div>
+</div>
+<p>Notice that our implementation purposely has a bug. The folowing line is not guaranteed to return different numbers, it could very well return the same number more than once:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Notice that if we run the test one time, most likely it will pass. However, if we run it several times eventually we will observe a failure:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 -m unittest -v five.py
+test_generate_sorted_list (five.SortTest) ... FAIL
+test_sort_ascending (five.SortTest) ... skipped &#39;TODO replace with tests for InsertionSorter method&#39;
+test_sort_descending (five.SortTest) ... skipped &#39;TODO replace with tests for InsertionSorter method&#39;
+
+======================================================================
+FAIL: test_generate_sorted_list (five.SortTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;five.py&quot;, line 93, in test_generate_sorted_list
+    self.assertLess(prev, out[idx])
+AssertionError: 50 not less than 50
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=1, skipped=2)
+</pre></div>
+</div>
+</div></blockquote>
+<p>We can see that the test failed becase of the bug mentioned earlier. This type of test is an instance of a <em>non repeatable test</em> (also called and <em>erratic test</em>), and the obvious symptom is that the test sometime passes, sometimes it fails.</p>
+</div>
+<div class="section" id="fixing-the-erratic-test">
+<h3>Fixing the Erratic test<a class="headerlink" href="#fixing-the-erratic-test" title="Permalink to this headline">¶</a></h3>
+<p>After looking at our function, we can see that we need <code class="docutils literal"><span class="pre">random.randint</span></code> to produce the same number at least twice during a call to <code class="docutils literal"><span class="pre">generate_random_sorted_list</span></code>. We can do this by using a type of Test Double called a <strong>Test Stub</strong>. A Test Stub needs to expose the same interface that the Depended on Component (DOC) does, and also it needs to allow us to control it’s return values. In our case the DOC that is affecting the test is <code class="docutils literal"><span class="pre">random.randint</span></code>, which is a <a class="reference external" href="https://docs.python.org/3/library/typing.html#callable">callable</a>.</p>
+<p>Here’s our modified test that fails 100% of the time (as it should because we have not fixed the bug yet).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">class</span> <span class="nc">InsertionSorter</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;asc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">set_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">=</span> <span class="s1">&#39;desc&#39;</span>
+
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ord</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort_list_descending</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">sort_list_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in ascending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">sort_list_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numbers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sorts a list in descending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">generate_random_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">randfun</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns a sorted list of unique random numbers between 1 and 100</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)]</span>
+    <span class="n">sorter</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numbers</span>
+
+<span class="k">class</span> <span class="nc">RandStub</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_b</span><span class="p">,</span> <span class="n">_e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SortTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_ascending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_ascending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+    
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;TODO replace with tests for InsertionSorter method&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_sort_descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="n">sort_list_descending</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_generate_sorted_list_repeated_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rstub</span> <span class="o">=</span> <span class="n">RandStub</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+        <span class="n">sorter</span> <span class="o">=</span> <span class="n">InsertionSorter</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">generate_random_sorted_list</span><span class="p">(</span><span class="n">sorter</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">randfun</span><span class="o">=</span><span class="n">rstub</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertLess</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+</pre></div>
+</div>
+<p>Notice that the Test Double class <code class="docutils literal"><span class="pre">RandStub</span></code> allows us to define the expected values that we want it to return. Also, noticed that we had to change our <code class="docutils literal"><span class="pre">generate_random_sorted_list</span></code> in order to use <strong>parameter dependency injection</strong> to be able to use our TestDouble.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

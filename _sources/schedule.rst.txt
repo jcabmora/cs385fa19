@@ -40,7 +40,7 @@ Course Schedule and Materials
     * - 6
       - `Unit Test Verification, Test Doubles <slides/week6.html>`_
       -
-      -
+      - :doc:`labs/lab05/lab05`
       - Laboon, Chapter 14
     * - 7
       - Unit Testing

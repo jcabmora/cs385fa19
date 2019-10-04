@@ -1,0 +1,160 @@
+:orphan:
+
+************************
+Lab No. 05: Test Doubles
+************************
+
+In this lab, we first cover the in class demonstration given on 09/27/2019. You are strongly encouraged to write and run the exercises by your self.
+
+
+Class Demo
+==========
+
+A function to sort a list
+-------------------------
+Assume you are asked to write a function that takes a given list of numbers and returns the list sorted in ascending order.
+In the following code block this is implemented in the ``sort_list`` by using `Insertion Sort <https://en.wikipedia.org/wiki/Insertion_sort>`_.
+We also added the most basic test we could imagine (Since this was a demo we did not care about completeness at the time).
+
+
+.. literalinclude:: src/one.py
+
+
+Enhance to allow sort order
+---------------------------
+Now assume you are asked to allow sorting ascending or descending. Well, that's easy, we just have to copy ``sort_list`` and modify it to sort descending. This is what we did:
+
+
+.. literalinclude:: src/two.py
+
+There is a lot of duplicated code in there! We will do something about it soon.
+
+...but ``sort_list`` sorts in place!
+------------------------------------
+
+Nobody told us that we were not supposed to change the original list.
+We are asked now to change our function so it does not modify the original list but instead it returns a new one.
+We are also asked to instead of having two different functions, we should have a single function that accepts a parameter that indicates the sort order.
+Here's our solution for that, which still uses a lot of duplication.
+
+.. literalinclude:: src/three.py
+
+
+And **here's where we find our first problem with out tests!**. Notice that we still have to create tests for ``sort_list_ascending``, ``sort_list_descending`` and also, the two cases for ``generate_sorted_list``. But in reality, our tests are testing the same code twice!. To prove this point, let's make a small change to ``sort_list_descending`` to introduce a bug. Change this line
+
+    .. parsed-literal::
+        while j >= 0 and value > numbers[j]
+
+to 
+
+    .. parsed-literal::
+        while j >= 0 and value < numbers[j]
+
+After making that change to the unit test, notice the output when you run the tests (assume our code resides in a file named ``three.py``):
+
+    .. parsed-literal::
+        $ python3 -m unittest -v three.py
+        test_generate_sorted_list_asc (three.SortTest) ... ok
+        test_generate_sorted_list_desc (three.SortTest) ... FAIL
+        test_sort_ascending (three.SortTest) ... ok
+        test_sort_descending (three.SortTest) ... FAIL
+
+        ======================================================================
+        FAIL: test_generate_sorted_list_desc (three.SortTest)
+        ----------------------------------------------------------------------
+        Traceback (most recent call last):
+          File "three.py", line 73, in test_generate_sorted_list_desc
+            self.assertEqual(input_list, out)
+        AssertionError: Lists differ: [5, 4, 3, 2, 1] != [1, 2, 3, 4, 5]
+
+        First differing element 0:
+        5
+        1
+
+        - [5, 4, 3, 2, 1]
+        + [1, 2, 3, 4, 5]
+
+        ======================================================================
+        FAIL: test_sort_descending (three.SortTest)
+        ----------------------------------------------------------------------
+        Traceback (most recent call last):
+          File "three.py", line 60, in test_sort_descending
+            self.assertEqual(expected, input_list)
+        AssertionError: Lists differ: [5, 4, 3, 2, 1] != [1, 2, 3, 4, 5]
+
+        First differing element 0:
+        5
+        1
+
+        - [5, 4, 3, 2, 1]
+        + [1, 2, 3, 4, 5]
+
+        ----------------------------------------------------------------------
+        Ran 4 tests in 0.001s
+
+        FAILED (failures=2)
+
+
+**Eventhough we modified one one function, two tests failed!**.
+In small code bases this is not much of a problem, but in very large code bases, tests need to be localized and reflect defects only for the functions that they intend to test, otherwise, whoever needs to debug the tests might have to spend unnecessary time to fix the defects.
+Besides this issue, we have the obvious problem of executing pretty much the same tests twice, which is a waste of time and resources.
+
+
+Making sorting more flexible
+----------------------------
+We figured that our insertion sort functions are not the best, so we changed the implementation of ``generate_sorted_list`` to accept a sorter object, which all it does is to implement the ``sort`` method. The refactored code looks like this:
+
+
+.. literalinclude:: src/four.py
+
+
+Notice that we did not really fix the problems with testing that we observed previously, however we made the first step towards fixing them. The sorter object can now be injected in the tests which means that we can substitute ``InsertionSorter`` with a **Test Spy**! We will fix that soon, but before that let's take a look at a new requirement.
+
+Generating a random sorted list
+-------------------------------
+
+Our users changed their mind and now they do not need to pass a list and have it sorted, instead, they want our function generate a random list container an exact number of distinct numbers and having it sorted by a sorter of their choice. This is our first attempt:
+
+
+.. literalinclude:: src/five.py
+
+
+Notice that our implementation purposely has a bug. The folowing line is not guaranteed to return different numbers, it could very well return the same number more than once:
+
+    .. parsed-literal::
+        numbers = [random.randint(1, 100) for _ in range(length)]
+
+Notice that if we run the test one time, most likely it will pass. However, if we run it several times eventually we will observe a failure:
+
+    .. parsed-literal::
+        $ python3 -m unittest -v five.py
+        test_generate_sorted_list (five.SortTest) ... FAIL
+        test_sort_ascending (five.SortTest) ... skipped 'TODO replace with tests for InsertionSorter method'
+        test_sort_descending (five.SortTest) ... skipped 'TODO replace with tests for InsertionSorter method'
+
+        ======================================================================
+        FAIL: test_generate_sorted_list (five.SortTest)
+        ----------------------------------------------------------------------
+        Traceback (most recent call last):
+          File "five.py", line 93, in test_generate_sorted_list
+            self.assertLess(prev, out[idx])
+        AssertionError: 50 not less than 50
+
+        ----------------------------------------------------------------------
+        Ran 3 tests in 0.001s
+
+        FAILED (failures=1, skipped=2)
+ 
+We can see that the test failed becase of the bug mentioned earlier. This type of test is an instance of a *non repeatable test* (also called and *erratic test*), and the obvious symptom is that the test sometime passes, sometimes it fails.
+
+
+Fixing the Erratic test
+-----------------------
+After looking at our function, we can see that we need ``random.randint`` to produce the same number at least twice during a call to ``generate_random_sorted_list``. We can do this by using a type of Test Double called a **Test Stub**. A Test Stub needs to expose the same interface that the Depended on Component (DOC) does, and also it needs to allow us to control it's return values. In our case the DOC that is affecting the test is ``random.randint``, which is a `callable <https://docs.python.org/3/library/typing.html#callable>`_.
+
+Here's our modified test that fails 100% of the time (as it should because we have not fixed the bug yet).
+
+.. literalinclude:: src/six.py
+
+Notice that the Test Double class ``RandStub`` allows us to define the expected values that we want it to return. Also, noticed that we had to change our ``generate_random_sorted_list`` in order to use **parameter dependency injection** to be able to use our TestDouble.
+
