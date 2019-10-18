@@ -42,9 +42,9 @@ Course Schedule and Materials
       -
       - :doc:`labs/lab05/lab05`
       - Laboon, Chapter 14
-    * - 7
-      - Unit Testing
-      -
+    * - 8
+      - `Test Doubles <slides/week8.html>`_
+      - :doc:`labs/lab06/lab06`
       -
       -
     * - 9

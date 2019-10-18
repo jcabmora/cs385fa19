@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 06: Test Doubles II &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 06: Test Doubles II</a><ul>
+<li><a class="reference internal" href="#starter-code">Starter Code</a><ul>
+<li><a class="reference internal" href="#running-the-connect-four-server">Running the Connect Four Server</a></li>
+<li><a class="reference internal" href="#the-connect-four-api">The Connect Four API:</a><ul>
+<li><a class="reference internal" href="#join"><code class="docutils literal"><span class="pre">/join</span></code></a></li>
+<li><a class="reference internal" href="#move"><code class="docutils literal"><span class="pre">/move</span></code></a></li>
+<li><a class="reference internal" href="#status"><code class="docutils literal"><span class="pre">/status</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-database">The Database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#unit-tests-to-implement">Unit Tests To Implement</a></li>
+<li><a class="reference internal" href="#enhancement-to-implement">Enhancement to Implement</a><ul>
+<li><a class="reference internal" href="#extra-credit">Extra Credit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab06/lab06.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-06-test-doubles-ii">
+<h1>Lab No. 06: Test Doubles II<a class="headerlink" href="#lab-no-06-test-doubles-ii" title="Permalink to this headline">¶</a></h1>
+<p>In this lab, you will write unit tests for an HTTP based <a class="reference external" href="https://en.wikipedia.org/wiki/Connect_Four">Connect Four</a> game.
+Our implementation uses the classic layout of 6 rows and 7 columns.</p>
+<p>The goal of this lab are  to design tests that use Test Doubles appropriately while visiting some other topics for software engineering (MVC Pattern, HTTP Requests, REST APIs, SQL) and having fun at the same time (who doesn’t enjoy playing Connect Four!).</p>
+<div class="section" id="starter-code">
+<h2>Starter Code<a class="headerlink" href="#starter-code" title="Permalink to this headline">¶</a></h2>
+<p>The starter code consists of a very simple web application that uses the <a class="reference external" href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> pattern to provide a REST API for users to play Connect Four.</p>
+<p>The following diagram shows the interaction of the main application components:</p>
+<blockquote>
+<div><img alt="../../_images/connect4.svg" src="../../_images/connect4.svg" /></div></blockquote>
+<p>The starter code (Python 3) is available form this link: <a class="reference download internal" href="../../_downloads/lab06.tar.gz" download=""><code class="xref download docutils literal"><span class="pre">lab06.tar.gz</span></code></a>
+Download the code and extract its content, you should have the following files:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">src/connect4/server.py</span></code>: the main entry point of the application and the controller that interacts with the input and output with end users</li>
+<li><code class="docutils literal"><span class="pre">src/connect4/models.py</span></code>: Contains classes that drive the application logic.</li>
+<li><code class="docutils literal"><span class="pre">src/connect4/db.py</span></code>: an interface that allows the applicaton to interact with a SQLite database</li>
+</ul>
+<div class="section" id="running-the-connect-four-server">
+<h3>Running the Connect Four Server<a class="headerlink" href="#running-the-connect-four-server" title="Permalink to this headline">¶</a></h3>
+<p>The starter code is meand to be started by simply executing the following command:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">src</span><span class="o">/</span><span class="n">connect4</span><span class="o">/</span><span class="n">server</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>However, this will start an HTTPServer listening in port 8080. If you run this in <code class="docutils literal"><span class="pre">blue.cs.sonoma.edu</span></code> chances are that someone already beat you to it and the port is already busy. Start your server specifying the port as 10000 + the last four digits of your sonoma state student id. For example, if your student id is 567888123, use this command:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">src</span><span class="o">/</span><span class="n">connect4</span><span class="o">/</span><span class="n">server</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">18123</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="the-connect-four-api">
+<h3>The Connect Four API:<a class="headerlink" href="#the-connect-four-api" title="Permalink to this headline">¶</a></h3>
+<p>Users can interact with the API with the following endpoints:</p>
+<div class="section" id="join">
+<h4><code class="docutils literal"><span class="pre">/join</span></code><a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h4>
+<p>Allows users to either create or join a session. If there are open sessions, then the user will be assigned to the open sesssion with the second player role, else a new session will be created and the user will be assigned the first player role. A session is considered open if it only has the first player assigned.</p>
+<p>To call this endpoint, the request <strong>must</strong> include the <code class="docutils literal"><span class="pre">username</span></code> url query parameter.
+Here’s an example <code class="docutils literal"><span class="pre">curl</span></code> command that specifies <code class="docutils literal"><span class="pre">john</span></code> as its username (you will need to update the port number according to your selection of port when you started the server):</p>
+<blockquote>
+<div><pre class="literal-block">
+$ curl <a class="reference external" href="http://localhost:8081/join">http://localhost:8081/join</a>\?username\=moe
+{&quot;msg&quot;: &quot;Session created&quot;, &quot;session&quot;: &quot;3b5b5ef6-a486-4842-a5f3-0458a86499da&quot;, &quot;player&quot;: 1}
+</pre>
+</div></blockquote>
+<p>A subsequent request will produce:</p>
+<blockquote>
+<div><pre class="literal-block">
+$ curl <a class="reference external" href="http://localhost:8081/join">http://localhost:8081/join</a>\?username\=larry
+{&quot;msg&quot;: &quot;Joined session.&quot;, &quot;session&quot;: &quot;3b5b5ef6-a486-4842-a5f3-0458a86499da&quot;, &quot;player&quot;: 2}
+</pre>
+</div></blockquote>
+<p>The response includes a session identifier that users need to provide during calls to the other supported endpoints.</p>
+</div>
+<div class="section" id="move">
+<h4><code class="docutils literal"><span class="pre">/move</span></code><a class="headerlink" href="#move" title="Permalink to this headline">¶</a></h4>
+<p>Instructs the server to apply a move. To call this endpoint the user must provide a session in the request Headers and the username and desired column to place the checker. The following is an example request:</p>
+<blockquote>
+<div><pre class="literal-block">
+$ curl -H 'session: 3b5b5ef6-a486-4842-a5f3-0458a86499da' <a class="reference external" href="http://localhost:8081/move">http://localhost:8081/move</a>\?username\=moe\&amp;column\=1
+{&quot;msg&quot;: &quot;success&quot;, &quot;game_status&quot;: &quot;in progress&quot;, &quot;winner&quot;: &quot;None&quot;}
+</pre>
+</div></blockquote>
+<p>When a player tries to make a move and it is not their turn, an error is returned:</p>
+<blockquote>
+<div><pre class="literal-block">
+$ curl -H 'session: 3b5b5ef6-a486-4842-a5f3-0458a86499da' <a class="reference external" href="http://localhost:8081/move">http://localhost:8081/move</a>\?username\=moe\&amp;column\=1
+{&quot;error&quot;: &quot;Player not allowed to make a move at this time.&quot;}
+</pre>
+</div></blockquote>
+<p>If after applying the move the game ends (due to a winner connecting 4 checkers or due to no more spaces available), this is reflected in the game status and the winner fields included in the response.</p>
+<blockquote>
+<div><pre class="literal-block">
+$ curl -H 'session: 3b5b5ef6-a486-4842-a5f3-0458a86499da' <a class="reference external" href="http://localhost:8081/move">http://localhost:8081/move</a>\?username\=moe\&amp;column\=6
+{&quot;msg&quot;: &quot;success&quot;, &quot;game_status&quot;: &quot;ended&quot;, &quot;winner&quot;: &quot;moe&quot;}%
+</pre>
+</div></blockquote>
+</div>
+<div class="section" id="status">
+<h4><code class="docutils literal"><span class="pre">/status</span></code><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h4>
+<p>Returns the status of a current session. Requires the session request Header.
+The response includes the board representation as a 2D array with values equal to 0, 1 and 2 (open, player 1, player 2).  Row 0 corresponds to the bottom row in a physical connect four grid with index 0 corresponding to the leftmost column. The response also includes the winner (with value 0 corresponding to no winner, and 1 and 2 corresponding to either player) and <code class="docutils literal"><span class="pre">next</span></code> with specifies which player must make the next move (0 corresponds to an ended game, and 1 and 2 to either player).</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ curl -H &#39;session: 708351fd-81b7-4710-86f8-e652b868ffff&#39; http://localhost:8081/status
+{&quot;board&quot;: [[&quot; &quot;, &quot;1&quot;, &quot;1&quot;, &quot;2&quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;], [&quot; &quot;, &quot;2&quot;, &quot; &quot;, &quot;1&quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;], [&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot;2&quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;], [&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;], [&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;], [&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;, &quot; &quot;]], &quot;winner&quot;: 0, &quot;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The previous response will correspond to this board:</p>
+<blockquote>
+<div><img alt="../../_images/status.svg" src="../../_images/status.svg" /></div></blockquote>
+</div>
+</div>
+<div class="section" id="the-database">
+<h3>The Database<a class="headerlink" href="#the-database" title="Permalink to this headline">¶</a></h3>
+<p>The Connect Four service uses a database to store game (session) data. All the interactions with the database are handled by the methods of the <code class="docutils literal"><span class="pre">SQLiteBackend</span></code> class in the <code class="docutils literal"><span class="pre">db.py</span></code> module. The service uses a very simple table with only 5 rows:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">id</span></code>: and identifier in the form of a <a class="reference external" href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>.  This is the session id that is generated/assigned when a user calls the <code class="docutils literal"><span class="pre">/join</span></code> endpoint and that needs to be passed as a request header for <code class="docutils literal"><span class="pre">/move</span></code> and <code class="docutils literal"><span class="pre">/status</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">board</span></code>: the status of the board as a 42 ( 6 rows x 7 columns ) character string, with values equal to a whitespace (‘ ‘) to represent an open cell, and ‘1’ and ‘2’ for either player. The first 7 characters (0-6) correspond to the bottom row in a physical grid, with the smallest index within a row corresponds to the leftmost column.</li>
+<li><code class="docutils literal"><span class="pre">player_1</span></code>: the name of player 1</li>
+<li><code class="docutils literal"><span class="pre">player_2</span></code>: the name of player 2</li>
+<li><code class="docutils literal"><span class="pre">status</span></code>: an integer that represents 0 if the game is in progress, 1 if player 1 has won, 2 if player 2 has won, and 3 if the game ended in a draw.</li>
+</ul>
+<p>The <code class="docutils literal"><span class="pre">SQLiteBackend</span></code> class implements the following public interface:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">get_session(str)</span></code>: returns a <code class="docutils literal"><span class="pre">C4Session</span></code> object that matches the <code class="docutils literal"><span class="pre">session_id</span></code> argument.</li>
+<li><code class="docutils literal"><span class="pre">find_open_sessions()</span></code>: returns all <code class="docutils literal"><span class="pre">C4Session</span></code> objects that correspond to open sessions. (should always return only one, but due to race conditions it is feasible to return more than one.)</li>
+<li><code class="docutils literal"><span class="pre">save_session(C4Session)</span></code>: Persists (insert or updates) a session object into the database. It does not return any values.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="unit-tests-to-implement">
+<h2>Unit Tests To Implement<a class="headerlink" href="#unit-tests-to-implement" title="Permalink to this headline">¶</a></h2>
+<p>You are asked to implement the following test cases. You will need to use Test doubles (spies, stubs, mocks and fakes as you deem appropriate) to be able to implement them.</p>
+<p>For <code class="docutils literal"><span class="pre">/join</span></code>:</p>
+<ol class="arabic simple">
+<li>a request is assigned a newly created session</li>
+<li>a request is assigned a previous created session that was open.</li>
+</ol>
+<p>For <code class="docutils literal"><span class="pre">/move</span></code>:</p>
+<ol class="arabic simple">
+<li>the request specifies a user that does not match the session in the request</li>
+<li>the request is made for a session that has already ended (either in won or draw)</li>
+<li>the request is made for an invalid column number</li>
+<li>the request is made for a column that is already full</li>
+<li>the request is made and it is not the player’s turn</li>
+<li>the request is made with an invalid username (i.e. the name does not match either player’s names).</li>
+</ol>
+<p>For <code class="docutils literal"><span class="pre">/status</span></code></p>
+<ol class="arabic simple">
+<li>the request specifies an invalid session</li>
+</ol>
+</div>
+<div class="section" id="enhancement-to-implement">
+<h2>Enhancement to Implement<a class="headerlink" href="#enhancement-to-implement" title="Permalink to this headline">¶</a></h2>
+<p>When users join a session, there is nothing that makes sure that the names of the users are different.
+This will cause a problem where the game becomes unplayable.
+Modify the <code class="docutils literal"><span class="pre">ConnectFourController.join</span></code> method to prevent player2 to have the same name as the player1 in the currently open session.
+Return a <code class="docutils literal"><span class="pre">400</span></code> status code and an <code class="docutils literal"><span class="pre">error</span></code> message equal to <code class="docutils literal"><span class="pre">Must</span> <span class="pre">use</span> <span class="pre">a</span> <span class="pre">different</span> <span class="pre">username</span></code>.
+Add the corresponding tests.</p>
+<div class="section" id="extra-credit">
+<h3>Extra Credit<a class="headerlink" href="#extra-credit" title="Permalink to this headline">¶</a></h3>
+<p>There are several configurations when a game can be eagerly determined to be ended as a draw or a win.
+The easiest case is when all the remaining open spaces are in a single column.
+In the following example, you can see that the game will result in draw (red moves next)</p>
+<blockquote>
+<div><img alt="../../_images/draw.svg" src="../../_images/draw.svg" /></div></blockquote>
+<p>In this other case you can see that yellow has already won the game (red moves next):</p>
+<blockquote>
+<div><img alt="../../_images/win.svg" src="../../_images/win.svg" /></div></blockquote>
+<p>Enhance the <code class="docutils literal"><span class="pre">C4session.apply_move</span></code> method by adding a check that will mark the game as ended if the configuration leads to a game that invariably will be won or drawn.
+Since the goal here is not to do a full depth search, plus we want our service to provide a fast response, we only want to make this verification when the grid has only one column open.
+Once you have modified <code class="docutils literal"><span class="pre">C4session.apply_move</span></code> with this logic, add the corresponding unittests.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
