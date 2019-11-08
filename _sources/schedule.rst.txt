@@ -48,12 +48,12 @@ Course Schedule and Materials
       -
       -
     * - 9
-      - Midterm
-      -
+      - `How to write bad tests <slides/week9.html>`_
+      -  
       -
       -
     * - 10
-      - Integration/System Testing
+      - `Integration Testing <slides/week10.html>`_
       -
       -
       -

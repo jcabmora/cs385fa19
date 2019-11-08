@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 10: Integration Testing</h3>
+                </section>
+                <section>
+                    <h2>Levels of Testing</h2>
+                    <ul>
+                        <li>Unit</li>
+                        <li>Integration</li>
+                        <li>System</li>
+                        <li>User Acceptance (UAT)</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>Why Integration Testing</h2>
+                    <ul>
+                        <li>Unit test cover smallest units of functionality as possible</li>
+                        <li>Software is composed of many pieces of software working together, we need to test those interactions</li>
+                        <li>Issues that arise when two modules interact:
+                            <ul>
+                                <li>Data types: strings vs. bytes vs. chars, integer vs. float, byte array encodings. This is particularly an issue for non static-typed languages (e.g. ruby, python, javascript)</li>
+                                <li>Exception handling: a called module expects the caller to handle exceptions</li>
+                                <li>Missing elements in responses where the caller expects a predefined format (e.g XML/JSON/YAML)</li>
+
+                                <li>Changes on the public API of a dependency (e.g. upgrades)</li>
+                                <li>Components developed by different individuals.</li>
+                                <li>Rest APIs</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Integration Testing</h2>
+                    <ul>
+                        <li>Testing the interface between software units or modules</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>Integration Testing</h2>
+                    <ul>
+                        <li>The structure of integration tests is very similar to that of unit tests</li>
+                        <li>The line between unit tests and integration test and between integration tests and system tests sometimes arre blurry.</li>
+                        <li>Try to use real/live depended on components (it is still OK to use Test Doubles e.g. external services that we can't control)</li>
+                        <li>Fixtures are more complex/expensive to set up than during unit test</li>
+                        <li>Test Harness: Tools to set up fixtures, interact with external dependencies, drive the test execution, and to collect results</li>
+                    <ul>
+                </section>
+
+
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

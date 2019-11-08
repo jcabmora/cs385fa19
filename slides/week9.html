@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 9: Unit Test Code Smells</h3>
+                </section>
+                <section>
+                    <h2>Review</h2>
+                    <ul>
+                        <li>Phases</li>
+                        <li>Fixtures</li>
+                        <li>Types of input and output</li>
+                        <li>Test Doubles</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>Review: a good test</h2>
+                    <ul class="fragment fade-in">
+                        <li>Able to fail!</li>
+                        <li>Fast</li>
+                        <li>Simple to run and easy to automate</li>
+                        <li>Has proper documentation</li>
+                        <li>Provides meaningful feedback</li>
+                        <li>Complete</li>
+                        <li>Repeatable</li>
+                        <li>Not brittle(fragile)</li>
+                        <li>Idempotent</li>
+                        <li>Cleans after it has completed</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Obscure Tests</h2>
+                    <small><a href="http://xunitpatterns.com/Obscure%20Test.html" target="_blank">http://xunitpatterns.com/Obscure%20Test.html</a></small>
+                    <ul>
+                        <li>It is difficult to understand the test at a glancea</li>
+                        <li>Test should serve as a statement of how the SUT should behave</li>
+                        <li><b>Eager Test</b>: A single test verifies too much functionality. See also "Assertion Roulette"</li>
+                        <li><b>Mystery Guest</b>: it should not be necessary to look into external resources to understand why a certain outcome is expected.</li>
+                        <li><b>General fixture</b>: A very large fixture is used among many tests, making it hard to understand what parts of the fixture affect each test</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Conditional Test Logic</h2>
+                    <small><a href="http://xunitpatterns.com/Conditional%20Test%20Logic.html" target="_blank">http://xunitpatterns.com/Conditional%20Test%20Logic.html</a></small>
+                    <ul>
+                        <li>Test contains code that might not be executed</li>
+                        <li><b>Flexible Test</b>: test code verifies different functionality depending how it is run</li>
+                        <li><b>Conditional Verification Logic</b>: prevent the execution of assertions if the SUT fails to return the right objects</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Assertion Roulette</h2>
+                    <small><a href="http://xunitpatterns.com/Assertion%20Roulette.html" target="_blank">http://xunitpatterns.com/Assertion%20Roulette.html</a></small>
+                    <ul>
+                        <li>Test contains too many assertions and we can't determine exactly which assertion failed</li>
+                        <li><b>Eager Test</b>: A single  test verifies too much functionality</li>
+                        <li><b>Missing Assertion Message</b>: Run the same test logic for multiple different inputs</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Erratic Tests</h2>
+                    <small><a href="http://xunitpatterns.com/Erratic%20Test.html" target="_blank">http://xunitpatterns.com/Erratic%20Test.html</a></small>
+                    <ul>
+                        <li>Tests sometimes pass, sometimes fail</li>
+                        <li><b>Interacting tests</b> Caused by using shared fixtures. Test should not depend on the prior execution of other tests</li>
+                        <li><b>Tear Down failures</b>: Resource leakage</li>
+                        <li><b>Non-deterministic tests:</b> Resource Optimism: Test depend on external resources that can't be controlled</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>
