@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Software Quality Assurance</title>
+        <meta name="author" content="Jorge Cabrera">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Software Quality Assurance</h2>
+                    <h3>Lecture 11: Performance Testing</h3>
+                </section>
+                <section>
+                    <h2>Performance</h2>
+                    <ul>
+                        <li>When is an application considered to be performant?</li>
+                        <li class="fragment fade-in">Depends on perception!</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Key Performance Indicators(KPIs)</h2>
+                    <ul>
+                        <li>Response Time</li>
+                        <li>Throughput</li>
+                        <li>Availability</li>
+                        <li>Utilization</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Bad Performance</h2>
+                    <ul>
+                        <li>Lack of performance considerations in application design</li>
+                        <li>Applications are not build with scalability in mind</li>
+                        <li>Incorrect Load estimations</li>
+                        <li>Lack of automated tests</li>
+                        <li>Perfomance Testing is left to last minute (application needs to be stable for performance testing)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Levels of Testing</h2>
+                    <ul>
+                        <li>Unit</li>
+                        <li>Integration</li>
+                        <li>System</li>
+                        <li>User Acceptance (UAT)</li>
+                    </ul>
+                    <p>What we have seen so far are all functional tests.</p>
+               </section>
+               <section>
+                    <h2>Performance Testing is a different type of testing</h2>
+                    <ul>
+                        <li>Addresses Non-Functional requirements!</li>
+                        <li>It is non-deterministic</li>
+                        <li>Thresholds are subjective</li>
+                        <li>It is also a tool for planning</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Why Performance testing</h2>
+                    <ul>
+                        <li>How many concurrent users can we support?</li>
+                        <li>How long it takes for a page to load?</li>
+                        <li>How many servers do we need to support 50000 concurrent users?</li>
+                        <li>Does a new front end design impacts page load time?</li>
+                        <li>Estabish benchmarks</li>
+                    </ul>
+               </section>
+                <section>
+                    <h2>Performace Tests</h2>
+                    <p>We need tools!</p>
+                    <ul>
+                        <li>Capture and recreate user activity</li>
+                        <li>Creation of test scenarios to represent different mixes of end-user activity</li>
+                        <li>Load Injection</li>
+                        <li>Analysis/Statistics</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Performance Test Requirements</h2>
+                    <ul>
+                        <li>Code freeze: Code needs to pass functional tests first</li>
+                        <li>Provision the mix aof servers that will be used during the test</li>
+                        <li>Network infrastructure is stable</li>
+                        <li>Sizing of databases/assets</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Server provisioning</h2>
+                    <ul>
+                        <li>Ideally server specs are preserved (otherwise benchmarks are useless></li>
+                        <li>Virtualization and cloud infrastructure facilitate automation and what-if testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Common Types of Performance tests</h2>
+                    <ul>
+                        <li>Pipe-clean test</li>
+                        <li>Volume Test</li>
+                        <li>Stress Test</li>
+                        <li>Soak Test</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Pipe-clean tests</h2>
+                    <ul>
+                        <li>Executed for a single user case for a period of time/number of iterations</li>
+                        <li>Validate tests scripts</li>
+                        <li>Stablish baseline for a best-case measurement to be able to determine degradation</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Volume Tests</h2>
+                    <ul>
+                        <li>Classic performance test</li>
+                        <li>Application is loaded to different sets of concurrency levels</li>
+                        <li>Evaluate availability, concurrency, throughput and response time</li>
+                        <li>Close approximation of real application use</li>
+                        <li>Sometimes include simulation of the effects of user interaction (e.g. delays and pauses the interaction with a real human would have)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Stress Test</h2>
+                    <ul>
+                        <li>Attempts to cause the application or its components to fail</li>
+                        <li>The purpose is to determine the capacity threshold of the SUT</li>
+                        <li>The stress tests continues until somethin breaks</li>
+                        <li>Useful for capacity / cost planning</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Soak test</h2>
+                    <ul>
+                        <li>Identify problems that may appear after an extended period of time</li>
+                        <li>Detect problems related to: memory leaks, garbage collection, growing databases, unsufficient disk space</li>
+                        <li>Requires monitoring infrastructure:
+                            <ul>
+                                <li>CPU utilization</li>
+                                <li>Available Memory</li>
+                                <li>Paging</li>
+                                <li>Free Disk Space</li>
+                                <li>Open File Descriptors / Open Ports</li>
+                                <li>Network interface: packets in/out</li>
+                                <li>Network latency</li>
+                                <li>RDBMS specific (slow queries, deadlocks, etc) </li>
+                            </ul>
+                        </li>
+                        <li>Correlation of data from the injected load and the monitored parameters is vital to ease problem diagnosis</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>How are Performance Tests Run</h2>
+                    <ul>
+                        <li>Capture Non Functional Requirements</li>
+                        <li>Provision Test Environment: Equipment, Tools, External Systems, Accounts, Data/Log Capture</li>
+                        <li>Prepare Test Scripts for each Use Case (e.g. set up /teardown)</li>
+                        <li>Configure Test Tools</li>
+                        <li>Execute the test</li>
+                        <li>Analisys / Report</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div class="line top"></div>
+        <div class="line bottom"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/reveal.js-menu/menu.js' },
+                    { src: 'js/inline_svg.js', async: true },
+                ],
+                progress: true,
+                slideNumber: true,
+                hash: true,
+            });
+        </script>
+        <link rel="stylesheet" href="css/theme/hull-blue.css">
+    </body>
+</html>

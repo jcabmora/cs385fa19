@@ -58,7 +58,7 @@ Course Schedule and Materials
       -
       -
     * - 11
-      - Performance/Load Testing
+      - `Performance Testing <slides/week11.html>`_
       -
       -
       -
