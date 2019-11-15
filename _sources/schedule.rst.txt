@@ -60,7 +60,7 @@ Course Schedule and Materials
     * - 11
       - `Performance Testing <slides/week11.html>`_
       -
-      -
+      - `Midterm Solution <solutions/midterm.txt>`_
       -
     * - 12
       - Security Testing

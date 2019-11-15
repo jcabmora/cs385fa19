@@ -1,0 +1,514 @@
+Consider the following list of requirements for a function called `stats_helper`:
+
+I.) The function shall take as input a sample of 64 bit floating point numbers in the form of a list-type data structure (e.g. array, list, vector)
+II.) The function shall compute the standard deviation and mean of the input sample of numbers as 64 bit floating point numbers.
+III.) The function shall perform a fast computation
+IV.) The function shall write a file.
+
+Your manager hands you this list and asks you to implement `stats_helper` based on those requirements. You
+
+a) proceed to write the function with those requirements
+b) tell your manager that requirements I and II need to be revised
+c) tell your manager that all of the requirements need to be revised
+d) tell your manager that requirement I is ok, but the rest need to be revised
+e) tell your manager that requirements III and IV need to be revised
+
+
+Correct Answer: d)
+
+Item II) states that the function shall compute the standard deviation, but it does not explain what should be done with the computation, not the other items do, so Item II is incomplete. One could think that item II implies that the standard deviation should be returned by function, but requirements should never imply facts, they need to be explicit.
+Item III) is ambiguous since considering a computation fast is subjective.
+Item IV) does not specify the file or what needs to be written to the file.
+------------------------------------------------------------------------------------
+
+
+Consider the following list of requirements for a function called `feed_finder`
+
+I.) The function shall take as input a list of RSS feeds
+II.) For each RSS feed it should perform a search for a particular term on each one of the articles contained in the RSS feed. 
+III.) The output of the function shall be a list-type data structure of URLs of the articles that contained the term that the function is required to search. Each URL is represented as a string type.
+
+If you are asked to review these requirements. Which of the following actions will you take:
+
+a) Express that requirement I is an invalid requirement because it is missing information
+b) Express that only requirement II is correct 
+c) Express that only requirement III is correct
+d) Express that all requirements are correct
+
+Correct Answers: c) 
+
+For this question, you can't evaluate each requirement individually. Item II specifies that the function should perform a search for a particular term, but it never explains what that search term is, and furthermore it does not specify what kind of search should be done (e.g. exact match, case sensitive, case insensitive), therefore it is ambiguous. Item III does explain what that search term is when it says "the term that the function is required to search", which means that Item I is incomplete.
+Note: For this question I realized that I wrote "contained" and I should have use the word "matched". That wording could raise the question of the correctness of requirement III. Therefore, this question will be granted as correct regardless of your answer.
+
+--------------------------------------------------------------------------------------
+
+
+Which of the following are valid reasons to not write unit tests for a given function:
+
+I.) The function to be tested is extremely simple, it is almost impossible to get it wrong.
+II.) There are already system tests that would catch problems with the function.
+III.) The function was added many years ago, it has already been deployed in production, and has never had a problem.
+IV.) The function might be deprecated in the future
+
+a) I
+b) II
+c) III
+d) IV
+e) All of the above
+f) None of the above
+
+Correct Answer: f)
+
+I) event if a function is simple needs to be tested, if someone changes the implementation in the future they could introducte a bug and nobody will notice.
+II) does not take into account that by the time a system test has been done, the component has gone through several stages of the development cycle, which is a waste of resources/rework if a problem is found. Also, if a system test fails, finding the source of the problem is much more complicated that a unit test.
+III) This implies the same problem as item I
+IV) "might" does not mean "certainty". We might also never deprecate it.
+
+
+--------------------------------------------------------------------------------------
+
+
+Cite one reason to use boundary value analysis and equivalence class partitioning techniques:
+ 
+There are several reasons. Some acceptable answers are:
+- Reduce testing time / cost
+- Provide confidence of absence of bugs without testing every possible test case
+- Identify Edge and Corner Cases
+- Speed up developer test iterations
+
+--------------------------------------------------------------------------------------
+
+
+Assume you work for a company called stock-r-us that provides a free REST API that users can use to obtain NASDAQ stock quotes.
+For example, somebody could use the following command to obtain the stock price of the company with the "AMD" tickler:
+
+curl http://stockr.us/AMD
+{"price": 36.34}
+
+
+Which of the following affect the quality of your service:
+
+I.) the version of curl that is used to call your API
+II.) how recent is the returned price
+III.) the platform (windows/linux/macos) used when calling your api
+IV.) how long it takes for your service to return a response
+V.) The engineers that write and maintain the servive
+
+
+Correct answer: I, II, III, IV, V
+
+I. curl is a tool to call your API. If the tool is broken it affects your service delivery. (That's one of the reasons why companies list minimum technical requirements)
+II. It should be clear that a price that is 1 day old is not very useful information for a stock quote.
+III. The platform of the service can also affect the delivery of the service (e.g a buggy network stack could introduce additional delays) 
+IV. It should be clear that a service that takes 1 minute to respond will also not be useful.
+V. For a sofware product, engineers are fundamental to provide a quality product or service.
+
+
+
+--------------------------------------------------------------------------------------
+
+In class we discussed that attributes that affect software quality can be in conflict. Cite an example of this.
+
+Some examples are:
+- To improve the response time of a service you need to use a higher bandwith with makes you incur in higher operating costs that you end up reflecting on the service cost to the end users
+- You make your software more flexible by adding more configuration options, but at the same time this makes your sofware harder to use
+- You decide to not implement features in a service in order to make it easier to maintain
+
+
+--------------------------------------------------------------------------------------
+
+Consider the following statements:
+
+I. Software validation requires proper unit testing
+II. Software validation requires proper user acceptance testing
+III. Integration tests are essential to ensure sofware has been properly verified.
+
+a) I and II are correct statements
+b) II and III are correct staements
+c) I and III are correct staments
+d) All are correct statements
+
+
+Correct Answer: b)
+
+I. Sofware validation deals with the question of "Are we building the right software?", which is not answered by unit testing
+II. User acceptance testing involves validating the software by users or subject experts, therefore II is correct.
+III. Verification seeks to answer the "Are we building the software right?" question.
+
+--------------------------------------------------------------------------------------
+
+We shoud test software because:
+
+I. It demonstrates that software is correct
+II. It helps to reduce costs
+III. Development cycles can be shortened
+
+a) I and II are correct statements
+b) II and III are correct staements
+c) I and III are correct staments
+d) All are correct statements
+
+
+Correct answer: b)
+
+I). False. Testing software can not demonstrate that software is correct (although it's purpose is to stablish confidence of a sofware being free of defects)
+II) True. By finding defects earlier through testing, we can avoid costly corrective actions.
+III) True. By finding defects earlier through testing we can shorten and reduce the number of development cycle iterations required to release a product.
+
+--------------------------------------------------------------------------------------
+
+Consider the following test method of a TestCase subclass (adapted from the python standard library `sqlite3` module tests (https://github.com/python/cpython/blob/master/Lib/sqlite3/test/factory.py#L242)
+
+1   def CheckString(self):
+2       con = sqlite.connect(":memory:")
+3       con.text_factory = bytes
+4       austria = "Österreich"
+5       row = con.execute("select ?", (austria,)).fetchone()
+6       self.assertEqual(type(row[0]), bytes, "type of row[0] must be bytes")
+7       self.assertEqual(row[0], austria.encode("utf-8"), "column must equal original data in UTF-8")
+8       con.close()   
+
+which lines contain the setup phase of the test:
+
+a) 2 only
+b) 2 and 3
+c) 2, 3 and 4
+d) there is no setup phase on this test
+
+Correct answer: c) 
+lines 2, 3 and 4 prepare the SUT (con) and the input to the SUT (austria)
+line 5 is the execution phase
+lines 6 and 7 are the assert phase
+line 8 is the tear down phase
+
+--------------------------------------------------------------------------------------
+
+Suppose you are writing tests for a function that as part of its logic requires making a call to a pay-per-use REST API.
+The internal logic of your function is not affected by the content of the response of the REST API, however, as a reasonable software engineer, you added exception handling for cases where the REST API is not reachable (after all networks are not reliable) or unavailable. 
+What kind of test double will you use in your tests for the rest API Call? Justify your answer. 
+
+There many possible answer which depend on what tests you declare to use in this hipotetical scenario.
+Anwers that are acceptable are:
+- A test stub: you can use it to force the logic path where the REST API is not reachable and the exception handling happens
+- A test spy: because it does the same as a test stub and you decided that you want to validate that the REST API was called with the correct arguments
+- A mock: because it does the same as a test spy, and you decide that you want to validate the REST API calls using a Mock because you need to validate calls are made in order.
+
+Invalid answers are Fake or Dummy (since those test double types wont help you to drive the exception handling path)
+
+----------------------------------------------------------------------------------------
+
+
+
+
+
+Consider the following State of California's Blood Alcohol Concentration (BAC) limits regulations (NOTE: the actual list contains additional regulations, it has been shortened for academic purposes)
+
+It is illegal for any person to operate a vehicle with a:
+
+BAC of 0.08% or higher, if the person is 21 years old or older.
+BAC of 0.01% or higher, if the person is under 21 years old.
+BAC of 0.01% or higher at any age, if the person is on a DUI probation.
+BAC of 0.04% or higher, in any vehicle requiring a CDL—with or without a CDL issued to the driver.
+
+You are asked to create a python3 function with the signature  is_dui(bac, age, on_probation, commercial). The function shall returns a boolean that indicates that an individual was legally driving under the influence. The four input arguments are:
+
+- bac: a floating point number that corresponds to a blood alcohol concentration result of an individual
+- age: an integer that corresponds to the age of the tested individual
+- on_probation: a boolean that specifies if the individual is on DUI probation
+- commercial: a boolean that specifies if the indiviudal was driving a vehicle that requires a commercial drivers license
+
+Use simple boundary value analysis and equivalence class partitioning with single fault assumption to create test plan in the form a table with the following columns:
+
+Test Case No.     BAC   AGE   ON_PROBATION   COMMERCIAL Expected Output
+
+
+Implement the tests for the function using python3
+
+Answer:
+BAC has a boundaries at 0, 0.01, 0.04 and 0.08. The precision is not specified, and since all numbers are given with two decimals, you can assume that BAC can only be expressed in one tenths (0.01) increments.
+So we have these classes for BAC:
+
+
+
+0     0.1               0.4                     0.8
+|--A---|--------B--------|-----------C-----------|-----D--->         
+                                                                     A) No DUI
+       |-> DUI                                                       B) DUI If person < 21 or on_probation
+                         |->        DUI                              C) DUI If commercial (age or on probation don't matter)
+                                                 |->  DUI            D) DUI always (age, on_probation and commercial don't matter)
+
+
+
+given that, we can perform the following BVA for BAC
+0.0 lower bound of class A (Class A has no higher bound since there is no possible value between 0 and 0.1). 
+0.1 lower bound of class B
+0.2 one above lower bound (there are no mid values or one less the higher bound for class B)
+0.3 higher bound for class B
+0.4 lower bound for class C
+0.5 one above lower bound for class C
+0.6 one below higher bound for class C
+0.7 higher bound for class C
+0.8 lower bound for class D
+0.9 one above lower bound. Since the upper bound is unbounded, we skip the other values.
+
+For age we have two classes: less than 21 and greater than or equal to 21. Precision is not specified, so you can also assume that age is specified in integers
+We can perform the following BVA for age
+0 lower bound for less than 21
+1 lower bound for less than 21
+10 mid point for less than 21
+19 one less than higher value
+20 higher value
+21 lower bound for greater than or equal to 21
+22 one above greater than or equal to 21
+30 mid value
+There are no higher value or one less than higher value.
+
+
+Both on_probation and commercial have two values: true and false and each one is it's own class.
+
+
+We can create the following test cases, taking in consideration:
+
+A) Class A does not care about age, on_probation and commercial, so we test with age = 10, on_probation = true and commercial = true (values that are triggers to DUI)
+B) Class B only cares about the age and on_probation so we test with commercial X = true
+C) Class C only cares about if commercial so we test with age = 30, on_probation = false (because otherwise we would be testing the same case as class B)
+D) Class D does not care about age, on_probation or commercial, it is always DUI, so we test with 
+
+
+Test Case No    BAC   AGE   ON_PROBATION   COMMERCIAL Expected Output
+1               0.0   10        true        true        false
+
+2               0.1   10        true        true        true
+3               0.1   10        false       true        true
+4               0.1   30        true        true        true
+5               0.1   30        false       true        False
+6               0.2   10        true        true        true
+7               0.2   10        false       true        true
+8               0.2   30        true        true        true
+9               0.2   30        false       true        False
+10              0.3   10        true        true        true
+11              0.3   10        false       true        true
+12              0.3   30        true        true        true
+13              0.3   30        false       true        False
+
+14              0.4   30        false        true        true
+15              0.4   30        false        false       false
+16              0.5   30        false        true        true
+17              0.5   30        false        false       false
+18              0.6   30        false        true        true
+19              0.6   30        false        false       false
+20              0.7   30        false        true        true
+21              0.7   30        false        false       false
+
+22              0.8   30        false       false       true
+23              0.9   30        false       false       true
+
+
+
+dui_tests.py:
+
+import unittest
+
+class DUITests(unittest.TestCase):
+
+    def test_ClassA(self):
+        self.assertFalse(is_dui(0.0, 10, true, true), "BAC of zero should not cause a DUI")
+
+    def test_ClassB(self):       
+        self.assertTrue(is_dui(0.1, 10, true, true), "DUI should be True with BAC 0.1, age 10 and on probation")
+        self.assertTrue(is_dui(0.1, 10, false, true), "DUI should be True with BAC 0.1, age 10 and not on probation")
+        self.assertTrue(is_dui(0.1, 30, true, true), "DUI should be True with BAC 0.1, age 30 and on probation")
+        self.assertFalse(is_dui(0.1, 30, false, true), "DUI should be False with BAC 0.1, age 30 and not on probation")
+    
+        self.assertTrue(is_dui(0.2, 10, true, true), "DUI should be True with BAC 0.2, age 10 and on probation")
+        self.assertTrue(is_dui(0.2, 10, false, true), "DUI should be True with BAC 0.2, age 10 and not on probation")
+        self.assertTrue(is_dui(0.2, 30, true, true), "DUI should be True with BAC 0.2, age 30 and on probation")
+        self.assertFalse(is_dui(0.2, 30, false, true), "DUI should be False with BAC 0.2, age 30 and not on probation")
+    
+        self.assertTrue(is_dui(0.3, 10, true, true), "DUI should be True with BAC 0.3, age 10 and on probation")
+        self.assertTrue(is_dui(0.3, 10, false, true), "DUI should be True with BAC 0.3, age 10 and not on probation")
+        self.assertTrue(is_dui(0.3, 30, true, true), "DUI should be True with BAC 0.3, age 30 and on probation")
+        self.assertFalse(is_dui(0.3, 30, false, true), "DUI should be False with BAC 0.3, age 30 and not on probation")
+    
+    def test_ClassC(self):       
+        self.assertTrue(is_dui(0.4, 30, false, true), "DUI should be True with BAC 0.4 with commercial vehicle")
+        self.assertFalse(is_dui(0.4, 30, false, false), "DUI should be False with BAC 0.4 without commercial vehicle")
+        self.assertTrue(is_dui(0.5, 30, false, true), "DUI should be True with BAC 0.5 with commercial vehicle")
+        self.assertFalse(is_dui(0.5, 30, false, false), "DUI should be False with BAC 0.5 without commercial vehicle")
+        self.assertTrue(is_dui(0.6, 30, false, true), "DUI should be True with BAC 0.6 with commercial vehicle")
+        self.assertFalse(is_dui(0.6, 30, false, false), "DUI should be False with BAC 0.6 without commercial vehicle")
+        self.assertTrue(is_dui(0.7, 30, false, true), "DUI should be True with BAC 0.7 with commercial vehicle")
+        self.assertFalse(is_dui(0.7, 30, false, false), "DUI should be False with BAC 0.7 without commercial vehicle")
+
+    def test_ClassD(self):
+        self.assertTrue(is_dui(0.8, 30, false, false), "DUI should be true with BAC 0.8")
+        self.assertTrue(is_dui(0.9, 30, false, false), "DUI should be true with BAC 0.9")
+
+------------------------------------------------------------------------------------------
+
+Consider a function named `mtime_convert` that takes the time in military time format as an integer that is guaranteed to be greater or equal to zero, and converts it to the string representaion in 12-hour clock time. This function raises an error when the input integer is an invalid military time. This function also considers both military times  2400 and 0 equivalent to the 00:00 AM 12-hour clock time. Here's the implementation of this function:
+
+
+def mtime_convert(mtime):
+
+    if mtime > 2400:
+        raise ValueError("Invalid Military Time")
+    hours = mtime // 100
+    minutes = mtime % 100
+
+    if minutes > 59:
+        raise ValueError("Invalid Military Time")
+
+    if hours == 24 or hours < 12:
+        meridiem = 'AM'
+    else:
+        meridiem = 'PM'
+
+    if hours > 12:
+        hours %= 12
+
+    return '{:02d}:{:02d} {}'.format(hours, minutes, meridiem)
+
+
+Here are some examples of this function in action:
+
+>>> mtime_convert(1259)
+12:59 PM
+>>> mtime_convert(800)
+08:00 AM
+>>> mtime_convert(1359)
+01:59 PM
+>>> mtime_convert(0)
+00:00 AM
+>>> mtime_convert(2400)
+00:00 AM
+>>> mtime_convert(2401)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/cs385fa19/tconv.py", line 7, in mtime_convert
+    raise ValueError("Invalid Military Time")
+ValueError: Invalid Military Time
+>>> mtime_convert(860)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/cs385fa19/tconv.py", line 12, in mtime_convert
+    raise ValueError("Invalid Military Time")
+ValueError: Invalid Military Time
+
+Identify the equivalence classes for the input value mtime.
+Enumerate the different test cases required to have a complete test suite using basic boundary analysis, the equivalence classes idenfied before and single fault assumption.
+
+Answer
+
+We can decompose the military time in two elements: the hours (or hundreds) and the minutes (or the remainder). To do this we can simply use these lines from the `mtime_convert(mtime)` function: 
+
+    hours = mtime // 100
+    minutes = mtime % 100
+
+We can see that: 
+    any input whose minutes are greater than 59 is invalid.
+    any input greater than 2400 is invalid.
+    any input whose hours element is between 0 and 11 should return an AM time
+    any input whose hours element is between 12 and 23 should return a PM time
+    2400 should return 00:00 Am
+
+
+We can build this table:
+
+Hours       Minutes     Result
+00 - 11     00 - 59     Hours:Minutes AM (Class A)
+12 - 23     00 - 59     Hours%12:Minutes AM (Class B)
+0 - 11      > 59        ValueError  (Class C)
+24          00          00:00 Am    (Class D)
+>=24        >0          ValueError  (Class E)
+
+
+We can identify the following test cases:
+
+Test Case      Mtime        Result
+1             0000          00:00 AM
+2             0001          00:01 AM
+3             0603          06:03 AM
+4             1158          11:58 AM
+5             1159          11:59 AM
+
+6             1200          12:00 PM
+7             1201          12:01 PM
+8             1802          06:02 PM
+9             2358          11:58 PM
+10            2359          11:59:PM
+
+11            0660          ValueError
+12            0661          ValueError
+13            0680          ValueError
+14            0698          ValueError
+15            0699          ValueError
+16            1860          ValueError
+17            1861          ValueError
+18            1880          ValueError
+19            1898          ValueError
+20            1899          ValueError
+
+21            2400          00:00 AM
+
+22            2401          ValueError
+23            2402          ValueError
+24            2501          ValueError
+
+
+
+test_mtime.py:
+
+
+import unittest
+from tconv import mtime_convert
+
+
+class MtimeConvertTests(unittest.TestCase):
+
+    def test_classA(self):
+        self.assertEqual('00:00 AM', mtime_convert(0), "Time should be 00:00 AM with 0")
+        self.assertEqual('00:01 AM', mtime_convert(1), "Time should be 00:01 AM with 1")
+        self.assertEqual('06:03 AM', mtime_convert(603), "Time should be 06:03 AM with 603")
+        self.assertEqual('11:58 AM', mtime_convert(1158), "Time should be 11:58 AM with 1158")
+        self.assertEqual('11:59 AM', mtime_convert(1159), "Time should be 11:59 AM with 1159")
+
+    def test_classB(self):
+        self.assertEqual('12:00 PM', mtime_convert(1200), "Time should be 12:00 PM with 1200")
+        self.assertEqual('12:01 PM', mtime_convert(1201), "Time should be 12:01 PM with 1201")
+        self.assertEqual('06:02 PM', mtime_convert(1802), "Time should be 06:02 PM with 1802")
+        self.assertEqual('11:58 PM', mtime_convert(2358), "Time should be 11:58 PM with 2358")
+        self.assertEqual('11:59 PM', mtime_convert(2359), "Time should be 11:59 PM with 2359")
+
+    def test_classC(self):
+        with self.assertRaises(ValueError, "ValueError is expected with 660"):
+            mtime_convert(660)
+        with self.assertRaises(ValueError, "ValueError is expected with 661"):
+            mtime_convert(661)
+        with self.assertRaises(ValueError, "ValueError is expected with 680"):
+            mtime_convert(680)
+        with self.assertRaises(ValueError, "ValueError is expected with 698"):
+            mtime_convert(698)
+        with self.assertRaises(ValueError, "ValueError is expected with 699"):
+            mtime_convert(699)
+        with self.assertRaises(ValueError, "ValueError is expected with 1860"):
+            mtime_convert(1860)
+        with self.assertRaises(ValueError, "ValueError is expected with 1861"):
+            mtime_convert(1861)
+        with self.assertRaises(ValueError, "ValueError is expected with 1880"):
+            mtime_convert(1880)
+        with self.assertRaises(ValueError, "ValueError is expected with 1898"):
+            mtime_convert(1898)
+        with self.assertRaises(ValueError, "ValueError is expected with 1899"):
+            mtime_convert(1899)
+
+    def test_classD(self):
+        self.assertEqual('00:00 AM', mtime_convert(2400), "Time should be 00:00 AM with 2400")
+
+    def test_classE(self):
+        with self.assertRaises(ValueError, "ValueError is expected with 2401"):
+            mtime_convert(2401)
+        with self.assertRaises(ValueError, "ValueError is expected with 2402"):
+            mtime_convert(2402)
+        with self.assertRaises(ValueError, "ValueError is expected with 2501"):
+            mtime_convert(2501)
