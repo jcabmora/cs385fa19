@@ -1,0 +1,110 @@
+:orphan:
+
+*****************************
+Lab No. 07: Integration Tests
+*****************************
+
+
+In this lab we will continue the work done in Lab 06.
+
+The starter code (Python 3) is available form this link: :download:`lab07.tar.gz<lab07.tar.gz>`
+
+The starter code for this lab enhances Lab0 6 with
+
+- the solutions for Lab 06
+- a Makefile for automation
+- a new client that is able to naively play the game by itself (located under 
+- startup code for integration tests
+
+the following is the listing of the contents of the lab archive:
+
+    .. parsed-literal::
+        .
+        ├── connect4
+        │   ├── client.py
+        │   ├── db.py
+        │   ├── __init__.py
+        │   ├── models.py
+        │   ├── server.py
+        │   └── test
+        │       ├── __init__.py
+        │       ├── integration
+        │       │   ├── __init__.py
+        │       │   └── itest_client.py
+        │       ├── test_client.py
+        │       └── test_server.py
+        ├── Makefile
+        └── requirements.txt
+
+
+Download and extract the archive.
+
+The makefile contains some targets to automate the execution of the server and the client.
+
+Setup
+-----
+
+The client uses the  `requests <https://2.python-requests.org/projects/3/>`_ library. In order to set up an environment where we have this library install, we use a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_ which is in simple terms a self containes python installation directory structure.
+
+To set up the virtual environment, execute:
+
+    .. parsed-literal::
+
+        make venv
+
+The rest of the targets require setting up two environment variables: the ``PORT`` which is used for the server to listen for incoming connections and the client to connect to a running server, and the ``HOSTNAME`` which is used by the client make target to determine the IP address of the server.
+
+
+The server
+----------
+To run the server first, use the following command (substitute ``8080`` by the last 5 digits of your student id):
+
+    .. parsed-literal::
+
+        PORT=8080 make run_server
+
+The client
+----------
+
+To run the client, open a new terminal window and use the following command (substitute ``8080`` by the last 5 digits of your student id, and possibly adjust ``HOSTNAME`` if you would like to use a server process running  on a different host):
+
+    .. parsed-literal::
+
+        PORT=8080 HOSTNAME=127.0.0.1 make run_client
+
+
+The client by default times out after 10 seconds. You can have two clients play the game if you set yo anotehr client before they timeout.
+
+
+Unit Tests
+----------
+
+Unit tests can be run using:
+
+    .. parsed-literal::
+        make utest
+
+
+Integration Tests
+-----------------
+A startup integration file is located under `test/integration`.
+There is a make target to execute the integration tests:
+
+    .. parsed-literal::
+        make itest
+
+Unit Tests To Implement
+=======================
+
+
+You are asked to implement the following test cases. 
+
+
+1. the client joins a session
+
+2. two clients join a game
+
+2. the client makes a move
+
+3. the game is won by one of the clients
+

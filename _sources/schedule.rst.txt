@@ -54,7 +54,7 @@ Course Schedule and Materials
       -
     * - 10
       - `Integration Testing <slides/week10.html>`_
-      -
+      - :doc:`labs/lab07/lab07`
       -
       -
     * - 11

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab No. 07: Integration Tests &#8212; CS385 Software Quality Assurance  documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="https://fonts.googleapis.com/css?family=Lusitana|Inconsolata|Roboto" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          CS385 Software Quality Assurance</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">CS385 Sofware Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course Schedule and Materials</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Lab No. 07: Integration Tests</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#the-server">The server</a></li>
+<li><a class="reference internal" href="#the-client">The client</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+<li><a class="reference internal" href="#integration-tests">Integration Tests</a><ul>
+<li><a class="reference internal" href="#unit-tests-to-implement">Unit Tests To Implement</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/labs/lab07/lab07.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="lab-no-07-integration-tests">
+<h1>Lab No. 07: Integration Tests<a class="headerlink" href="#lab-no-07-integration-tests" title="Permalink to this headline">¶</a></h1>
+<p>In this lab we will continue the work done in Lab 06.</p>
+<p>The starter code (Python 3) is available form this link: <a class="reference download internal" href="../../_downloads/lab07.tar.gz" download=""><code class="xref download docutils literal"><span class="pre">lab07.tar.gz</span></code></a></p>
+<p>The starter code for this lab enhances Lab0 6 with</p>
+<ul class="simple">
+<li>the solutions for Lab 06</li>
+<li>a Makefile for automation</li>
+<li>a new client that is able to naively play the game by itself (located under</li>
+<li>startup code for integration tests</li>
+</ul>
+<p>the following is the listing of the contents of the lab archive:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>.
+├── connect4
+│   ├── client.py
+│   ├── db.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── server.py
+│   └── test
+│       ├── __init__.py
+│       ├── integration
+│       │   ├── __init__.py
+│       │   └── itest_client.py
+│       ├── test_client.py
+│       └── test_server.py
+├── Makefile
+└── requirements.txt
+</pre></div>
+</div>
+</div></blockquote>
+<p>Download and extract the archive.</p>
+<p>The makefile contains some targets to automate the execution of the server and the client.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>The client uses the  <a class="reference external" href="https://2.python-requests.org/projects/3/">requests</a> library. In order to set up an environment where we have this library install, we use a <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a> which is in simple terms a self containes python installation directory structure.</p>
+<p>To set up the virtual environment, execute:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">venv</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The rest of the targets require setting up two environment variables: the <code class="docutils literal"><span class="pre">PORT</span></code> which is used for the server to listen for incoming connections and the client to connect to a running server, and the <code class="docutils literal"><span class="pre">HOSTNAME</span></code> which is used by the client make target to determine the IP address of the server.</p>
+</div>
+<div class="section" id="the-server">
+<h2>The server<a class="headerlink" href="#the-server" title="Permalink to this headline">¶</a></h2>
+<p>To run the server first, use the following command (substitute <code class="docutils literal"><span class="pre">8080</span></code> by the last 5 digits of your student id):</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PORT</span><span class="o">=</span><span class="mi">8080</span> <span class="n">make</span> <span class="n">run_server</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="the-client">
+<h2>The client<a class="headerlink" href="#the-client" title="Permalink to this headline">¶</a></h2>
+<p>To run the client, open a new terminal window and use the following command (substitute <code class="docutils literal"><span class="pre">8080</span></code> by the last 5 digits of your student id, and possibly adjust <code class="docutils literal"><span class="pre">HOSTNAME</span></code> if you would like to use a server process running  on a different host):</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PORT</span><span class="o">=</span><span class="mi">8080</span> <span class="n">HOSTNAME</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">make</span> <span class="n">run_client</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The client by default times out after 10 seconds. You can have two clients play the game if you set yo anotehr client before they timeout.</p>
+</div>
+<div class="section" id="unit-tests">
+<h2>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests can be run using:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">utest</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="integration-tests">
+<h2>Integration Tests<a class="headerlink" href="#integration-tests" title="Permalink to this headline">¶</a></h2>
+<p>A startup integration file is located under <cite>test/integration</cite>.
+There is a make target to execute the integration tests:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">itest</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="unit-tests-to-implement">
+<h3>Unit Tests To Implement<a class="headerlink" href="#unit-tests-to-implement" title="Permalink to this headline">¶</a></h3>
+<p>You are asked to implement the following test cases.</p>
+<ol class="arabic simple">
+<li>the client joins a session</li>
+<li>two clients join a game</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>the client makes a move</li>
+<li>the game is won by one of the clients</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
