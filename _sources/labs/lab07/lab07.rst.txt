@@ -87,24 +87,24 @@ Unit tests can be run using:
 
 Integration Tests
 -----------------
-A startup integration file is located under `test/integration`.
-There is a make target to execute the integration tests:
+A startup integration file is located under ``test/integration/itest_client.py``.
+There is a make target to execute the integration tests (Notice that you need to set the ``PORT`` environment variable. As usual, substitute ``8080`` with the last 5 digits of your student id):
 
     .. parsed-literal::
-        make itest
+        PORT=8080 make itest
+
 
 Unit Tests To Implement
 =======================
 
+The sample integration test file ``test/integration/itest_client.py`` contains one example test that was demonstrated  in class, for the case where a client joins a session.
+You are asked to implement the following additional test cases. 
 
-You are asked to implement the following test cases. 
+
+1. two clients join a game
+
+2. a client makes a move
 
 
-1. the client joins a session
 
-2. two clients join a game
-
-2. the client makes a move
-
-3. the game is won by one of the clients
 

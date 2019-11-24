@@ -200,23 +200,20 @@
 </div>
 <div class="section" id="integration-tests">
 <h2>Integration Tests<a class="headerlink" href="#integration-tests" title="Permalink to this headline">¶</a></h2>
-<p>A startup integration file is located under <cite>test/integration</cite>.
-There is a make target to execute the integration tests:</p>
+<p>A startup integration file is located under <code class="docutils literal"><span class="pre">test/integration/itest_client.py</span></code>.
+There is a make target to execute the integration tests (Notice that you need to set the <code class="docutils literal"><span class="pre">PORT</span></code> environment variable. As usual, substitute <code class="docutils literal"><span class="pre">8080</span></code> with the last 5 digits of your student id):</p>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">itest</span>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PORT</span><span class="o">=</span><span class="mi">8080</span> <span class="n">make</span> <span class="n">itest</span>
 </pre></div>
 </div>
 </div></blockquote>
 <div class="section" id="unit-tests-to-implement">
 <h3>Unit Tests To Implement<a class="headerlink" href="#unit-tests-to-implement" title="Permalink to this headline">¶</a></h3>
-<p>You are asked to implement the following test cases.</p>
+<p>The sample integration test file <code class="docutils literal"><span class="pre">test/integration/itest_client.py</span></code> contains one example test that was demonstrated  in class, for the case where a client joins a session.
+You are asked to implement the following additional test cases.</p>
 <ol class="arabic simple">
-<li>the client joins a session</li>
 <li>two clients join a game</li>
-</ol>
-<ol class="arabic simple" start="2">
-<li>the client makes a move</li>
-<li>the game is won by one of the clients</li>
+<li>a client makes a move</li>
 </ol>
 </div>
 </div>
