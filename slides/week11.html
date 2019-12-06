@@ -39,10 +39,19 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                 <section>
                     <h2>Key Performance Indicators(KPIs)</h2>
                     <ul>
-                        <li>Response Time</li>
-                        <li>Throughput</li>
-                        <li>Availability</li>
-                        <li>Utilization</li>
+                        <li>Service Oriented
+                            <ul>
+                                <li>Response Time</li>
+                                <li>Availability</li>
+                                <li>Concurrency</li>
+                            </ul>
+                         </li>
+                         <li>Efficiency Oriented
+                            <ul>
+                                <li>Throughput</li>
+                                <li>Utilization</li>
+                            </ul>
+                         </li>
                     </ul>
                 </section>
                 <section>
@@ -80,6 +89,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                         <li>How many concurrent users can we support?</li>
                         <li>How long it takes for a page to load?</li>
                         <li>How many servers do we need to support 50000 concurrent users?</li>
+                        <li>What network infrastructure do we need to provide?</li>
                         <li>Does a new front end design impacts page load time?</li>
                         <li>Estabish benchmarks</li>
                     </ul>
@@ -95,10 +105,21 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                     </ul>
                 </section>
                 <section>
-                    <h2>Performance Test Requirements</h2>
+                    <h2>How are Performance Tests Run</h2>
+                    <ul>
+                        <li>Capture Non Functional Requirements</li>
+                        <li>Provision Test Environment: Equipment, Tools, External Systems, Accounts, Data/Log Capture</li>
+                        <li>Prepare Test Scripts for each Use Case (e.g. set up /teardown)</li>
+                        <li>Configure Test Tools</li>
+                        <li>Execute the test</li>
+                        <li>Analisys / Report</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Test environment requirements</h2>
                     <ul>
                         <li>Code freeze: Code needs to pass functional tests first</li>
-                        <li>Provision the mix aof servers that will be used during the test</li>
+                        <li>Provision the mix of servers that will be used during the test</li>
                         <li>Network infrastructure is stable</li>
                         <li>Sizing of databases/assets</li>
                     </ul>
@@ -124,7 +145,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                     <ul>
                         <li>Executed for a single user case for a period of time/number of iterations</li>
                         <li>Validate tests scripts</li>
-                        <li>Stablish baseline for a best-case measurement to be able to determine degradation</li>
+                        <li>Establish baseline for a best-case measurement to be able to determine degradation</li>
                     </ul>
                 </section>
                 <section>
@@ -140,9 +161,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                 <section>
                     <h2>Stress Test</h2>
                     <ul>
-                        <li>Attempts to cause the application or its components to fail</li>
+                        <li>Attempts to cause the application or its components to fail (think DOS attack)</li>
                         <li>The purpose is to determine the capacity threshold of the SUT</li>
-                        <li>The stress tests continues until somethin breaks</li>
+                        <li>The stress tests continues until something breaks</li>
                         <li>Useful for capacity / cost planning</li>
                     </ul>
                 </section>
@@ -164,17 +185,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                             </ul>
                         </li>
                         <li>Correlation of data from the injected load and the monitored parameters is vital to ease problem diagnosis</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>How are Performance Tests Run</h2>
-                    <ul>
-                        <li>Capture Non Functional Requirements</li>
-                        <li>Provision Test Environment: Equipment, Tools, External Systems, Accounts, Data/Log Capture</li>
-                        <li>Prepare Test Scripts for each Use Case (e.g. set up /teardown)</li>
-                        <li>Configure Test Tools</li>
-                        <li>Execute the test</li>
-                        <li>Analisys / Report</li>
                     </ul>
                 </section>
 
